@@ -158,8 +158,8 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                     Utils.salvaSharedPreference(getApplicationContext(), LOGIN_SP, usuario.getLogin());
                     Utils.salvaSharedPreference(getApplicationContext(), NOME_SP, usuario.getNome());
                     Utils.salvaSharedPreference(getApplicationContext(), PERMISSAO_SP, Integer.toString(usuario.getPermissao()));
-                    if (usuario.getId_celula() != null) {
-                        Utils.salvaCelulaSharedPreference(getApplicationContext(), usuario.getId_celula());
+                    if (usuario.getCelula() != null) {
+                        Utils.salvaCelulaSharedPreference(getApplicationContext(), usuario.getCelula());
                     }
                     return LOGIN_SUCESSO;
                 }

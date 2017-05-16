@@ -73,7 +73,7 @@ public class UsuarioDAO {
                 celula.setPeriodo(rs.getString(14));
                 celula.setVersiculo(rs.getString(15));
 //                celula.setImagem(rs.getBlob(17));
-                usuario.setId_celula(celula);
+                usuario.setCelula(celula);
             }
         } catch (Exception e) {
             //TODO LOG ERRO
@@ -162,7 +162,7 @@ public class UsuarioDAO {
             statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
             statement.setString(4, usuario.getLogin());
             statement.setString(5, usuario.getSenha());
-            statement.setInt(6, (usuario.getId_celula() != null) ? usuario.getId_celula().getId_celula() : -1);
+            statement.setInt(6, (usuario.getCelula() != null) ? usuario.getCelula().getId_celula() : -1);
             statement.setInt(7, usuario.getPermissao());
 
             int row = statement.executeUpdate();
@@ -211,7 +211,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt(1));
-                usuario.setId_celula(celula);
+                usuario.setCelula(celula);
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
                 usuario.setDataNascimento(rs.getString(5));

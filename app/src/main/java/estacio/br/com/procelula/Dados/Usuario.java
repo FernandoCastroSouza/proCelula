@@ -13,13 +13,14 @@ public class Usuario {
     public static final String PERMISSAO_SP        = "PERMISSAO;";
 
     private int id;
-    private int id_celula;
     private String nome;
-    private String sobrenome;
-    private String login;
     private String senha;
-    private String email;
+    private String sobrenome;
     private String dataNascimento;
+    private String email;
+    private Celula celula;
+    //private Escala escala; //TODO
+    private String login;
     private int permissao;
 
     public Usuario() {
@@ -40,7 +41,6 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -75,12 +75,12 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getId_celula() {
-        return id_celula;
+    public Celula getCelula() {
+        return celula;
     }
 
-    public void setId_celula(int id_celula) {
-        this.id_celula = id_celula;
+    public void setCelula(Celula celula) {
+        this.celula = celula;
     }
 
     public String getLogin() {

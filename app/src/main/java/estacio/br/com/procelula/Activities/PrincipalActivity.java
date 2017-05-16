@@ -1,4 +1,5 @@
 package estacio.br.com.procelula.Activities;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import java.util.HashMap;
+
 import estacio.br.com.procelula.BuildConfig;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.RequestHandler;
@@ -30,7 +33,6 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
     private LinearLayout celula;
     private LinearLayout site;
     private Toolbar mToolbar;
-
 
 
     @Override
@@ -74,62 +76,12 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
             startActivity(intent);
             finish();
             return true;
-        }else if (id == R.id.creditos) {
-            Utils.showMsgAlertOK(PrincipalActivity.this,"Créditos de Desenvolvimento", "Lucas Barque, Fernando, Vinicius e Jean\n Versão 1.1.1", TipoMsg.INFO);
+        } else if (id == R.id.creditos) {
+            Utils.showMsgAlertOK(PrincipalActivity.this, "Créditos de Desenvolvimento", "Lucas Barque, Fernando, Vinicius e Jean\n Versão 1.1.1", TipoMsg.INFO);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private class CheckVersao extends AsyncTask<Void, Void, String> {
-        private final int RETORNO_SUCESSO = 0;
-        private final int RETORNO_FALHOU = 1;
-
-        ProgressDialog progressDialog;
-
-        private RequestHandler rh = new RequestHandler();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //mostra janela de progresso
-            progressDialog = ProgressDialog.show(PrincipalActivity.this, "Aguarde por favor", "Verificando dados...", true);
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            HashMap<String,String> data = new HashMap<>();
-
-            String result = rh.sendGetRequest(UPLOAD_URL);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String ultimaVersao) {
-            progressDialog.dismiss();
-            if (ultimaVersao != null) {
-                int versao = BuildConfig.VERSION_CODE;
-                if (!Integer.toString(versao).equals(ultimaVersao)) {
-                    Utils.mostraMensagemDialog(PrincipalActivity.this, "Por favor, atualize a versão do seu App para a mais recente.", "Atualizar",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                                    try {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                                    } catch (android.content.ActivityNotFoundException anfe) {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                                    }
-                                }
-                            });
-                }
-            }
-
-            super.onPostExecute(ultimaVersao);
-        }
     }
 
     @Override
@@ -168,7 +120,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
                     startActivity(intentGE);
                     break;
 
-                case R.id.celula:
+                case R.id.id_celula:
                     Intent intentCelula = new Intent(this, CelulaActivity.class);
                     startActivity(intentCelula);
                     break;
@@ -194,7 +146,6 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         return aviso;
     }
 
-
     private LinearLayout getProgramacao() {
         if (programacao == null) {
             programacao = (LinearLayout) findViewById(R.id.programacao);
@@ -218,9 +169,59 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
 
     private LinearLayout getCelula() {
         if (celula == null) {
-            celula = (LinearLayout) findViewById(R.id.celula);
+            celula = (LinearLayout) findViewById(R.id.id_celula);
         }
         return celula;
+    }
+
+    private class CheckVersao extends AsyncTask<Void, Void, String> {
+        private final int RETORNO_SUCESSO = 0;
+        private final int RETORNO_FALHOU = 1;
+
+        ProgressDialog progressDialog;
+
+        private RequestHandler rh = new RequestHandler();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //mostra janela de progresso
+            progressDialog = ProgressDialog.show(PrincipalActivity.this, "Aguarde por favor", "Verificando dados...", true);
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            HashMap<String, String> data = new HashMap<>();
+
+            String result = rh.sendGetRequest(UPLOAD_URL);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String ultimaVersao) {
+            progressDialog.dismiss();
+            if (ultimaVersao != null) {
+                int versao = BuildConfig.VERSION_CODE;
+                if (!Integer.toString(versao).equals(ultimaVersao)) {
+                    Utils.mostraMensagemDialog(PrincipalActivity.this, "Por favor, atualize a versão do seu App para a mais recente.", "Atualizar",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                                    try {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                                    } catch (android.content.ActivityNotFoundException anfe) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                                    }
+                                }
+                            });
+                }
+            }
+
+            super.onPostExecute(ultimaVersao);
+        }
     }
 
 

@@ -285,7 +285,7 @@ public class DbHelper extends SQLiteOpenHelper {
             Usuario usuario = new Usuario();
 
             usuario.setId(cursor.getInt(cursor.getColumnIndex("ID")));
-            usuario.setId_celula(cursor.getInt(cursor.getColumnIndex("USUARIOS_CELULA_ID")));
+            usuario.setCelula(this.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + cursor.getString(cursor.getColumnIndex("USUARIOS_CELULA_ID"))).get(0));
             usuario.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             usuario.setSobrenome(cursor.getString(cursor.getColumnIndex("SOBRENOME")));
             usuario.setLogin(cursor.getString(cursor.getColumnIndex("LOGIN")));
@@ -308,13 +308,13 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues content = new ContentValues();
 
         content.put("ID", usuario.getId());
-        content.put("USUARIOS_CELULA_ID", usuario.getNome());
-        content.put("NOME", usuario.getEmail());
-        content.put("SOBRENOME", usuario.getSenha());
-        content.put("LOGIN", usuario.getSobrenome());
-        content.put("SENHA", usuario.getDataNascimento());
-        content.put("EMAIL", usuario.getId_celula());
-        content.put("NASCIMENTO", usuario.getLogin());
+        content.put("USUARIOS_CELULA_ID", usuario.getCelula().getId_celula());
+        content.put("NOME", usuario.getNome());
+        content.put("SOBRENOME", usuario.getSobrenome());
+        content.put("LOGIN", usuario.getLogin());
+        content.put("SENHA", usuario.getSenha());
+        content.put("EMAIL", usuario.getEmail());
+        content.put("NASCIMENTO", usuario.getDataNascimento());
         content.put("PERFIL", usuario.getPermissao());
 
         db.update("TB_USUARIOS", content, "ID = " + usuario.getId(), null);

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
     >
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_main"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
     <ScrollView
@@ -38,9 +38,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:padding="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imageview_aviso"
@@ -51,21 +51,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="20dp"
-                        android:text="Avisos" />
+                        android:lines="1"
+                        android:text="Avisos"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/programacao"
                     android:layout_width="0dp"
-                    android:padding="10dp"
-                    android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -75,10 +76,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="20dp"
-                        android:text="Programações" />
+                        android:lines="1"
+                        android:text="Programações"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
@@ -95,9 +96,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:padding="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imageview_aniversariantes"
@@ -108,22 +109,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="20dp"
-                        android:text="Aniversariantes" />
+                        android:lines="1"
+                        android:text="Aniversariantes"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ge"
                     android:layout_width="0dp"
-                    android:padding="10dp"
-                    android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -133,10 +134,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="20dp"
-                        android:text="GE's" />
+                        android:lines="1"
+                        android:text="GE's"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -151,22 +152,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:padding="10dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <ImageView
+                        android:id="@+id/celula"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/id_celula" />
+                        android:src="@drawable/celula" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="1"
                         android:gravity="center_vertical"
-                        android:textSize="20dp"
-                        android:text="Célula" />
+                        android:lines="1"
+                        android:text="Célula"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
@@ -175,6 +177,7 @@
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"

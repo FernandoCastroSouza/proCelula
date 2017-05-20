@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -26,12 +27,12 @@ import estacio.br.com.procelula.Utils.Utils;
 public class PrincipalActivity extends ActionBarActivity implements View.OnTouchListener {
 
     public static final String UPLOAD_URL = "http://vidasnoaltar.com/outros/sistema-celulas/api/versao";
-    private LinearLayout aviso;
-    private LinearLayout programacao;
-    private LinearLayout aniversariante;
-    private LinearLayout ge;
-    private LinearLayout celula;
-    private LinearLayout site;
+    private Button aviso;
+    private Button programacao;
+    private Button aniversariante;
+    private Button ge;
+    private Button celula;
+    private Button site;
     private Toolbar mToolbar;
 
 
@@ -40,11 +41,12 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         //TODO implementar selector para efeito de click botoes tela principal
-        getAviso().setOnTouchListener(this);
-        getProgramacao().setOnTouchListener(this);
-        getAniversariante().setOnTouchListener(this);
-        getGe().setOnTouchListener(this);
-        getCelula().setOnTouchListener(this);
+
+        aviso = (Button) findViewById(R.id.aviso);
+        programacao = (Button) findViewById(R.id.programacao);
+        aniversariante = (Button) findViewById(R.id.aniversariante);
+        ge = (Button) findViewById(R.id.ge);
+        celula = (Button) findViewById(R.id.celula);
 
         mToolbar = (Toolbar) findViewById(R.id.th_main);
         mToolbar.setTitle("Pro Célula");
@@ -137,41 +139,6 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
             }
         }
         return false;
-    }
-
-    private LinearLayout getAviso() {
-        if (aviso == null) {
-            aviso = (LinearLayout) findViewById(R.id.aviso);
-        }
-        return aviso;
-    }
-
-    private LinearLayout getProgramacao() {
-        if (programacao == null) {
-            programacao = (LinearLayout) findViewById(R.id.programacao);
-        }
-        return programacao;
-    }
-
-    private LinearLayout getAniversariante() {
-        if (aniversariante == null) {
-            aniversariante = (LinearLayout) findViewById(R.id.aniversariante);
-        }
-        return aniversariante;
-    }
-
-    private LinearLayout getGe() {
-        if (ge == null) {
-            ge = (LinearLayout) findViewById(R.id.ge);
-        }
-        return ge;
-    }
-
-    private LinearLayout getCelula() {
-        if (celula == null) {
-            celula = (LinearLayout) findViewById(R.id.id_celula);
-        }
-        return celula;
     }
 
     private class CheckVersao extends AsyncTask<Void, Void, String> {

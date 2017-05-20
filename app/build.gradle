@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "estacio.br.com.procelula"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 3
         versionName "3.0"

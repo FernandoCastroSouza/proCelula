@@ -63,7 +63,8 @@
             <EditText
                 android:id="@+id/edittext_login"
                 style="@style/EditTextPadrao"
-                android:hint="Login" />
+                android:hint="Login"
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -75,7 +76,7 @@
                 style="@style/EditTextPadrao"
                 android:layout_marginBottom="20dp"
                 android:hint="Senha"
-                android:password="true" />
+                android:inputType="text|textPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout

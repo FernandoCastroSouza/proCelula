@@ -28,72 +28,85 @@
 
             <Button
                 android:id="@+id/aviso"
-                android:background="@drawable/aviso"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp"
-                />
+                android:background="@drawable/aviso" />
 
 
             <TextView
                 android:id="@+id/txtAviso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_alignEnd="@+id/aviso"
+                android:layout_alignStart="@+id/aviso"
+                android:layout_below="@+id/aviso"
+                android:gravity="center"
                 android:lines="1"
                 android:text="Avisos"
-                android:textSize="20dp"
-                android:layout_below="@+id/aviso"
-                android:layout_alignStart="@+id/aviso"
-                android:layout_alignEnd="@+id/aviso"
-                />
+                android:textSize="20dp" />
 
 
             <Button
                 android:id="@+id/programacao"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/programacao"
+                android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/aviso"
-                android:layout_toEndOf="@+id/aviso"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                />
+                android:layout_marginRight="60dp"
+                android:background="@drawable/programacao" />
 
             <TextView
+                android:id="@+id/txtProgramacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_alignEnd="@+id/programacao"
+                android:layout_alignStart="@+id/programacao"
+                android:layout_below="@+id/programacao"
+                android:gravity="center"
                 android:lines="1"
                 android:text="Programações"
-                android:textSize="20dp"
-                android:layout_below="@+id/programacao"
-                />
+                android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/imageview_aniversariantes"
+            <Button
+                android:id="@+id/aniversariantes"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/aniversariante" />
+                android:layout_below="@+id/txtAviso"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/aniversariante" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_alignEnd="@+id/aniversariantes"
+                android:layout_alignStart="@+id/aniversariantes"
+                android:layout_below="@+id/aniversariantes"
+                android:gravity="center"
                 android:lines="1"
                 android:text="Aniversariantes"
                 android:textSize="20dp" />
 
-            <ImageView
+            <Button
+                android:id="@+id/ge"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ge" />
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/txtProgramacao"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ge" />
 
             <TextView
+                android:id="@+id/txtGe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_alignEnd="@+id/ge"
+                android:layout_alignStart="@+id/ge"
+                android:layout_below="@+id/ge"
+                android:gravity="center"
                 android:lines="1"
                 android:text="GE's"
                 android:textSize="20dp" />

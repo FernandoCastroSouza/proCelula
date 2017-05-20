@@ -35,7 +35,7 @@
                 android:background="@drawable/aviso" />
 
 
-            <TextView
+            <estacio.br.com.procelula.Components.TitilliumWebBoldTextView
                 android:id="@+id/txtAviso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,8 +45,7 @@
                 android:gravity="center"
                 android:lines="1"
                 android:text="Avisos"
-                android:textSize="20dp" />
-
+                android:textSize="10pt" />
 
             <Button
                 android:id="@+id/programacao"

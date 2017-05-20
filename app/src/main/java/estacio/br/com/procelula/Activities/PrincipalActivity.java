@@ -24,7 +24,7 @@ import estacio.br.com.procelula.Utils.RequestHandler;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class PrincipalActivity extends ActionBarActivity implements View.OnTouchListener {
+public class PrincipalActivity extends ActionBarActivity  {
 
     public static final String UPLOAD_URL = "http://vidasnoaltar.com/outros/sistema-celulas/api/versao";
     private Button aviso;
@@ -42,17 +42,17 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         setContentView(R.layout.activity_principal);
         //TODO implementar selector para efeito de click botoes tela principal
 
-        aviso = (Button) findViewById(R.id.aviso);
-        programacao = (Button) findViewById(R.id.programacao);
-        aniversariante = (Button) findViewById(R.id.aniversariante);
-        ge = (Button) findViewById(R.id.ge);
-        celula = (Button) findViewById(R.id.celula);
-
-        mToolbar = (Toolbar) findViewById(R.id.th_main);
-        mToolbar.setTitle("Pro Célula");
-        setSupportActionBar(mToolbar);
-
-        new CheckVersao().execute();
+//        aviso = (Button) findViewById(R.id.aviso);
+//        programacao = (Button) findViewById(R.id.programacao);
+//        aniversariante = (Button) findViewById(R.id.aniversariante);
+//        ge = (Button) findViewById(R.id.ge);
+//        celula = (Button) findViewById(R.id.celula);
+//
+//        mToolbar = (Toolbar) findViewById(R.id.th_main);
+//        mToolbar.setTitle("Pro Célula");
+//        setSupportActionBar(mToolbar);
+//
+//        new CheckVersao().execute();
     }
 
     //Cria o menu da actionbar (barra no topo da tela)
@@ -85,7 +85,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
 
         return super.onOptionsItemSelected(item);
     }
-
+/*
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -140,7 +140,7 @@ public class PrincipalActivity extends ActionBarActivity implements View.OnTouch
         }
         return false;
     }
-
+*/
     private class CheckVersao extends AsyncTask<Void, Void, String> {
         private final int RETORNO_SUCESSO = 0;
         private final int RETORNO_FALHOU = 1;

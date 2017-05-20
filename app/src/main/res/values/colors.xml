@@ -53,5 +53,12 @@
     <color name="top_vermelho">#db0004</color>
     <color name="top_amarelo">#e9e635</color>
 
+    <!--Cores Background Tela Principal-->
+    <color name="avisobg">#8ea2a0</color>
+    <color name="programacaobg">#799191</color>
+    <color name="aniversariantebg">#677f83</color>
+    <color name="gebg">#566f76</color>
+    <color name="celulabg">#4a6169</color>
+    <color name="usuariobg">#3e515f</color>
 
 </resources>

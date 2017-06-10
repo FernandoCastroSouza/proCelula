@@ -13,14 +13,19 @@ public class Usuario {
     public static final String PERMISSAO_SP        = "PERMISSAO;";
 
     private int id;
+    private int usuarios_celula_id;
     private String nome;
-    private String senha;
     private String sobrenome;
-    private String dataNascimento;
-    private String email;
-    private Celula celula;
-    //private Escala escala; //TODO
     private String login;
+    private String senha;
+    private String email;
+    private String nascimento;
+    private int perfil;
+
+
+
+    private Celula celula;
+
     private int permissao;
 
     public Usuario() {
@@ -38,9 +43,11 @@ public class Usuario {
     public String getNome() {
         return nome;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -63,16 +70,6 @@ public class Usuario {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
-    }
-
-
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public Celula getCelula() {
@@ -99,9 +96,33 @@ public class Usuario {
         this.permissao = permissao;
     }
 
+    public int getUsuarios_celula_id() {
+        return usuarios_celula_id;
+    }
+
+    public void setUsuarios_celula_id(int usuarios_celula_id) {
+        this.usuarios_celula_id = usuarios_celula_id;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public int getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(int perfil) {
+        this.perfil = perfil;
+    }
+
     @Override
     public String toString() {
-        return getNome() +  " " + getSobrenome() + " - Dia " + getDataNascimento();
+        return getNome() +  " " + getSobrenome() + " - Dia " + getNascimento();
     }
 
 

@@ -11,12 +11,12 @@ public class Programacao implements Serializable {
     public static String NOME_PADRAO_IMAGEM_PROGRAMACAO = "progImg.png";
     public static String NOME_PADRAO_IMAGEM_PROGRAMACAO_ENVIAR = "progImgEnv.png";
 
-    private int id_programacao;
-    private int id_celula;
+    private int id;
+    private int programacoes_celula_id;
     private String nome;
-    private String data_prog;
+    private String data;
     private String horario;
-    private String local_prog;
+    private String local;
     private String telefone;
     private String valor;
     private Bitmap imagem;
@@ -30,36 +30,12 @@ public class Programacao implements Serializable {
         NaoExiste = naoExiste;
     }
 
-    public int getId_programacao() {
-        return id_programacao;
-    }
-
-        public void setId_programacao(int id_programacao) {
-        this.id_programacao = id_programacao;
-    }
-
-    public int getId_celula() {
-        return id_celula;
-    }
-
-        public void setId_celula(int id_celula) {
-        this.id_celula = id_celula;
-    }
-
     public String getNome() {
         return nome;
     }
 
-        public void setNome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getData_prog() {
-        return data_prog;
-    }
-
-        public void setData_prog(String data_prog) {
-        this.data_prog = data_prog;
     }
 
     public String getHorario() {
@@ -68,14 +44,6 @@ public class Programacao implements Serializable {
 
     public void setHorario(String horario) {
         this.horario = horario;
-    }
-
-    public String getLocal_prog() {
-        return local_prog;
-    }
-
-    public void setLocal_prog(String local_prog) {
-        this.local_prog = local_prog;
     }
 
     public String getTelefone() {
@@ -100,6 +68,38 @@ public class Programacao implements Serializable {
 
     public void setImagem(Bitmap imagem) {
         this.imagem = imagem;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getProgramacoes_celula_id() {
+        return programacoes_celula_id;
+    }
+
+    public void setProgramacoes_celula_id(int programacoes_celula_id) {
+        this.programacoes_celula_id = programacoes_celula_id;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     @Override

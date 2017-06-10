@@ -117,8 +117,8 @@ public class DbHelper extends SQLiteOpenHelper {
         do {
             Aviso aviso = new Aviso();
 
-            aviso.setId_aviso(cursor.getInt(cursor.getColumnIndex("ID_AVISO")));
-            aviso.setId_celula(cursor.getInt(cursor.getColumnIndex("ID_CELULA")));
+            aviso.setId(cursor.getInt(cursor.getColumnIndex("ID_AVISO")));
+            aviso.setAvisos_celula_id(cursor.getInt(cursor.getColumnIndex("ID_CELULA")));
             aviso.setTitulo(cursor.getString(cursor.getColumnIndex("TITULO")));
             aviso.setConteudo(cursor.getString(cursor.getColumnIndex("CONTEUDO")));
 
@@ -135,11 +135,11 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
 
-        content.put("AVISOS_CELULA_ID", aviso.getId_celula());
+        content.put("AVISOS_CELULA_ID", aviso.getAvisos_celula_id());
         content.put("TITULO", aviso.getTitulo());
         content.put("CONTEUDO", aviso.getConteudo());
 
-        db.update("TB_AVISOS", content, "ID = " + aviso.getId_aviso(), null);
+        db.update("TB_AVISOS", content, "ID = " + aviso.getId(), null);
     }
 
     public List<Celula> listaCelula(String SQL) {
@@ -153,14 +153,14 @@ public class DbHelper extends SQLiteOpenHelper {
         do {
             Celula celula = new Celula();
 
-            celula.setId_celula(cursor.getInt(cursor.getColumnIndex("ID")));
+            celula.setId(cursor.getInt(cursor.getColumnIndex("ID")));
             celula.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             celula.setLider(cursor.getString(cursor.getColumnIndex("LIDER")));
             celula.setUsuario(this.listaUsuario("SELECT * FROM TB_USUARIOS WHERE ID = " + cursor.getString(cursor.getColumnIndex("ID_USUARIO"))).get(0));
             celula.setDia(cursor.getString(cursor.getColumnIndex("DIA")));
             celula.setHorario(cursor.getString(cursor.getColumnIndex("HORARIO")));
-            celula.setLocal_celula(cursor.getString(cursor.getColumnIndex("LOCAL")));
-            celula.setDia_jejum(cursor.getString(cursor.getColumnIndex("JEJUM")));
+            celula.setLocal(cursor.getString(cursor.getColumnIndex("LOCAL")));
+            celula.setJejum(cursor.getString(cursor.getColumnIndex("JEJUM")));
             celula.setPeriodo(cursor.getString(cursor.getColumnIndex("PERIODO")));
             celula.setVersiculo(cursor.getString(cursor.getColumnIndex("VERSICULO")));
 
@@ -177,17 +177,17 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
 
-        content.put("ID", celula.getId_celula());
+        content.put("ID", celula.getId());
         content.put("NOME", celula.getNome());
         content.put("LIDER", celula.getLider());
         content.put("DIA", celula.getDia());
         content.put("HORARIO", celula.getHorario());
-        content.put("LOCAL", celula.getLocal_celula());
-        content.put("JEJUM", celula.getDia_jejum());
+        content.put("LOCAL", celula.getLocal());
+        content.put("JEJUM", celula.getDia());
         content.put("PERIODO", celula.getPeriodo());
         content.put("VERSICULO", celula.getVersiculo());
 
-        db.update("TB_CELULAS", content, "ID = " + celula.getId_celula(), null);
+        db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
     }
 
     public List<GrupoEvangelistico> listaGrupoEvangelistico(String SQL) {
@@ -201,8 +201,8 @@ public class DbHelper extends SQLiteOpenHelper {
         do {
             GrupoEvangelistico grupoEvangelistico = new GrupoEvangelistico();
 
-            grupoEvangelistico.setId_ge(cursor.getInt(cursor.getColumnIndex("ID")));
-            grupoEvangelistico.setId_celula(cursor.getInt(cursor.getColumnIndex("GES_CELULA_ID")));
+            grupoEvangelistico.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            grupoEvangelistico.setGes_celula_id(cursor.getInt(cursor.getColumnIndex("GES_CELULA_ID")));
             grupoEvangelistico.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             grupoEvangelistico.setDias(cursor.getInt(cursor.getColumnIndex("DIAS")));
 
@@ -219,13 +219,13 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
 
-        content.put("ID", grupoEvangelistico.getId_ge());
-        content.put("GES_CELULA_ID", grupoEvangelistico.getId_celula());
+        content.put("ID", grupoEvangelistico.getId());
+        content.put("GES_CELULA_ID", grupoEvangelistico.getGes_celula_id());
         content.put("NOME", grupoEvangelistico.getNome());
         content.put("DIAS", grupoEvangelistico.getDias());
 
 
-        db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId_ge(), null);
+        db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);
     }
 
     public List<Programacao> listaProgramacao(String SQL) {
@@ -239,12 +239,12 @@ public class DbHelper extends SQLiteOpenHelper {
         do {
             Programacao programacao = new Programacao();
 
-            programacao.setId_programacao(cursor.getInt(cursor.getColumnIndex("ID")));
-            programacao.setId_celula(cursor.getInt(cursor.getColumnIndex("PROGRAMACOES_CELULA_ID")));
+            programacao.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            programacao.setProgramacoes_celula_id(cursor.getInt(cursor.getColumnIndex("PROGRAMACOES_CELULA_ID")));
             programacao.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
-            programacao.setData_prog(cursor.getString(cursor.getColumnIndex("DATA")));
+            programacao.setData(cursor.getString(cursor.getColumnIndex("DATA")));
             programacao.setHorario(cursor.getString(cursor.getColumnIndex("HORARIO")));
-            programacao.setLocal_prog(cursor.getString(cursor.getColumnIndex("LOCAL")));
+            programacao.setLocal(cursor.getString(cursor.getColumnIndex("LOCAL")));
             programacao.setTelefone(cursor.getString(cursor.getColumnIndex("TELEFONE")));
             programacao.setValor(cursor.getString(cursor.getColumnIndex("VALOR")));
 
@@ -261,16 +261,16 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
 
-        content.put("ID", programacao.getId_programacao());
-        content.put("PROGRAMACOES_CELULA_ID", programacao.getId_celula());
+        content.put("ID", programacao.getId());
+        content.put("PROGRAMACOES_CELULA_ID", programacao.getProgramacoes_celula_id());
         content.put("NOME", programacao.getNome());
-        content.put("DATA", programacao.getData_prog());
+        content.put("DATA", programacao.getData());
         content.put("HORARIO", programacao.getHorario());
-        content.put("LOCAL", programacao.getLocal_prog());
+        content.put("LOCAL", programacao.getLocal());
         content.put("TELEFONE", programacao.getTelefone());
         content.put("VALOR", programacao.getValor());
 
-        db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId_programacao(), null);
+        db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);
     }
 
     public List<Usuario> listaUsuario(String SQL) {
@@ -291,7 +291,7 @@ public class DbHelper extends SQLiteOpenHelper {
             usuario.setLogin(cursor.getString(cursor.getColumnIndex("LOGIN")));
             usuario.setSenha(cursor.getString(cursor.getColumnIndex("SENHA")));
             usuario.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
-            usuario.setDataNascimento(cursor.getString(cursor.getColumnIndex("NASCIMENTO")));
+            usuario.setNascimento(cursor.getString(cursor.getColumnIndex("NASCIMENTO")));
             usuario.setPermissao(cursor.getInt(cursor.getColumnIndex("PERFIL")));
 
             lista.add(usuario);
@@ -308,13 +308,13 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues content = new ContentValues();
 
         content.put("ID", usuario.getId());
-        content.put("USUARIOS_CELULA_ID", usuario.getCelula().getId_celula());
+        content.put("USUARIOS_CELULA_ID", usuario.getUsuarios_celula_id());
         content.put("NOME", usuario.getNome());
         content.put("SOBRENOME", usuario.getSobrenome());
         content.put("LOGIN", usuario.getLogin());
         content.put("SENHA", usuario.getSenha());
         content.put("EMAIL", usuario.getEmail());
-        content.put("NASCIMENTO", usuario.getDataNascimento());
+        content.put("NASCIMENTO", usuario.getNascimento());
         content.put("PERFIL", usuario.getPermissao());
 
         db.update("TB_USUARIOS", content, "ID = " + usuario.getId(), null);

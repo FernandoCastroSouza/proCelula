@@ -22,6 +22,7 @@ import android.widget.ListView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Celula;
@@ -31,6 +32,7 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.AdapterDelete;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.ws.WebService;
 
 public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
     public static final int REQUEST_SALVAR = 1;
@@ -44,6 +46,10 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Collection<Aviso> colecaoAvisos = Aviso.retornaAvisosConvertidos();
+        mListaAvisos = (ArrayList<Aviso>) colecaoAvisos;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviso);
 

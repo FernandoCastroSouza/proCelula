@@ -25,25 +25,16 @@ public class Celula {
 //    public static String DIRETORIO_IMAGENS_CELULA = "/celula";
 //    public static String NOME_PADRAO_IMAGEM_CELULA = "celImg.png";
 
-    private int id_celula;
+    private int id;
     private String nome;
     private String lider;
     private String dia;
     private String horario;
-    private String local_celula;
-    private String dia_jejum;
+    private String local;
+    private String jejum;
     private String periodo;
     private String versiculo;
     private Usuario usuario;
-//    private Blob imagem;
-
-    public int getId_celula() {
-        return id_celula;
-    }
-
-    public void setId_celula(int id_celula) {
-        this.id_celula = id_celula;
-    }
 
     public String getNome() {
         return nome;
@@ -77,22 +68,6 @@ public class Celula {
         this.horario = horario;
     }
 
-    public String getLocal_celula() {
-        return local_celula;
-    }
-
-    public void setLocal_celula(String local_celula) {
-        this.local_celula = local_celula;
-    }
-
-    public String getDia_jejum() {
-        return dia_jejum;
-    }
-
-    public void setDia_jejum(String dia_jejum) {
-        this.dia_jejum = dia_jejum;
-    }
-
     public String getPeriodo() {
         return periodo;
     }
@@ -117,13 +92,29 @@ public class Celula {
         this.usuario = usuario;
     }
 
-    //    public Blob getImagem() {
-//        return imagem;
-//    }
-//
-//    public void setImagem(Blob imagem) {
-//        this.imagem = imagem;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getJejum() {
+        return jejum;
+    }
+
+    public void setJejum(String jejum) {
+        this.jejum = jejum;
+    }
 
     @Override
     public String toString() {
@@ -142,9 +133,9 @@ public class Celula {
     }
 
     public String converteDiaJejum() {
-        if (getDia_jejum() != null) {
+        if (getJejum() != null) {
             try {
-                return converteDiaSemana(Integer.parseInt(getDia_jejum()));
+                return converteDiaSemana(Integer.parseInt(getJejum()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

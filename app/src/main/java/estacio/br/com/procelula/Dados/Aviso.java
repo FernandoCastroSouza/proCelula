@@ -2,31 +2,37 @@ package estacio.br.com.procelula.Dados;
 
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
+
+import estacio.br.com.procelula.ws.WebService;
 
 public class Aviso implements Serializable {
-    private int id_aviso;
-    private int id_celula;
+    private int id;
+    private int avisos_celula_id;
     private String titulo;
     private String conteudo;
     private ListView avisoslist;
 
-
-
-    public int getId_aviso() {
-        return id_aviso;
+    public int getId() {
+        return id;
     }
 
-    public void setId_aviso(int id_aviso) {
-        this.id_aviso = id_aviso;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getId_celula() {
-        return id_celula;
+    public int getAvisos_celula_id() {
+        return avisos_celula_id;
     }
 
-    public void setId_celula(int id_celula) {
-        this.id_celula = id_celula;
+    public void setAvisos_celula_id(int avisos_celula_id) {
+        this.avisos_celula_id = avisos_celula_id;
     }
 
     public String getTitulo() {
@@ -56,5 +62,12 @@ public class Aviso implements Serializable {
 
     public void setAvisoslist(ListView avisoslist) {
         this.avisoslist = avisoslist;
+    }
+
+    public static Collection<Aviso> retornaAvisosConvertidos(){
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<Collection<Aviso>>(){}.getType();
+        Collection<Aviso> avisos = gson.fromJson(WebService.listarAvisos(), collectionType);
+        return avisos;
     }
 }

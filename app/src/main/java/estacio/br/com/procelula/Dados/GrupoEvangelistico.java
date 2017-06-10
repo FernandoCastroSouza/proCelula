@@ -5,25 +5,25 @@ import java.io.Serializable;
 
 public class GrupoEvangelistico implements Serializable {
 
-    private int id_ge;
-    private int id_celula;
+    private int id;
+    private int ges_celula_id;
     private String nome;
     private int dias;
 
-    public int getId_ge() {
-        return id_ge;
+    public int getId() {
+        return id;
     }
 
-    public void setId_ge(int id_ge) {
-        this.id_ge = id_ge;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getId_celula() {
-        return id_celula;
+    public int getGes_celula_id() {
+        return ges_celula_id;
     }
 
-    public void setId_celula(int id_celula) {
-        this.id_celula = id_celula;
+    public void setGes_celula_id(int ges_celula_id) {
+        this.ges_celula_id = ges_celula_id;
     }
 
     public String getNome() {

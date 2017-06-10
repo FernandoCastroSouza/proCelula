@@ -56,6 +56,31 @@ public class WebService {
         return null;
     }
 
+    private static String verificaLogin(String endpoint, String senha, int id) {
+        String urlFormed = BASE_URL + endpoint + id ;
+
+        URL url = null;
+        try {
+            url = new URL(urlFormed);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Request.Builder builder = new Request.Builder().url(url);
+        builder.addHeader("Content-Type", "application/json");
+        builder.addHeader("Accept", "application/json");
+        builder.post(RequestBody.create(JSON, senha));
+        Request request = builder.build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            Log.i(String.format("sendRequest(%s)", request.url().toString()), "Error closing InputStream");
+        }
+
+        return null;
+    }
+
     public static String listarCelulas(){
         return sendRequest("celulas");
     }
@@ -70,6 +95,10 @@ public class WebService {
     }
     public static String listarAvisos(){
         return sendRequest("avisos");
+    }
+
+    public static String validarLogin(){
+        return verificaLogin("usuarios", "123" ,3);
     }
 
 }

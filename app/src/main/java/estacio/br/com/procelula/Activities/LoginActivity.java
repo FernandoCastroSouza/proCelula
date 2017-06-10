@@ -17,6 +17,7 @@ import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.Dao.UsuarioDAO;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.ws.WebService;
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
 
@@ -193,10 +194,9 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         }
     }
 
-    //Método usado para verificar se o usuário digitado é válido e se a senha do mesmo confere com a cadastrada
-    private Usuario verificaUsuario(String login, String senha) throws SQLException {
-        return new UsuarioDAO().retornaUsuarioLogin(login, senha);
-    }
+//    private Usuario fazerLogin(String id, String senha) throws SQLException {
+//        return new WebService.validarLogin(id, senha);
+//    }
 
     //Método usado para retornar informacoes atualizadas do usuário
     private Usuario verificaUsuario(String login) throws SQLException {

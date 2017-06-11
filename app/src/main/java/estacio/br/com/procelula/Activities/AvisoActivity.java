@@ -47,9 +47,6 @@ public class AvisoActivity extends ActionBarActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Collection<Aviso> colecaoAvisos = Aviso.retornaAvisosConvertidos();
-        mListaAvisos = (ArrayList<Aviso>) colecaoAvisos;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviso);
 

@@ -2,10 +2,9 @@ package estacio.br.com.procelula.ws;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -16,61 +15,69 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class WebService {
+
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static String BASE_URL = "http://www.vidasnoaltar.com/outros/sistema-celulas/api/";
-
-    private static OkHttpClient client;
+    public static final String BASE_URL = "http://www.vidasnoaltar.com/outros/sistema-celulas/api/";
     private static final int TIMEOUT = 5000;
 
-    public static OkHttpClient getClient(){
-        if(client == null){
-            client = new OkHttpClient.Builder()
-                    .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .build();
-        }
-        return client;
-    }
 
+    private String sendRequest(URL url, String method, String jsonString) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
 
-    private static String sendRequest(String endpoint) {
-        String urlFormed = BASE_URL + endpoint;
-        URL url = null;
-        try {
-            url = new URL(urlFormed);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         Request.Builder builder = new Request.Builder().url(url);
         builder.addHeader("Content-Type", "application/json");
         builder.addHeader("Accept", "application/json");
-        builder.get();
+        if (method.equalsIgnoreCase("GET")) {
+            builder.get();
+        }
+        else if(method.equalsIgnoreCase("POST")){
+            builder.post(RequestBody.create(JSON, jsonString));
+        }else{
+            builder.delete(RequestBody.create(JSON, jsonString));
+        }
         Request request = builder.build();
 
         try {
-            Response response = getClient().newCall(request).execute();
-            Log.i(String.format("sendRequest(%s)", response.toString()), "\nOlha para mim");
+            Response response = client.newCall(request).execute();
             return response.body().string();
         } catch (IOException e) {
             Log.i(String.format("sendRequest(%s)", request.url().toString()), "Error closing InputStream");
+        }
+
+        return null;
+    }
+
+    public String save(Object objeto, String endPoint) {
+        try {
+            URL url = new URL(BASE_URL + endPoint);
+            return sendRequest(url, "POST", new ObjectMapper().writeValueAsString(objeto));
+        }
+        catch (Exception e) {
             return null;
         }
     }
-    public static String listarCelulas(){
-        return sendRequest("celulas");
-    }
-    public static String listarUsuarios(){
-        return sendRequest("usuarios");
-    }
-    public static String listarGES(){
-        return sendRequest("ges");
-    }
-    public static String listarProgramacoes(){
-        return sendRequest("programacoes");
-    }
-    public static String listarAvisos(){
-        return sendRequest("avisos");
+
+    public String listAll(String endPoint) {
+        try {
+            URL url = new URL(BASE_URL + endPoint);
+            return sendRequest(url, "GET", null);
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
+    public String delete(int id, String endPoint) {
+        try {
+            URL url = new URL(BASE_URL + endPoint + "/" + id);
+            return sendRequest(url, "DELETE", null);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 }

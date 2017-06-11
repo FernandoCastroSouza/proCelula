@@ -1,19 +1,13 @@
 package estacio.br.com.procelula.Dados;
 
-import com.fasterxml.jackson.core.io.CharacterEscapes;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import estacio.br.com.procelula.ws.WebService;
 
 public class Usuario {
     public static final int PERMISSAO_BASICA = 0;
@@ -36,6 +30,10 @@ public class Usuario {
     private String email;
     private String nascimento;
     private int perfil;
+    private String token;
+    private Boolean ativo;
+    private String created;
+    private String modified;
 
     private Celula celula;
 
@@ -161,7 +159,39 @@ public class Usuario {
         return usuarios;
     }
 
-//    public Collection<Usuario> retornaUsuarios(){
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
+
+    //    public Collection<Usuario> retornaUsuarios(){
 //        List<Usuario> usuarios = null;
 //        Type listType = new TypeToken<List<Usuario>>(){}.getType();
 //        usuarios = new Gson().fromJson(setFields(WebService.listarUsuarios()), listType);

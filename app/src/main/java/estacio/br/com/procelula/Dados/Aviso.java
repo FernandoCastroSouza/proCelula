@@ -90,11 +90,4 @@ public class Aviso implements Serializable {
     public void setAvisoslist(ListView avisoslist) {
         this.avisoslist = avisoslist;
     }
-
-    public static Collection<Aviso> retornaAvisosConvertidos(){
-        Gson gson = new Gson();
-        Type collectionType = new TypeToken<Collection<Aviso>>(){}.getType();
-        Collection<Aviso> avisos = gson.fromJson(WebService.listarAvisos(), collectionType);
-        return avisos;
-    }
 }

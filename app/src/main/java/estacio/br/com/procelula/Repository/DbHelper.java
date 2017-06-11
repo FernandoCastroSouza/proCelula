@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Celula;
@@ -30,52 +31,52 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE TB_AVISOS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "AVISOS_CELULA_ID INTEGER," +
-                "TITULO TEXT(255) NOT NULL," +
-                "CONTEUDO TEXT NOT NULL" +
+                "TITULO TEXT(255) ," +
+                "CONTEUDO TEXT , " +
                 "CREATED DATETIME DEFAULT CURRENT_TIMESTAMP," +
-                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP");
+                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
         db.execSQL("CREATE TABLE TB_CELULAS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "ID_USUARIO INTEGER" +
-                "NOME TEXT(255) NOT NULL," +
-                "LIDER TEXT(255) NOT NULL," +
-                "DIA TEXT(100) NOT NULL," +
-                "HORARIO TEXT(255) NOT NULL," +
-                "LOCAL TEXT NOT NULL," +
-                "JEJUM TEXT(50) NOT NULL," +
-                "PERIODO TEXT(50) NOT NULL," +
-                "VERSICULO TEXT NOT NULL");
+                "ID_USUARIO INTEGER," +
+                "NOME TEXT(255) ," +
+                "LIDER TEXT(255) ," +
+                "DIA TEXT(100) ," +
+                "HORARIO TEXT(255) ," +
+                "LOCAL TEXT ," +
+                "JEJUM TEXT(50) ," +
+                "PERIODO TEXT(50) ," +
+                "VERSICULO TEXT )");
 
         db.execSQL("CREATE TABLE TB_GES (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "GES_CELULA_ID INTEGER," +
-                "NOME TEXT(255) NOT NULL," +
-                "DIAS INT(3) NOT NULL");
+                "NOME TEXT(255) ," +
+                "DIAS INT(3) )");
 
         db.execSQL("CREATE TABLE TB_PROGRAMACOES (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "PROGRAMACOES_CELULA_ID INTEGER," +
-                "NOME TEXT(50) NOT NULL," +
-                "DATA DATE NOT NULL," +
-                "HORARIO TEXT(50) NOT NULL," +
-                "LOCAL TEXT NOT NULL," +
-                "TELEFONE TEXT(20) NOT NULL," +
-                "VALOR TEXT(20) NOT NULL");
+                "NOME TEXT(50) ," +
+                "DATA DATE ," +
+                "HORARIO TEXT(50) ," +
+                "LOCAL TEXT ," +
+                "TELEFONE TEXT(20) ," +
+                "VALOR TEXT(20) )");
 
         db.execSQL("CREATE TABLE TB_USUARIOS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "USUARIOS_CELULA_ID INTEGER," +
-                "NOME TEXT(255) NOT NULL," +
-                "SOBRENOME TEXT(255) NOT NULL," +
-                "LOGIN TEXT(100) NOT NULL," +
-                "SENHA TEXT(255) NOT NULL," +
-                "EMAIL TEXT(100) NOT NULL," +
-                "NASCIMENTO DATE NOT NULL," +
-                "PERFIL INTEGER(1) NOT NULL," +
-                "TOKEN TEXT(255) NOT NULL," +
+                "NOME TEXT(255) ," +
+                "SOBRENOME TEXT(255) ," +
+                "LOGIN TEXT(100) ," +
+                "SENHA TEXT(255) ," +
+                "EMAIL TEXT(100) ," +
+                "NASCIMENTO DATE ," +
+                "PERFIL INTEGER(1) ," +
+                "TOKEN TEXT(255) ," +
                 "CREATED DATETIME DEFAULT CURRENT_TIMESTAMP," +
-                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP");
+                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 
     @Override
@@ -285,7 +286,8 @@ public class DbHelper extends SQLiteOpenHelper {
             Usuario usuario = new Usuario();
 
             usuario.setId(cursor.getInt(cursor.getColumnIndex("ID")));
-            usuario.setCelula(this.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + cursor.getString(cursor.getColumnIndex("USUARIOS_CELULA_ID"))).get(0));
+//            usuario.setCelula(this.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + cursor.getString(cursor.getColumnIndex("USUARIOS_CELULA_ID"))).get(0));
+            usuario.setUsuarios_celula_id(cursor.getInt(cursor.getColumnIndex("USUARIOS_CELULA_ID")));
             usuario.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             usuario.setSobrenome(cursor.getString(cursor.getColumnIndex("SOBRENOME")));
             usuario.setLogin(cursor.getString(cursor.getColumnIndex("LOGIN")));
@@ -316,7 +318,14 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("EMAIL", usuario.getEmail());
         content.put("NASCIMENTO", usuario.getNascimento());
         content.put("PERFIL", usuario.getPermissao());
-
-        db.update("TB_USUARIOS", content, "ID = " + usuario.getId(), null);
+        if (usuario.getId() < 0) {
+            db.insert("TB_USUARIOS", null, content);
+        } else {
+            if (contagem("SELECT COUNT(*) FROM TB_USUARIOS WHERE ID = " + String.valueOf(usuario.getId())) > 0) {
+                db.update("TB_USUARIOS", content, "ID = " + usuario.getId(), null);
+            } else {
+                db.insert("TB_USUARIOS", null, content);
+            }
+        }
     }
 }

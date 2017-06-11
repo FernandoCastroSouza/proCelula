@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.view.Gravity;
@@ -378,5 +379,16 @@ public class Utils {
         options.inJustDecodeBounds = false;
 
         return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    public static boolean isConnected(Context context) {
+        ConnectivityManager conectivtyManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

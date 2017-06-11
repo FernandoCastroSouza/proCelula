@@ -34,7 +34,16 @@ public class Celula {
     private String jejum;
     private String periodo;
     private String versiculo;
+    private Boolean ativo;
     private Usuario usuario;
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 
     public String getNome() {
         return nome;

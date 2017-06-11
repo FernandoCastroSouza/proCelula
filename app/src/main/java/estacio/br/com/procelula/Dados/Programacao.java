@@ -19,6 +19,7 @@ public class Programacao implements Serializable {
     private String local;
     private String telefone;
     private String valor;
+    private Boolean ativo;
     private Bitmap imagem;
     private TextView NaoExiste;
 
@@ -28,6 +29,14 @@ public class Programacao implements Serializable {
 
     public void setNaoExiste(TextView naoExiste) {
         NaoExiste = naoExiste;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String getNome() {

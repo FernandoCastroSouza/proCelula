@@ -8,7 +8,8 @@ public class GrupoEvangelistico implements Serializable {
     private int id;
     private int ges_celula_id;
     private String nome;
-    private int dias;
+    private String data;
+    private Boolean ativo;
 
     public int getId() {
         return id;
@@ -34,16 +35,24 @@ public class GrupoEvangelistico implements Serializable {
         this.nome = nome;
     }
 
-    public int getDias() {
-        return dias;
+    public Boolean getAtivo() {
+        return ativo;
     }
 
-    public void setDias(int dias) {
-        this.dias = dias;
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
-        return getNome() + " (" + Integer.toString(getDias()) + " dias)" ;
+        return getNome() + " (" + getData() + " dias)" ;
     }
 }

@@ -17,7 +17,34 @@ public class Aviso implements Serializable {
     private int avisos_celula_id;
     private String titulo;
     private String conteudo;
+    private Boolean ativo;
+    private String created;
+    private String modified;
     private ListView avisoslist;
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
 
     public int getId() {
         return id;

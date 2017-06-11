@@ -220,3 +220,8 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/linux,gradle,windows,android,androidstudio
 
 proCelula.iml
+
+.idea/misc.xml
+.idea/modules.xml
+app/app.iml
+procelula.iml

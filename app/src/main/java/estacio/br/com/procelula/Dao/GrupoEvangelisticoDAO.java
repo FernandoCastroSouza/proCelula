@@ -39,7 +39,7 @@ public class GrupoEvangelisticoDAO {
 //                grupoEvangelistico.setId_ge(rs.getInt(1));
 //                grupoEvangelistico.setId_celula(rs.getInt(2));
                 grupoEvangelistico.setNome(rs.getString(3));
-                grupoEvangelistico.setDias(rs.getInt(4));
+//                grupoEvangelistico.setDias(rs.getInt(4));
                 gruposEvangelisticos.add(grupoEvangelistico);
             }
         } catch (Exception e) {

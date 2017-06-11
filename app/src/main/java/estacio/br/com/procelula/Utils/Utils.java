@@ -231,7 +231,7 @@ public class Utils {
     public static void salvaCelulaSharedPreference(Context con, Celula celula)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
-        prefs.edit().putInt   (Celula.ID_CELULA_SP            , celula.getId_celula())
+        /*prefs.edit().putInt   (Celula.ID_CELULA_SP            , celula.getId_celula())
                     .putString(Celula.NOME_CELULA_SP          , celula.getNome())
                     .putString(Celula.LIDER_CELULA_SP, celula.getLider())
                     .putString(Celula.DIA_CELULA_SP, celula.getDia())
@@ -239,7 +239,7 @@ public class Utils {
                     .putString(Celula.LOCAL_CELULA_SP         , celula.getLocal_celula())
                     .putString(Celula.DIA_JEJUM_CELULA_SP     , celula.getDia_jejum())
                     .putString(Celula.PERIODO_CELULA_SP, celula.getPeriodo())
-                    .putString(Celula.VERSICULO_CELULA_SP, celula.getVersiculo()).commit();
+                    .putString(Celula.VERSICULO_CELULA_SP, celula.getVersiculo()).commit();*/
                     //.putString(Celula.CAMINHO_IMAGEM_CELULA_SP, data).commit(); TODO salvar caminho do cache da imagem
     }
 
@@ -247,26 +247,26 @@ public class Utils {
     public static void salvaUsuarioSharedPreference(Context con, Usuario usuario)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
-        prefs.edit().putInt(Usuario.ID_USUARIO_SP, usuario.getId())
+        /*prefs.edit().putInt(Usuario.ID_USUARIO_SP, usuario.getId())
                     .putString(Usuario.NOME_SP                 , usuario.getNome())
                     .putString(Usuario.SOBRENOME_SP            , usuario.getSobrenome())
                     .putString(Usuario.DATA_NASCIMENTO_SP      , usuario.getDataNascimento())
                     .putString(Usuario.LOGIN_SP                , usuario.getLogin())
                     .putInt(Usuario.PERMISSAO_SP, usuario.getPermissao())
-                    .commit();
+                    .commit();*/
     }
 
     //Retorna dados celula nas Shared Preferences
     public static Celula retornaCelulaSharedPreferences(Context con) {
         Celula celula = new Celula();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
-        celula.setId_celula(prefs.getInt(Celula.ID_CELULA_SP, -1));
+//        celula.setId_celula(prefs.getInt(Celula.ID_CELULA_SP, -1));
         celula.setNome(prefs.getString(Celula.NOME_CELULA_SP, null));
         celula.setLider(prefs.getString(Celula.LIDER_CELULA_SP, null));
         celula.setDia(prefs.getString(Celula.DIA_CELULA_SP, null));
         celula.setHorario(prefs.getString(Celula.HORARIO_CELULA_SP, null));
-        celula.setLocal_celula(prefs.getString(Celula.LOCAL_CELULA_SP, null));
-        celula.setDia_jejum(prefs.getString(Celula.DIA_JEJUM_CELULA_SP, null));
+//        celula.setLocal_celula(prefs.getString(Celula.LOCAL_CELULA_SP, null));
+//        celula.setDia_jejum(prefs.getString(Celula.DIA_JEJUM_CELULA_SP, null));
         celula.setPeriodo(prefs.getString(Celula.PERIODO_CELULA_SP, null));
         celula.setVersiculo(prefs.getString(Celula.VERSICULO_CELULA_SP, null));
         //.putString(Celula.CAMINHO_IMAGEM_CELULA_SP, data).commit(); TODO salvar caminho do cache da imagem
@@ -284,7 +284,7 @@ public class Utils {
             usuario.setId(prefs.getInt(Usuario.ID_USUARIO_SP, -1));
             usuario.setNome(prefs.getString(Usuario.NOME_SP, null));
             usuario.setSobrenome(prefs.getString(Usuario.SOBRENOME_SP, null));
-            usuario.setDataNascimento(prefs.getString(Usuario.DATA_NASCIMENTO_SP, null));
+//            usuario.setDataNascimento(prefs.getString(Usuario.DATA_NASCIMENTO_SP, null));
             usuario.setLogin(prefs.getString(Usuario.LOGIN_SP, null));
             usuario.setPermissao(prefs.getInt(Usuario.PERMISSAO_SP, -1));
         }

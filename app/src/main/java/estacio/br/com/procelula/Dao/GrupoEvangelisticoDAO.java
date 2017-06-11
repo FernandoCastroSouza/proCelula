@@ -32,12 +32,12 @@ public class GrupoEvangelisticoDAO {
                     "   FROM grupos_evangelisticos                                            " +
                     " WHERE ges_celula_id = ?  ORDER BY data DESC ;                           ");
 
-            statement.setInt(1, celula.getId_celula());
+//            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
             while (rs.next()) {
                 grupoEvangelistico = new GrupoEvangelistico();
-                grupoEvangelistico.setId_ge(rs.getInt(1));
-                grupoEvangelistico.setId_celula(rs.getInt(2));
+//                grupoEvangelistico.setId_ge(rs.getInt(1));
+//                grupoEvangelistico.setId_celula(rs.getInt(2));
                 grupoEvangelistico.setNome(rs.getString(3));
                 grupoEvangelistico.setDias(rs.getInt(4));
                 gruposEvangelisticos.add(grupoEvangelistico);
@@ -72,7 +72,7 @@ public class GrupoEvangelisticoDAO {
         try {
             statement = conexao.prepareStatement(
                     " INSERT INTO grupos_evangelisticos (ges_celula_id, nome, data) values (?,?,NOW())");
-            statement.setInt   (1, grupoEvangelistico.getId_celula());
+//            statement.setInt   (1, grupoEvangelistico.getId_celula());
             statement.setString(2, grupoEvangelistico.getNome());
 
             int row = statement.executeUpdate();
@@ -115,7 +115,7 @@ public class GrupoEvangelisticoDAO {
             statement = conexao.prepareStatement(delCommand);
 
             for (int i = 1; i <= grupoEvangelisticos.size(); i++) {
-                statement.setInt(i, grupoEvangelisticos.get(i-1).getId_ge());
+//                statement.setInt(i, grupoEvangelisticos.get(i-1).getId_ge());
             }
 
             int row = statement.executeUpdate();

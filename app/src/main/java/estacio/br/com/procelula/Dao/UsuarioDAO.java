@@ -58,18 +58,18 @@ public class UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
-                usuario.setDataNascimento(rs.getString(5));
+//                usuario.setDataNascimento(rs.getString(5));
                 usuario.setLogin(rs.getString(6));
                 usuario.setPermissao(rs.getInt(7));
 
                 celula = new Celula();
-                celula.setId_celula(rs.getInt(2));
+//                celula.setId_celula(rs.getInt(2));
                 celula.setNome(rs.getString(8));
                 celula.setLider(rs.getString(9));
                 celula.setDia(rs.getString(10));
                 celula.setHorario(Utils.converteHoraApp(rs.getString(11)));
-                celula.setLocal_celula(rs.getString(12));
-                celula.setDia_jejum(rs.getString(13));
+//                celula.setLocal_celula(rs.getString(12));
+//                celula.setDia_jejum(rs.getString(13));
                 celula.setPeriodo(rs.getString(14));
                 celula.setVersiculo(rs.getString(15));
 //                celula.setImagem(rs.getBlob(17));
@@ -114,7 +114,7 @@ public class UsuarioDAO {
                     "       AND id_celula = ?                               " +
                     "   ORDER BY nascimento                            ");
 
-            statement.setInt(1, celula.getId_celula());
+//            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -122,7 +122,7 @@ public class UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString(4));
                 usuario.setSobrenome(rs.getString(5));
-                usuario.setDataNascimento(Utils.converteDataNiver(rs.getString(6)));
+//                usuario.setDataNascimento(Utils.converteDataNiver(rs.getString(6)));
                 usuario.setLogin(rs.getString(7));
                 usuario.setPermissao(rs.getInt(8));
                 usuarios.add(usuario);
@@ -159,10 +159,10 @@ public class UsuarioDAO {
                     " INSERT INTO usuarios (nome, sobrenome, nascimento, login, senha, id_celula, permissao) values (?,?,?,?,?,?,?)");
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSobrenome());
-            statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
+//            statement.setString(3, Utils.converteDataBanco(usuario.getDataNascimento()));
             statement.setString(4, usuario.getLogin());
             statement.setString(5, usuario.getSenha());
-            statement.setInt(6, (usuario.getCelula() != null) ? usuario.getCelula().getId_celula() : -1);
+//            statement.setInt(6, (usuario.getCelula() != null) ? usuario.getCelula().getId_celula() : -1);
             statement.setInt(7, usuario.getPermissao());
 
             int row = statement.executeUpdate();
@@ -204,7 +204,7 @@ public class UsuarioDAO {
                     "   FROM usuarios                                                                          " +
                     "  WHERE id_celula = ?");
 
-            statement.setInt(1, celula.getId_celula());
+//            statement.setInt(1, celula.getId_celula());
 
             rs = statement.executeQuery();
 
@@ -214,7 +214,7 @@ public class UsuarioDAO {
                 usuario.setCelula(celula);
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
-                usuario.setDataNascimento(rs.getString(5));
+//                usuario.setDataNascimento(rs.getString(5));
                 usuario.setLogin(rs.getString(6));
                 usuario.setSenha(rs.getString(7));
                 usuario.setPermissao(rs.getInt(8));

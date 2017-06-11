@@ -1,3 +1,4 @@
+/*
 package estacio.br.com.procelula.Dao;
 
 
@@ -11,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import estacio.br.com.procelula.Dados.Roteiro;
 import estacio.br.com.procelula.Utils.ConnectionManager;
 import estacio.br.com.procelula.Utils.Utils;
 
@@ -114,3 +114,4 @@ public class RoteiroDAO {
         return 0;
     }
 }
+*/

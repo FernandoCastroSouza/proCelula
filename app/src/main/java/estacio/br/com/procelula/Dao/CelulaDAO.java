@@ -35,13 +35,13 @@ public class CelulaDAO {
 
             while (rs.next()) {
                 celula = new Celula();
-                celula.setId_celula(rs.getInt(1));
+//                celula.setId_celula(rs.getInt(1));
                 celula.setNome(rs.getString(2));
                 celula.setLider(rs.getString(3));
                 celula.setDia(rs.getString(4));
                 celula.setHorario(Utils.converteHoraApp(rs.getString(5)));
-                celula.setLocal_celula(rs.getString(6));
-                celula.setDia_jejum(rs.getString(7));
+//                celula.setLocal_celula(rs.getString(6));
+//                celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
             }
@@ -86,13 +86,13 @@ public class CelulaDAO {
 
             while (rs.next()) {
                 celula = new Celula();
-                celula.setId_celula(rs.getInt(1));
+//                celula.setId_celula(rs.getInt(1));
                 celula.setNome(rs.getString(2));
                 celula.setLider(rs.getString(3));
                 celula.setDia(rs.getString(4));
                 celula.setHorario(Utils.converteHoraApp(rs.getString(5)));
-                celula.setLocal_celula(rs.getString(6));
-                celula.setDia_jejum(rs.getString(7));
+//                celula.setLocal_celula(rs.getString(6));
+//                celula.setDia_jejum(rs.getString(7));
                 celula.setPeriodo(rs.getString(8));
                 celula.setVersiculo(rs.getString(9));
                 celulas.add(celula);

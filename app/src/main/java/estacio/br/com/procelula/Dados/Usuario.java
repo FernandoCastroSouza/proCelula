@@ -1,5 +1,13 @@
 package estacio.br.com.procelula.Dados;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.Collection;
+
+import estacio.br.com.procelula.ws.WebService;
+
 public class Usuario {
     public static final int PERMISSAO_BASICA = 0;
     public static final int PERMISSAO_LIDER  = 1;
@@ -21,6 +29,10 @@ public class Usuario {
     private String email;
     private String nascimento;
     private int perfil;
+    private String token;
+    private Boolean ativo;
+    private String created;
+    private String modified;
 
 
 
@@ -120,11 +132,47 @@ public class Usuario {
         this.perfil = perfil;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getModified() {
+        return modified;
+    }
+
+    public void setModified(String modified) {
+        this.modified = modified;
+    }
+
     @Override
     public String toString() {
         return getNome() +  " " + getSobrenome() + " - Dia " + getNascimento();
     }
 
-
-
+    public static Collection<Usuario> retornaUsuarios(){
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<Collection<Usuario>>(){}.getType();
+        Collection<Usuario> usuarios = gson.fromJson(WebService.listarUsuarios(), collectionType);
+        return usuarios;
+    }
 }

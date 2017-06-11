@@ -24,7 +24,7 @@ import estacio.br.com.procelula.Utils.RequestHandler;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class FormProgramacaoActivity extends ActionBarActivity implements View.OnClickListener{
+public class FormProgramacaoActivity extends ActionBarActivity {
     private static final int ALTURA_MAX_IMAGEM = 200;
     private static final int LARGURA_MAX_IMAGEM = 200;
 
@@ -60,7 +60,6 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
         setContentView(R.layout.activity_form_programacao);
 
         celula = Utils.retornaCelulaSharedPreferences(this);
-        insereListener();
         mToolbar = (Toolbar) findViewById(R.id.th_add_programacao);
         setSupportActionBar(mToolbar);
 
@@ -79,14 +78,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
 //        }
     }
 
-    private void insereListener() {
-        getButtonSalvar().setOnClickListener(this);
-        getEditTextData().setOnClickListener(this);
-        getEditTextHorario().setOnClickListener(this);
-        getImagemProgramacao().setOnClickListener(this);
-    }
-
-    @Override
+    /*@Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_salvar:
@@ -113,7 +105,7 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                 selecionarImagem();
                 break;
         }
-    }
+    }*/
 
     private class InsereTask extends AsyncTask<Programacao, Void, Integer> {
         ProgressDialog progressDialog;
@@ -139,11 +131,11 @@ public class FormProgramacaoActivity extends ActionBarActivity implements View.O
                 Programacao programacao = programacoes[0];
 
                 HashMap<String,String> data = new HashMap<>();
-                data.put(UPLOAD_KEY_ID_CELULA, Integer.toString(programacao.getId_celula()));
+//                data.put(UPLOAD_KEY_ID_CELULA, Integer.toString(programacao.getId_celula()));
                 data.put(UPLOAD_KEY_NOME, programacao.getNome());
-                data.put(UPLOAD_KEY_DATA, Utils.converteDataBanco(programacao.getData_prog()));
+//                data.put(UPLOAD_KEY_DATA, Utils.converteDataBanco(programacao.getData_prog()));
                 data.put(UPLOAD_KEY_HORARIO, programacao.getHorario());
-                data.put(UPLOAD_KEY_LOCAL, programacao.getLocal_prog());
+//                data.put(UPLOAD_KEY_LOCAL, programacao.getLocal_prog());
                 data.put(UPLOAD_KEY_TELEFONE, programacao.getTelefone());
                 data.put(UPLOAD_KEY_VALOR, programacao.getValor());
                 if (insereImagem) {

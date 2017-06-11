@@ -53,7 +53,7 @@ public class FormGEActivity extends ActionBarActivity implements View.OnClickLis
             case R.id.button_salvar:
                 if (verificaCampos()) {
                     GrupoEvangelistico grupoEvangelistico = new GrupoEvangelistico();
-                    grupoEvangelistico.setId_celula(celula.getId_celula());
+//                    grupoEvangelistico.setId_celula(celula.getId_celula());
                     grupoEvangelistico.setNome(getEdittextNome().getText().toString());
 
                     new InsereTask().execute(grupoEvangelistico);

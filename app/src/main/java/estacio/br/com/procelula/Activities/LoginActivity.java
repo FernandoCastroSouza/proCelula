@@ -11,7 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.GsonBuilder;
+
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 
 import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.Dao.UsuarioDAO;
@@ -19,9 +23,9 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.Utils;
 import estacio.br.com.procelula.ws.WebService;
 
-public class LoginActivity extends ActionBarActivity implements View.OnClickListener{
+public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
 
-    public static final String MINHAS_PREFERENCIAS = "MyPrefs" ;
+    public static final String MINHAS_PREFERENCIAS = "MyPrefs";
     public static final String LOGIN_SP = "LOGIN"; //TODO passar constante para classe correspondente (usuario)
     public static final String NOME_SP = "NOME"; //TODO passar constante para classe correspondente (usuario)
     public static final String SOBRENOME_SP = "SOBRENOME"; //TODO passar constante para classe correspondente (usuario)
@@ -30,6 +34,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
     private EditText edittext_login;
     private EditText edittext_senha;
     private Button button_entrar;
+    private Thread a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,17 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             new VerificaUsuarioTask(VerificaUsuarioTask.TIPO_VERIFICACAO_ATUALIZACAO).execute(Utils.retornaSharedPreference(this, LOGIN_SP, null));
         }
 
+        syncUsuarios();
+    }
+
+    private void syncUsuarios() {
+        a = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Collection<Usuario> listaUsuarios = Usuario.retornaUsuarios();
+            }
+        });
+        a.start();
     }
 
     // insere listeners em todos os componentes da tela
@@ -137,6 +153,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         public VerificaUsuarioTask(int tipoVerificacao) {
             this.tipoVerificacao = tipoVerificacao;
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -192,11 +209,12 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             //TODO se enviado com sucesso limpa campos
             super.onPostExecute(resultadoLogin);
         }
+
     }
 
-//    private Usuario fazerLogin(String id, String senha) throws SQLException {
-//        return new WebService.validarLogin(id, senha);
-//    }
+    private Usuario verificaUsuario(String login, String senha) throws SQLException {
+        return new UsuarioDAO().retornaUsuarioLogin(login, senha);
+    }
 
     //Método usado para retornar informacoes atualizadas do usuário
     private Usuario verificaUsuario(String login) throws SQLException {

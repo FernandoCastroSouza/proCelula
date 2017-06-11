@@ -55,7 +55,7 @@ public class FormAvisoActivity extends ActionBarActivity implements View.OnClick
             case R.id.button_salvar:
                 if (verificaCampos()) {
                     Aviso aviso = new Aviso();
-                    aviso.setId_celula(celula.getId_celula());
+//                    aviso.setId_celula(celula.getId_celula());
                     aviso.setTitulo(getEditTextTitulo().getText().toString());
                     aviso.setConteudo(getEditTextConteudo().getText().toString());
 

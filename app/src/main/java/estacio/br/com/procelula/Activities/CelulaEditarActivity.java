@@ -23,7 +23,7 @@ public class CelulaEditarActivity  extends AppCompatActivity {
         ((EditText) findViewById(R.id.edittext_nome_lider)).setText(celula.getLider());
         //((Spinner) findViewById(R.id.data_celula))
         ((EditText) findViewById(R.id.horario_celula)).setText(celula.getHorario());
-        ((EditText) findViewById(R.id.edittext_local)).setText(celula.getLocal_celula());
+//        ((EditText) findViewById(R.id.edittext_local)).setText(celula.getLocal_celula());
         //((Spinner) findViewById(R.id.edittext_dia_jejum))
         //((Spinner) findViewById(R.id.edittext_dia_semana))
         ((EditText) findViewById(R.id.edittext_versiculo)).setText(celula.getVersiculo());

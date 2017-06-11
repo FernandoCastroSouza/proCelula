@@ -30,12 +30,12 @@ public class AvisoDAO {
                             "   FROM avisos                                          " +
                             " WHERE avisos_celula_id = ? ORDER BY id desc;            ");
 
-            statement.setInt(1, celula.getId_celula());
+//            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
             while (rs.next()) {
                 aviso = new Aviso();
-                aviso.setId_aviso(rs.getInt(1));
-                aviso.setId_celula(rs.getInt(2));
+//                aviso.setId_aviso(rs.getInt(1));
+//                aviso.setId_celula(rs.getInt(2));
                 aviso.setTitulo(rs.getString(3));
                 aviso.setConteudo(rs.getString(4));
                 avisos.add(aviso);
@@ -68,7 +68,7 @@ public class AvisoDAO {
         try {
             statement = conexao.prepareStatement(
                     " INSERT INTO avisos (avisos_celula_id, titulo, conteudo) values (?,?,?)");
-            statement.setInt   (1, aviso.getId_celula());
+//            statement.setInt   (1, aviso.getId_celula());
             statement.setString(2, aviso.getTitulo());
             statement.setString(3, aviso.getConteudo());
 
@@ -112,7 +112,7 @@ public class AvisoDAO {
             statement = conexao.prepareStatement(delCommand);
 
             for (int i = 1; i <= avisos.size(); i++) {
-                statement.setInt(i, avisos.get(i-1).getId_aviso());
+//                statement.setInt(i, avisos.get(i-1).getId_aviso());
             }
 
             int row = statement.executeUpdate();

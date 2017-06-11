@@ -59,12 +59,12 @@ public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements
 
     private void montaTelaProgramacao(Programacao programacao) {
         getTextview_nome_programacao().setText(programacao.getNome());
-        getTextview_data().setText(programacao.getData_prog());
+//        getTextview_data().setText(programacao.getData_prog());
         getTextview_horario().setText(programacao.getHorario());
         getTextview_telefone().setText(programacao.getTelefone());
         getTextview_valor().setText(programacao.getValor());
-        getTextview_mapa().setText(programacao.getLocal_prog());
-        getImage(programacao.getId_programacao());
+//        getTextview_mapa().setText(programacao.getLocal_prog());
+//        getImage(programacao.getId_programacao());
         //new mostraImagemProgramacaoTask().execute(programacao);
     }
 

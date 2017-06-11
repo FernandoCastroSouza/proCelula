@@ -109,7 +109,7 @@ public class CelulaActivity extends ActionBarActivity implements View.OnClickLis
         getLider().setText(celula.getLider());
         getDia().setText(celula.converteDiaCelula());
         getHorario().setText(celula.getHorario());
-        getLocal().setText(celula.getLocal_celula());
+//        getLocal().setText(celula.getLocal_celula());
         getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo()); //TODO relacionar numeros com dias da semana
         getVersiculo().setText("\"" + celula.getVersiculo() + "\"");
 //        new mostraImagemCelulaTask().execute();

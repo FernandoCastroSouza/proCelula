@@ -128,7 +128,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         Usuario usuario = new Usuario();
         usuario.setNome(getNome().getText().toString());
         usuario.setSobrenome(getSobrenome().getText().toString());
-        usuario.setDataNascimento(getDataNascimento().getText().toString());
+//        usuario.setDataNascimento(getDataNascimento().getText().toString());
         if (getCelulas().getSelectedItem() != null)
             usuario.setCelula((Celula) getCelulas().getSelectedItem());
         usuario.setLogin(getLogin().getText().toString());

@@ -33,17 +33,17 @@ public class ProgramacaoDAO {
                     "  WHERE programacoes_celula_id = ?                                        " +
                     " ORDER BY data desc;                                    ");
 
-            statement.setInt(1, celula.getId_celula());
+//            statement.setInt(1, celula.getId_celula());
             rs = statement.executeQuery();
 
             while (rs.next()) {
                 programacao = new Programacao();
-                programacao.setId_programacao(rs.getInt(1));
-                programacao.setId_celula(rs.getInt(2));
+//                programacao.setId_programacao(rs.getInt(1));
+//                programacao.setId_celula(rs.getInt(2));
                 programacao.setNome(rs.getString(3));
-                programacao.setData_prog(Utils.converteDataApp(rs.getString(4)));
+//                programacao.setData_prog(Utils.converteDataApp(rs.getString(4)));
                 programacao.setHorario(Utils.converteHoraApp(rs.getString(5)));
-                programacao.setLocal_prog(rs.getString(6));
+//                programacao.setLocal_prog(rs.getString(6));
                 programacao.setTelefone(rs.getString(7));
                 programacao.setValor(rs.getString(8));
                 programacoes.add(programacao);
@@ -85,7 +85,7 @@ public class ProgramacaoDAO {
                     "   FROM programacoes       " +
                     "  WHERE id = ? ");
 
-            statement.setInt(1, programacao.getId_programacao());
+//            statement.setInt(1, programacao.getId_programacao());
             rs = statement.executeQuery();
 
             if (rs.next()) {
@@ -126,11 +126,11 @@ public class ProgramacaoDAO {
             String sql =       " INSERT INTO programacoes (programacoes_celula_id, nome, data, horario, local, telefone, valor, imagem) " +
                             "values (?,?,?,?,?,?,?,?)";
             statement = conexao.prepareStatement(sql);
-            statement.setInt(1, programacao.getId_celula());
+//            statement.setInt(1, programacao.getId_celula());
             statement.setString(2, programacao.getNome());
-            statement.setString(3, programacao.getData_prog());
+//            statement.setString(3, programacao.getData_prog());
             statement.setString(4, programacao.getHorario());
-            statement.setString(5, programacao.getLocal_prog());
+//            statement.setString(5, programacao.getLocal_prog());
             statement.setString(6, programacao.getTelefone());
             statement.setString(7, programacao.getValor());
 
@@ -188,7 +188,7 @@ public class ProgramacaoDAO {
             statement = conexao.prepareStatement(delCommand);
 
             for (int i = 1; i <= programacoes.size(); i++) {
-                statement.setInt(i, programacoes.get(i-1).getId_programacao());
+//                statement.setInt(i, programacoes.get(i-1).getId_programacao());
             }
 
             int row = statement.executeUpdate();

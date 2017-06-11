@@ -204,7 +204,7 @@ public class DbHelper extends SQLiteOpenHelper {
             grupoEvangelistico.setId(cursor.getInt(cursor.getColumnIndex("ID")));
             grupoEvangelistico.setGes_celula_id(cursor.getInt(cursor.getColumnIndex("GES_CELULA_ID")));
             grupoEvangelistico.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
-            grupoEvangelistico.setDias(cursor.getInt(cursor.getColumnIndex("DIAS")));
+//            grupoEvangelistico.setDias(cursor.getInt(cursor.getColumnIndex("DIAS")));
 
             lista.add(grupoEvangelistico);
             System.gc();
@@ -222,7 +222,7 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("ID", grupoEvangelistico.getId());
         content.put("GES_CELULA_ID", grupoEvangelistico.getGes_celula_id());
         content.put("NOME", grupoEvangelistico.getNome());
-        content.put("DIAS", grupoEvangelistico.getDias());
+//        content.put("DIAS", grupoEvangelistico.getDias());
 
 
         db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);

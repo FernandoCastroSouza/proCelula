@@ -50,12 +50,12 @@ public class WebService {
 
         try {
             Response response = getClient().newCall(request).execute();
+            Log.i(String.format("sendRequest(%s)", response.toString()), "\nOlha para mim");
             return response.body().string();
         } catch (IOException e) {
             Log.i(String.format("sendRequest(%s)", request.url().toString()), "Error closing InputStream");
+            return null;
         }
-
-        return null;
     }
     public static String listarCelulas(){
         return sendRequest("celulas");

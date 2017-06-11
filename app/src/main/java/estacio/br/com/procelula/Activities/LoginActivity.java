@@ -54,7 +54,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         a = new Thread(new Runnable() {
             @Override
             public void run() {
-                Collection<Usuario> listaUsuarios = Usuario.retornaUsuarios();
+//                Collection<Usuario> listaUsuarios = Usuario.retornaUsuarios();
             }
         });
         a.start();

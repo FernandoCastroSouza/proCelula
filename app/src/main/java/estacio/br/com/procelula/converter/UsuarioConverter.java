@@ -15,14 +15,14 @@ public class UsuarioConverter {
     private ObjectMapper mapper = new ObjectMapper();
 
     public Usuario fromJson(JSONObject jsonObject) {
-        Usuario obj;
+        Usuario usuario;
         try {
-            obj = mapper.readValue(jsonObject.toString(), Usuario.class);
+            usuario = mapper.readValue(jsonObject.toString(), Usuario.class);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return obj;
+        return usuario;
     }
 
     public List<Usuario> fromJson(JSONArray jsonArray) {
@@ -35,9 +35,9 @@ public class UsuarioConverter {
                 e.printStackTrace();
                 continue;
             }
-            Usuario obj = fromJson(objectJson);
-            if (obj != null) {
-                list.add(obj);
+            Usuario usuario = fromJson(objectJson);
+            if (usuario != null) {
+                list.add(usuario);
             }
         }
         return list;

@@ -1,132 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/th_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/principalPrimary"
-        android:minHeight="16dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <Button
-                android:id="@+id/aviso"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/aviso" />
-
-
-            <estacio.br.com.procelula.Components.TitilliumWebBoldTextView
-                android:id="@+id/txtAviso"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/aviso"
-                android:layout_alignStart="@+id/aviso"
-                android:layout_below="@+id/aviso"
-                android:gravity="center"
-                android:lines="1"
-                android:text="Avisos"
-                android:textSize="10pt" />
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/programacao"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/aviso"
-                android:layout_marginRight="60dp"
-                android:background="@drawable/programacao" />
+                <RelativeLayout
+                    android:id="@+id/linear1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/linear1_2"
+                    android:background="@color/avisobg"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtProgramacao"
-                android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/btnAviso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/aviso" />
+
+                    <TextView
+                        android:id="@+id/txtAviso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnAviso"
+                        android:layout_alignStart="@+id/btnAviso"
+                        android:layout_below="@+id/btnAviso"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Avisos"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/linear1_2"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/programacaobg"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnProgramacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/programacao" />
+
+                    <TextView
+                        android:id="@+id/txtProgramacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnProgramacao"
+                        android:layout_alignStart="@+id/btnProgramacao"
+                        android:layout_below="@+id/btnProgramacao"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Programação"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/programacao"
-                android:layout_alignStart="@+id/programacao"
-                android:layout_below="@+id/programacao"
-                android:gravity="center"
-                android:lines="1"
-                android:text="Programações"
-                android:textSize="20dp" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linear1">
 
-            <Button
-                android:id="@+id/aniversariantes"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/txtAviso"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/aniversariante" />
+                <RelativeLayout
+                    android:id="@+id/linear2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/linear2_2"
+                    android:background="@color/aniversariantebg">
 
-            <TextView
-                android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/btnAniversariante"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/aniversariante" />
+
+                    <TextView
+                        android:id="@+id/txtAniversariante"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnAniversariante"
+                        android:layout_alignStart="@+id/btnAniversariante"
+                        android:layout_below="@+id/btnAniversariante"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Aniversariantes"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/linear2_2"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/gebg">
+
+                    <Button
+                        android:id="@+id/btnGe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/ge" />
+
+                    <TextView
+                        android:id="@+id/txtGe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnGe"
+                        android:layout_alignStart="@+id/btnGe"
+                        android:layout_below="@+id/btnGe"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Programação"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/aniversariantes"
-                android:layout_alignStart="@+id/aniversariantes"
-                android:layout_below="@+id/aniversariantes"
-                android:gravity="center"
-                android:lines="1"
-                android:text="Aniversariantes"
-                android:textSize="20dp" />
+                android:layout_below="@+id/linear2"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/ge"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/txtProgramacao"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ge" />
+                <RelativeLayout
+                    android:id="@+id/linear3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/linear3_2"
+                    android:background="@color/celulabg">
 
-            <TextView
-                android:id="@+id/txtGe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/ge"
-                android:layout_alignStart="@+id/ge"
-                android:layout_below="@+id/ge"
-                android:gravity="center"
-                android:lines="1"
-                android:text="GE's"
-                android:textSize="20dp" />
+                    <Button
+                        android:id="@+id/btnCelula"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/celula" />
 
-            <ImageView
-                android:id="@+id/celula"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/celula" />
+                    <TextView
+                        android:id="@+id/txtCelula"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnCelula"
+                        android:layout_alignStart="@+id/btnCelula"
+                        android:layout_below="@+id/btnCelula"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Programação"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:text="Célula"
-                android:textSize="20dp" />
+                </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/linear3_2"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/usuariobg">
 
+                    <Button
+                        android:id="@+id/btnUsuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/usuario" />
+
+                    <TextView
+                        android:id="@+id/txtUsuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/btnUsuario"
+                        android:layout_alignStart="@+id/btnUsuario"
+                        android:layout_below="@+id/btnUsuario"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="Programação"
+                        android:textColor="@color/white"
+                        android:textSize="19dp" />
+
+                </RelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_verde" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_azul" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_vermelho" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_amarelo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="@color/top_verde" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

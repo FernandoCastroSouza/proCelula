@@ -100,7 +100,7 @@ public class GEActivity extends ActionBarActivity {
         }
 
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
-            getMenuInflater().inflate(R.menu.menu_grupo_evangelistico, menu);
+//            getMenuInflater().inflate(R.menu.menu_grupo_evangelistico, menu);
         }
         return true;
     }

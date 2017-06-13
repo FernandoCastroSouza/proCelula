@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -15,22 +15,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import estacio.br.com.procelula.Dados.Aviso;
-import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.Dados.Celula;
+import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.Dao.UsuarioDAO;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.AdapterDelete;
-import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class UsuarioActivity extends ActionBarActivity{
+public class UsuarioActivity extends AppCompatActivity {
     public static final int REQUEST_SALVAR = 1;
     private static final String STATE_LISTA_USUARIOS = "STATE_LISTA_USUARIOS";
 
@@ -139,10 +137,12 @@ public class UsuarioActivity extends ActionBarActivity{
 
         getListViewUsuario().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             int selectionCounter;
+
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
             }
+
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete) getListViewUsuario().getAdapter()).limpaItensSelecionados();
@@ -190,11 +190,11 @@ public class UsuarioActivity extends ActionBarActivity{
 
                 } else {
                     selectionCounter--;
-                    ((AdapterDelete)getListViewUsuario().getAdapter()).removeSelection(position);
+                    ((AdapterDelete) getListViewUsuario().getAdapter()).removeSelection(position);
                 }
-                if (selectionCounter > 1){
+                if (selectionCounter > 1) {
                     mode.setTitle(selectionCounter + " Selecionados");
-                }else{
+                } else {
                     mode.setTitle(selectionCounter + " Selecionado");
                 }
             }
@@ -224,9 +224,9 @@ public class UsuarioActivity extends ActionBarActivity{
 
 
     private class PopulaUsuariosTask extends AsyncTask<Celula, Void, Integer> {//desisto kkkk ja fiz bastante arruma ai pra nois //kkkkk blz
-        private ProgressDialog progressDialog;
         private final int RETORNO_SUCESSO = 0; //
         private final int FALHA_SQLEXCEPTION = 1; // provavel falha de conexao
+        private ProgressDialog progressDialog;
 
         public PopulaUsuariosTask() {
             mListaUsuarios = new ArrayList<Usuario>();
@@ -235,7 +235,7 @@ public class UsuarioActivity extends ActionBarActivity{
         @Override
         protected Integer doInBackground(Celula... celulas) {
             try {
-                if( getSPCelula() != null){
+                if (getSPCelula() != null) {
                     mListaUsuarios = new UsuarioDAO().retornaUsuarios(celulas[0]);
                 }
             } catch (SQLException e) {
@@ -278,9 +278,6 @@ public class UsuarioActivity extends ActionBarActivity{
             super.onPostExecute(resultadoUsuario);
         }
     }
-
-
-
 
 
 }

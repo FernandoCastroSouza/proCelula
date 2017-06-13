@@ -1,195 +1,83 @@
 package estacio.br.com.procelula.Activities;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.HashMap;
-
-import estacio.br.com.procelula.BuildConfig;
 import estacio.br.com.procelula.R;
-import estacio.br.com.procelula.Utils.RequestHandler;
-import estacio.br.com.procelula.Utils.TipoMsg;
-import estacio.br.com.procelula.Utils.Utils;
 
-public class PrincipalActivity extends ActionBarActivity  {
+public class PrincipalActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String UPLOAD_URL = "http://vidasnoaltar.com/outros/sistema-celulas/api/versao";
-    private Button aviso;
-    private Button programacao;
-    private Button aniversariante;
-    private Button ge;
-    private Button celula;
-    private Button site;
-    private Toolbar mToolbar;
-
+    private Button btnAviso;
+    private Button btnProgramacao;
+    private Button btnAniversariante;
+    private Button btnGe;
+    private Button btnCelula;
+    private Button btnUsuario;
+    private TextView txtAviso;
+    private TextView txtProgramacao;
+    private TextView txtAniversariante;
+    private TextView txtGe;
+    private TextView txtCelula;
+    private TextView txtUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        //TODO implementar selector para efeito de click botoes tela principal
 
-//        aviso = (Button) findViewById(R.id.aviso);
-//        programacao = (Button) findViewById(R.id.programacao);
-//        aniversariante = (Button) findViewById(R.id.aniversariante);
-//        ge = (Button) findViewById(R.id.ge);
-//        celula = (Button) findViewById(R.id.celula);
-//
-//        mToolbar = (Toolbar) findViewById(R.id.th_main);
-//        mToolbar.setTitle("Pro Célula");
-//        setSupportActionBar(mToolbar);
-//
-//        new CheckVersao().execute();
+        btnAviso = (Button) findViewById(R.id.btnAviso);
+        btnProgramacao = (Button) findViewById(R.id.btnProgramacao);
+        btnAniversariante = (Button) findViewById(R.id.btnAniversariante);
+        btnGe = (Button) findViewById(R.id.btnGe);
+        btnCelula = (Button) findViewById(R.id.btnCelula);
+        btnUsuario = (Button) findViewById(R.id.btnUsuario);
+
+        txtAviso = (TextView) findViewById(R.id.txtAviso);
+        txtProgramacao = (TextView) findViewById(R.id.txtProgramacao);
+        txtAniversariante = (TextView) findViewById(R.id.txtAniversariante);
+        txtGe = (TextView) findViewById(R.id.txtGe);
+        txtCelula = (TextView) findViewById(R.id.txtCelula);
+        txtUsuario = (TextView) findViewById(R.id.txtUsuario);
+
+        btnAviso.setOnClickListener(this);
+        btnProgramacao.setOnClickListener(this);
+        btnAniversariante.setOnClickListener(this);
+        btnGe.setOnClickListener(this);
+        btnCelula.setOnClickListener(this);
+        btnUsuario.setOnClickListener(this);
+        txtAviso.setOnClickListener(this);
+        txtProgramacao.setOnClickListener(this);
+        txtAniversariante.setOnClickListener(this);
+        txtGe.setOnClickListener(this);
+        txtCelula.setOnClickListener(this);
+        txtUsuario.setOnClickListener(this);
     }
 
-    //Cria o menu da actionbar (barra no topo da tela)
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_principal, menu);
-        return true;
-    }
+    public void onClick(View v) {
 
-    //Método executado ao selecionar opção da actionbar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. TODO The action bar will <verificar necessidade>
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_sair) {
-            Utils.limpaSharedPreferences(this);
-            Intent intent = new Intent(this, LoginActivity.class);
+        if (v == btnAviso || v == txtAviso) {
+            Intent intent = new Intent(PrincipalActivity.this, AvisoActivity.class);
             startActivity(intent);
-            finish();
-            return true;
-        } else if (id == R.id.creditos) {
-            Utils.showMsgAlertOK(PrincipalActivity.this, "Créditos de Desenvolvimento", "Lucas Barque, Fernando, Vinicius e Jean\n Versão 1.1.1", TipoMsg.INFO);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-/*
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            switch (view.getId()) {
-                case R.id.aviso:
-                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso_pressed);
-                    break;
-                case R.id.aniversariante:
-                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante_pressed);
-                    break;
-            }
-            return true;
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            switch (view.getId()) {
-                case R.id.aviso:
-                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso);
-                    Intent intentAviso = new Intent(this, AvisoActivity.class);
-                    startActivity(intentAviso);
-                    break;
-
-                case R.id.programacao:
-                    Intent intentProgramacao = new Intent(this, ProgramacaoActivity.class);
-                    startActivity(intentProgramacao);
-                    break;
-
-                case R.id.aniversariante:
-                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante);
-                    Intent intentAniversariante = new Intent(this, AniversariantesActivity.class);
-                    startActivity(intentAniversariante);
-                    break;
-
-                case R.id.ge:
-                    Intent intentGE = new Intent(this, GEActivity.class);
-                    startActivity(intentGE);
-                    break;
-
-                case R.id.id_celula:
-                    Intent intentCelula = new Intent(this, CelulaActivity.class);
-                    startActivity(intentCelula);
-                    break;
-            }
-            return true;
-        } else {
-            switch (view.getId()) {
-                case R.id.aviso:
-                    ((ImageView) findViewById(R.id.imageview_aviso)).setImageResource(R.drawable.aviso);
-                    break;
-                case R.id.aniversariante:
-                    ((ImageView) findViewById(R.id.imageview_aniversariantes)).setImageResource(R.drawable.aniversariante);
-                    break;
-            }
-        }
-        return false;
-    }
-*/
-    private class CheckVersao extends AsyncTask<Void, Void, String> {
-        private final int RETORNO_SUCESSO = 0;
-        private final int RETORNO_FALHOU = 1;
-
-        ProgressDialog progressDialog;
-
-        private RequestHandler rh = new RequestHandler();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //mostra janela de progresso
-            progressDialog = ProgressDialog.show(PrincipalActivity.this, "Aguarde por favor", "Verificando dados...", true);
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            HashMap<String, String> data = new HashMap<>();
-
-            String result = rh.sendGetRequest(UPLOAD_URL);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String ultimaVersao) {
-            progressDialog.dismiss();
-            if (ultimaVersao != null) {
-                int versao = BuildConfig.VERSION_CODE;
-                if (!Integer.toString(versao).equals(ultimaVersao)) {
-                    Utils.mostraMensagemDialog(PrincipalActivity.this, "Por favor, atualize a versão do seu App para a mais recente.", "Atualizar",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                                    try {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                                    } catch (android.content.ActivityNotFoundException anfe) {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                                    }
-                                }
-                            });
-                }
-            }
-
-            super.onPostExecute(ultimaVersao);
+        } else if (v == btnProgramacao || v == txtProgramacao) {
+            Intent iProgramacao = new Intent(PrincipalActivity.this, ProgramacaoActivity.class);
+            startActivity(iProgramacao);
+        } else if (v == btnAniversariante || v == txtAniversariante) {
+            Intent intent = new Intent(PrincipalActivity.this, AniversariantesActivity.class);
+            startActivity(intent);
+        } else if (v == btnGe || v == txtGe) {
+            Intent intent = new Intent(PrincipalActivity.this, GEActivity.class);
+            startActivity(intent);
+        } else if (v == btnCelula || v == txtCelula) {
+            Intent intent = new Intent(PrincipalActivity.this, CelulaActivity.class);
+            startActivity(intent);
+        } else if (v == btnUsuario || v == txtUsuario) {
+            Intent intent = new Intent(PrincipalActivity.this, UsuarioActivity.class);
+            startActivity(intent);
         }
     }
-
-
 }

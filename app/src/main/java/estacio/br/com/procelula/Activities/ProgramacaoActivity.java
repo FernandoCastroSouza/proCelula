@@ -99,7 +99,7 @@ public class ProgramacaoActivity extends ActionBarActivity implements AdapterVie
         }
 
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
-            getMenuInflater().inflate(R.menu.menu_programacao, menu);
+//            getMenuInflater().inflate(R.menu.menu_programacao, menu);
         }
         return true;
     }

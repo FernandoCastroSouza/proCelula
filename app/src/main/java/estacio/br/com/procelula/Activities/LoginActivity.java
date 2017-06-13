@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ import estacio.br.com.procelula.Utils.Utils;
 import estacio.br.com.procelula.task.ListaUsuarioTask;
 import estacio.br.com.procelula.ws.WebService;
 
-public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String MINHAS_PREFERENCIAS = "MyPrefs";
     public static final String LOGIN_SP = "LOGIN"; //TODO passar constante para classe correspondente (usuario)

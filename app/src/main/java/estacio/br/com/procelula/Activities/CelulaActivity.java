@@ -3,6 +3,7 @@ package estacio.br.com.procelula.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.Utils;
 
 
-public class CelulaActivity extends ActionBarActivity implements View.OnClickListener {
+public class CelulaActivity extends AppCompatActivity implements View.OnClickListener {
     public static int RQ_EDITAR_CELULA = 1;
 
     private TextView nome;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -29,7 +30,7 @@ import estacio.br.com.procelula.Utils.AdapterDelete;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class GEActivity extends ActionBarActivity {
+public class GEActivity extends AppCompatActivity {
     public static final int REQUEST_SALVAR = 1;
     private static final String STATE_LISTA_GE = "STATE_LISTA_GE";
     private ListView listview_ge;

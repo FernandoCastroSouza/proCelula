@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +27,7 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class FormUsuarioActivity extends ActionBarActivity implements View.OnClickListener {
+public class FormUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText nome;
     private EditText sobrenome;

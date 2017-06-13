@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -34,7 +35,7 @@ import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 import estacio.br.com.procelula.ws.WebService;
 
-public class AvisoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
+public class AvisoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     public static final int REQUEST_SALVAR = 1;
     private static final String STATE_LISTA_AVISOS = "STATE_LISTA_AVISOS";
 

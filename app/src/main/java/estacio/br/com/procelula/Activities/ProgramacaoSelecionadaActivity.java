@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ import estacio.br.com.procelula.Dao.ProgramacaoDAO;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class ProgramacaoSelecionadaActivity extends ActionBarActivity implements View.OnClickListener {
+public class ProgramacaoSelecionadaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textview_nome_programacao;
     private TextView textview_data;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
 
-public class ProgramacaoActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class ProgramacaoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     public static final int REQUEST_SALVAR = 1;
     public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;

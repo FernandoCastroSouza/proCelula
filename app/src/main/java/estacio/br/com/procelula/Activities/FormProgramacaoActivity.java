@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextWatcher;
 import android.view.View;
@@ -24,7 +25,7 @@ import estacio.br.com.procelula.Utils.RequestHandler;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class FormProgramacaoActivity extends ActionBarActivity {
+public class FormProgramacaoActivity extends AppCompatActivity {
     private static final int ALTURA_MAX_IMAGEM = 200;
     private static final int LARGURA_MAX_IMAGEM = 200;
 

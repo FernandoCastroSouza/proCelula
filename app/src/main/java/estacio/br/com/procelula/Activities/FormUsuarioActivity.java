@@ -26,7 +26,7 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
-public class RegistrarActivity extends ActionBarActivity implements View.OnClickListener {
+public class FormUsuarioActivity extends ActionBarActivity implements View.OnClickListener {
 
     private EditText nome;
     private EditText sobrenome;
@@ -35,16 +35,16 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     private EditText login; //TODO definir padrao de login
     private EditText senha; //TODO definir padrao de senha
     private EditText confirma_senha;
-    private Button registrar;
+    private Button form_usuario;
     private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrar);
+        setContentView(R.layout.activity_form_usuario);
         new PopulaCelulasTask().execute();
         insereListeners();
-        mToolbar = (Toolbar) findViewById(R.id.th_add_registrar);
+        mToolbar = (Toolbar) findViewById(R.id.th_usuario);
         setSupportActionBar(mToolbar);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -57,14 +57,14 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
     }
 
     private void insereListeners() {
-        getRegistrar().setOnClickListener(this);
+        getSalvar().setOnClickListener(this);
         getDataNascimento().setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.registrar:
+            case R.id.salvar:
                 if (verificaDadosUsuario()) {
                     Usuario usuario = montaUsuario();
                     new InsereTask().execute(usuario);
@@ -146,7 +146,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         protected void onPreExecute() {
             super.onPreExecute();
             //mostra janela de progresso
-            progressDialog = ProgressDialog.show(RegistrarActivity.this, "Aguarde por favor", "Verificando dados...", true);
+            progressDialog = ProgressDialog.show(FormUsuarioActivity.this, "Aguarde por favor", "Verificando dados...", true);
         }
 
         @Override
@@ -172,12 +172,12 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case INSERCAO_SUCESSO:
-                    Utils.showMessageToast(RegistrarActivity.this, "Cadastrado com sucesso.");
+                    Utils.showMessageToast(FormUsuarioActivity.this, "Cadastrado com sucesso.");
                     setResult(RESULT_OK, getIntent());
                     finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.showMsgAlertOK(RegistrarActivity.this, "Erro de Conexão","Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(FormUsuarioActivity.this, "Erro de Conexão","Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);
@@ -200,7 +200,7 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             super.onPreExecute();
             celulas = new ArrayList<Celula>();
             //mostra janela de progresso
-            progressDialog = ProgressDialog.show(RegistrarActivity.this, "Carregando", "Verificando dados...", true);
+            progressDialog = ProgressDialog.show(FormUsuarioActivity.this, "Carregando", "Verificando dados...", true);
         }
 
         //metodo que executa as tarefas de acesso a banco e retorno das celulas em uma thread separada.
@@ -224,11 +224,11 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
             progressDialog.dismiss();
             switch (resultadoLogin) {
                 case RETORNO_SUCESSO:
-                    getCelulas().setAdapter(new ArrayAdapter<Celula>(RegistrarActivity.this, android.R.layout.simple_list_item_1, celulas));
+                    getCelulas().setAdapter(new ArrayAdapter<Celula>(FormUsuarioActivity.this, android.R.layout.simple_list_item_1, celulas));
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as celulas, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.showMsgAlertOK(RegistrarActivity.this,"Erro de Conexão", "Não foi possível carregar as células. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(FormUsuarioActivity.this,"Erro de Conexão", "Não foi possível carregar as células. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);
@@ -284,11 +284,11 @@ public class RegistrarActivity extends ActionBarActivity implements View.OnClick
         return confirma_senha;
     }
 
-    private Button getRegistrar() {
-        if (registrar == null) {
-            registrar = (Button) findViewById(R.id.registrar);
+    private Button getSalvar() {
+        if (form_usuario == null) {
+            form_usuario = (Button) findViewById(R.id.salvar);
         }
-        return registrar;
+        return form_usuario;
     }
 
 }

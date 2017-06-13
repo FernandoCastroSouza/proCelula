@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.RegistrarActivity"
+            android:name=".Activities.FormUsuarioActivity"
             android:label="@string/title_activity_registrar" />
         <activity
             android:name=".Activities.PrincipalActivity"

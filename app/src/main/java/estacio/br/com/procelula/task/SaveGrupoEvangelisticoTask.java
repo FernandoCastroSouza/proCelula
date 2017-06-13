@@ -6,27 +6,27 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import estacio.br.com.procelula.Activities.AvisoActivity;
-import estacio.br.com.procelula.Dados.Aviso;
+import estacio.br.com.procelula.Activities.GEActivity;
+import estacio.br.com.procelula.Dados.GrupoEvangelistico;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.ws.WebService;
 
-public class SaveAvisoTask extends AsyncTask<String, Object, Long> {
-    private final AvisoActivity activity;
-    private final Aviso aviso;
+public class SaveGrupoEvangelisticoTask extends AsyncTask<String, Object, Long> {
+    private final GEActivity activity;
+    private final GrupoEvangelistico grupoevangelistico;
 
     private static final String ID = "id";
 
-    public SaveAvisoTask(AvisoActivity activity, Aviso aviso) {
+    public SaveGrupoEvangelisticoTask(GEActivity activity, GrupoEvangelistico grupoevangelistico) {
         this.activity = activity;
-        this.aviso = aviso;
+        this.grupoevangelistico = grupoevangelistico;
     }
 
     @Override
     protected Long doInBackground(String... params) {
         try {
             WebService request = new WebService();
-            String jsonResult = request.save(aviso, "avisos");
+            String jsonResult = request.save(grupoevangelistico, "grupoevangelisticos");
             JSONObject jsonObject = new JSONObject(jsonResult);
             return jsonObject.getLong(ID);
         } catch (Exception e) {
@@ -37,10 +37,10 @@ public class SaveAvisoTask extends AsyncTask<String, Object, Long> {
     @Override
     protected void onPostExecute(Long id) {
         if (id == 0) {
-            Toast.makeText(activity, "Houve um erro ao salvar o aviso", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Houve um erro ao salvar o grupoevangelistico", Toast.LENGTH_LONG).show();
         } else {
             DbHelper dao = new DbHelper(activity);
-            dao.atualizarAviso(aviso);
+            dao.atualizarGrupoEvangelistico(grupoevangelistico);
             dao.close();
         }
         activity.finish();

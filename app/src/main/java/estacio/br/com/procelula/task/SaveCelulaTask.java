@@ -6,18 +6,18 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import estacio.br.com.procelula.Activities.LoginActivity;
+import estacio.br.com.procelula.Activities.CelulaActivity;
 import estacio.br.com.procelula.Dados.Celula;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.ws.WebService;
 
 public class SaveCelulaTask extends AsyncTask<String, Object, Long> {
-    private final LoginActivity activity;
+    private final CelulaActivity activity;
     private final Celula celula;
 
     private static final String ID = "id";
 
-    public SaveCelulaTask(LoginActivity activity, Celula celula) {
+    public SaveCelulaTask(CelulaActivity activity, Celula celula) {
         this.activity = activity;
         this.celula = celula;
     }

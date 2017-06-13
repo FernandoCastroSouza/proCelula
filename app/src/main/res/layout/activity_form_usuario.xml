@@ -104,13 +104,13 @@
                     android:hint="Digite novamente senha"/>
             </android.support.design.widget.TextInputLayout>
             <Button
-                android:id="@+id/registrar"
+                android:id="@+id/salvar"
                 android:layout_marginTop="10dp"
                 android:background="#4f88bf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Registrar"
+                android:text="Salvar"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"

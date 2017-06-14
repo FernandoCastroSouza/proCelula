@@ -39,14 +39,12 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
     private Celula celula;
     private Toolbar mToolbar;
     private ArrayList<Programacao> mListaProgramacoes;
-
     private ImageView imageViewListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programacao);
-
 
         if (savedInstanceState == null) {
             new PopulaProgramacoesTask().execute(getSPCelula());
@@ -62,12 +60,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
         mToolbar = (Toolbar) findViewById(R.id.th_programacao);
         mToolbar.setTitle("Programações");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private Celula getSPCelula() {
@@ -107,14 +100,17 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_adicionar) {
-            Intent intent = new Intent(this, FormProgramacaoActivity.class);
-            startActivityForResult(intent, REQUEST_SALVAR);
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_adicionar:
+                Intent intent = new Intent(this, FormProgramacaoActivity.class);
+                startActivityForResult(intent, REQUEST_SALVAR);
+            case android.R.id.home:
+                System.gc();
+                finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
+
     private void insereListeners() {
         int permissaoUsuario = 0;
         permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
@@ -124,7 +120,6 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
             getListViewProgramacao().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
             getListViewProgramacao().setSelected(true);
         }
-
 
 
         getListViewProgramacao().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -182,17 +177,18 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
 
                 } else {
                     selectionCounter--;
-                    ((AdapterDelete)getListViewProgramacao().getAdapter()).removeSelection(position);
+                    ((AdapterDelete) getListViewProgramacao().getAdapter()).removeSelection(position);
                 }
-                if (selectionCounter > 1){
+                if (selectionCounter > 1) {
                     mode.setTitle(selectionCounter + " Selecionados");
-                }else{
+                } else {
                     mode.setTitle(selectionCounter + " Selecionado");
                 }
 
             }
         });
     }
+
     //metodo responsável por buscar os dados das programacoes no banco (acesso remoto) e popular a lista de programacoes.
     private class PopulaProgramacoesTask extends AsyncTask<Celula, Void, Integer> {
         ArrayList<Programacao> programacoes;
@@ -212,7 +208,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
         protected Integer doInBackground(Celula... celulas) {
             try {
 
-                if( getSPCelula() != null){
+                if (getSPCelula() != null) {
                     mListaProgramacoes = new ProgramacaoDAO().retornaProgramacoes(celulas[0]);
                 }
             } catch (SQLException e) {
@@ -232,7 +228,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
                     if (mListaProgramacoes.size() > 0) {
                         getImageViewListaVazia().setVisibility(View.GONE);
                         getListViewProgramacao().setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         getImageViewListaVazia().setVisibility(View.VISIBLE);
                         getListViewProgramacao().setVisibility(View.GONE);
                     }
@@ -298,11 +294,11 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
                     Utils.showMessageToast(ProgramacaoActivity.this, "Programação(s) removida(s) com sucesso.");
-                    ((AdapterDelete)getListViewProgramacao().getAdapter()).removeItem();
+                    ((AdapterDelete) getListViewProgramacao().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
-                    Utils.showMsgAlertOK(ProgramacaoActivity.this,"Erro de Conexão", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(ProgramacaoActivity.this, "Erro de Conexão", "Não foi possível finalizar a operação. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoInsercao);
@@ -316,6 +312,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
         }
         return listview_programacoes;
     }
+
     private ImageView getImageViewListaVazia() {
         if (imageViewListaVazia == null) {
             imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);

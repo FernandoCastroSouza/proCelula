@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 
 
 import java.sql.SQLException;
@@ -47,13 +47,7 @@ public class FormUsuarioActivity extends AppCompatActivity implements View.OnCli
         insereListeners();
         mToolbar = (Toolbar) findViewById(R.id.th_usuario);
         setSupportActionBar(mToolbar);
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -178,7 +172,7 @@ public class FormUsuarioActivity extends AppCompatActivity implements View.OnCli
                     finish();
                     break;
                 case INSERCAO_FALHA_SQLEXCEPTION:
-                    Utils.showMsgAlertOK(FormUsuarioActivity.this, "Erro de Conexão","Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(FormUsuarioActivity.this, "Erro de Conexão", "Não foi possível finalizar o cadastro. Verifique sua conexão com a internet e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);
@@ -229,7 +223,7 @@ public class FormUsuarioActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar as celulas, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.showMsgAlertOK(FormUsuarioActivity.this,"Erro de Conexão", "Não foi possível carregar as células. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(FormUsuarioActivity.this, "Erro de Conexão", "Não foi possível carregar as células. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoLogin);
@@ -292,4 +286,13 @@ public class FormUsuarioActivity extends AppCompatActivity implements View.OnCli
         return form_usuario;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                System.gc();
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -11,8 +11,7 @@
         android:layout_height="?actionBarSize"
         app:title="Usuários"
         android:background="@color/avisosPrimary"
-        style="@style/Avisos"
-        />
+        style="@style/Avisos"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

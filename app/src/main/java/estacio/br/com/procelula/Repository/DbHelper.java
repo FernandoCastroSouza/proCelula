@@ -77,6 +77,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 "TOKEN TEXT(255) ," +
                 "CREATED DATETIME DEFAULT CURRENT_TIMESTAMP," +
                 "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
+        db.execSQL("CREATE TABLE TB_LOGIN (" +
+                "ID INTEGER PRIMARY KEY, " +
+                "LOGIN VARCHAR(100), " +
+                "SENHA VARCHAR(255)");
     }
 
     @Override

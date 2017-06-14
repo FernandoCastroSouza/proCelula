@@ -49,12 +49,7 @@ public class CelulaActivity extends AppCompatActivity implements View.OnClickLis
         mToolbar = (Toolbar) findViewById(R.id.th_celula);
         mToolbar.setTitle("Célula");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void insereListeners() {
@@ -79,18 +74,14 @@ public class CelulaActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_editar) {
-            Intent intent = new Intent(this, CelulaEditarActivity.class);
-            startActivityForResult(intent, RQ_EDITAR_CELULA);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_editar:
+                Intent intent = new Intent(this, CelulaEditarActivity.class);
+                startActivityForResult(intent, RQ_EDITAR_CELULA);
+            case android.R.id.home:
+                System.gc();
+                finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -105,7 +96,7 @@ public class CelulaActivity extends AppCompatActivity implements View.OnClickLis
 //        }
     }
 
-    private void montaTelaCelula(Celula celula){
+    private void montaTelaCelula(Celula celula) {
         getNome().setText(celula.getNome());
         getLider().setText(celula.getLider());
         getDia().setText(celula.converteDiaCelula());

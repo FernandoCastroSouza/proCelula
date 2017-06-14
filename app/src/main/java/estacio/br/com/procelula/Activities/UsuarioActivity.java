@@ -56,13 +56,7 @@ public class UsuarioActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.th_usuario);
         mToolbar.setTitle("Usuarios");
         setSupportActionBar(mToolbar);
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int permissaoUsuario = 0;
         try {
@@ -115,13 +109,16 @@ public class UsuarioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_adicionar) {
-            Intent intent = new Intent(this, FormUsuarioActivity.class);
-            startActivityForResult(intent, REQUEST_SALVAR);
-            getListViewUsuario().setChoiceMode(getListViewUsuario().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de usuarios
-            return true;
-        }
+        switch (item.getItemId()) {
+            case R.id.action_adicionar:
+                Intent intent = new Intent(this, FormUsuarioActivity.class);
+                startActivityForResult(intent, REQUEST_SALVAR);
+                getListViewUsuario().setChoiceMode(getListViewUsuario().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de usuarios
 
+            case android.R.id.home:
+                System.gc();
+                finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 

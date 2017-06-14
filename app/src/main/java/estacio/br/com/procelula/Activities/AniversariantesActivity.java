@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.ArrayAdapter;
@@ -39,13 +40,9 @@ public class AniversariantesActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.th_aniversariante);
         mToolbar.setTitle("Aniversariantes");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     private Celula getSPCelula() {
         return Utils.retornaCelulaSharedPreferences(this);
     }
@@ -65,9 +62,10 @@ public class AniversariantesActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(Celula... celulas) {
-            try {if(celulas.length > 0){
-                aniversariantes = new UsuarioDAO().retornaAniversariantes(celulas[0]);
-            }
+            try {
+                if (celulas.length > 0) {
+                    aniversariantes = new UsuarioDAO().retornaAniversariantes(celulas[0]);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return FALHA_SQLEXCEPTION;
@@ -84,7 +82,7 @@ public class AniversariantesActivity extends AppCompatActivity {
                     if (aniversariantes.size() > 0) {
                         getImageViewListaVazia().setVisibility(View.GONE);
                         getListViewAniversariantes().setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         getImageViewListaVazia().setVisibility(View.VISIBLE);
                         getListViewAniversariantes().setVisibility(View.GONE);
                     }
@@ -92,7 +90,7 @@ public class AniversariantesActivity extends AppCompatActivity {
 
                     break;
                 case FALHA_SQLEXCEPTION:
-                    Utils.showMsgAlertOK(AniversariantesActivity.this,"ERRO", "Não foi possível carregar os aniversariantes. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(AniversariantesActivity.this, "ERRO", "Não foi possível carregar os aniversariantes. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultado);
@@ -105,10 +103,21 @@ public class AniversariantesActivity extends AppCompatActivity {
         }
         return listview_aniversariantes;
     }
+
     private ImageView getImageViewListaVazia() {
         if (imageViewListaVazia == null) {
             imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
         }
         return imageViewListaVazia;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                System.gc();
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

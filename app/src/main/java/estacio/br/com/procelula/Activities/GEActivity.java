@@ -45,7 +45,6 @@ public class GEActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ge);
 
-
         celula = Utils.retornaCelulaSharedPreferences(this);
 
         if (savedInstanceState == null) {
@@ -62,13 +61,9 @@ public class GEActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.th_ge);
         mToolbar.setTitle("Grupo Evangelístico");
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     private Celula getSPCelula() {
         return Utils.retornaCelulaSharedPreferences(this);
     }
@@ -88,7 +83,6 @@ public class GEActivity extends AppCompatActivity {
             new PopulaGruposEvangelisticosTask().execute(celula);
         }
     }
-
 
 
     @Override
@@ -111,13 +105,23 @@ public class GEActivity extends AppCompatActivity {
         int permissaoUsuario = 0;
         permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
-            if (item.getItemId() == R.id.action_adicionar) {
-                android.content.Intent intent = new Intent(this, FormGEActivity.class);
-                startActivityForResult(intent, REQUEST_SALVAR);
-                getListViewGE().setChoiceMode(getListViewGE().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de ge
-                return true;
+            switch (item.getItemId()) {
+                case R.id.action_adicionar:
+                    android.content.Intent intent = new Intent(this, FormGEActivity.class);
+                    startActivityForResult(intent, REQUEST_SALVAR);
+                    getListViewGE().setChoiceMode(getListViewGE().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de ge
+                case android.R.id.home:
+                    System.gc();
+                    finish();
+            }
+        } else {
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    System.gc();
+                    finish();
             }
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -191,11 +195,11 @@ public class GEActivity extends AppCompatActivity {
 
                 } else {
                     selectionCounter--;
-                    ((AdapterDelete)getListViewGE().getAdapter()).removeSelection(position);
+                    ((AdapterDelete) getListViewGE().getAdapter()).removeSelection(position);
                 }
-                if (selectionCounter > 1){
+                if (selectionCounter > 1) {
                     mode.setTitle(selectionCounter + " Selecionados");
-                }else{
+                } else {
                     mode.setTitle(selectionCounter + " Selecionado");
                 }
 
@@ -210,6 +214,7 @@ public class GEActivity extends AppCompatActivity {
         }
         return listview_ge;
     }
+
     //responsavel pela remocao dos avisos selecionados do banco e atualizacao da tela
     private class RemoveGETask extends AsyncTask<Void, Void, Integer> {
         ProgressDialog progressDialog;
@@ -256,7 +261,7 @@ public class GEActivity extends AppCompatActivity {
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
                     Utils.showMessageToast(GEActivity.this, "GE(s) removido(s) com sucesso!");
-                    ((AdapterDelete)getListViewGE().getAdapter()).removeItem();
+                    ((AdapterDelete) getListViewGE().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
@@ -275,7 +280,7 @@ public class GEActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Celula... celulas) {
             try {
-                if(celulas.length > 0){
+                if (celulas.length > 0) {
                     mListaGE = new GrupoEvangelisticoDAO().retornaGruposEvangelisticos(celulas[0]);
                 }
             } catch (SQLException e) {
@@ -304,7 +309,7 @@ public class GEActivity extends AppCompatActivity {
                     if (mListaGE.size() > 0) {
                         getImageViewListaVazia().setVisibility(View.GONE);
                         getListViewGE().setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         getImageViewListaVazia().setVisibility(View.VISIBLE);
                         getListViewGE().setVisibility(View.GONE);
                     }
@@ -312,12 +317,13 @@ public class GEActivity extends AppCompatActivity {
                     break;
                 case FALHA_SQLEXCEPTION:
                     //nao foi possivel carregar os ges, sendo assim uma mensagem de erro eh exibida e a tela eh encerrada
-                    Utils.showMsgAlertOK(GEActivity.this,"Erro", "Não foi possível carregar os Grupos Evangelísticos. Verifique sua conexão e tente novamente.",TipoMsg.ERRO);
+                    Utils.showMsgAlertOK(GEActivity.this, "Erro", "Não foi possível carregar os Grupos Evangelísticos. Verifique sua conexão e tente novamente.", TipoMsg.ERRO);
                     break;
             }
             super.onPostExecute(resultadoAviso);
         }
     }
+
     private ImageView getImageViewListaVazia() {
         if (imageViewListaVazia == null) {
             imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);

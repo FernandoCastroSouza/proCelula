@@ -35,7 +35,7 @@ import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 import estacio.br.com.procelula.ws.WebService;
 
-public class AvisoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class AvisoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     public static final int REQUEST_SALVAR = 1;
     private static final String STATE_LISTA_AVISOS = "STATE_LISTA_AVISOS";
 
@@ -63,13 +63,7 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
         mToolbar = (Toolbar) findViewById(R.id.th_aviso);
         mToolbar.setTitle("Avisos");
         setSupportActionBar(mToolbar);
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int permissaoUsuario = 0;
         try {
@@ -122,13 +116,15 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_adicionar) {
-            Intent intent = new Intent(this, FormAvisoActivity.class);
-            startActivityForResult(intent, REQUEST_SALVAR);
-            getListViewAviso().setChoiceMode(getListViewAviso().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de avisos
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_adicionar:
+                Intent intent = new Intent(this, FormAvisoActivity.class);
+                startActivityForResult(intent, REQUEST_SALVAR);
+                getListViewAviso().setChoiceMode(getListViewAviso().getChoiceMode()); //Acerto para cancelar o modo de selecao da lista quando o usuario entra na insercao de avisos
+            case android.R.id.home:
+                System.gc();
+                finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -138,16 +134,18 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
 
         getListViewAviso().setOnItemClickListener(this);
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
-        getListViewAviso().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            getListViewAviso().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
             getListViewAviso().setSelected(true);
         }
 
         getListViewAviso().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             int selectionCounter;
+
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
             }
+
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 ((AdapterDelete) getListViewAviso().getAdapter()).limpaItensSelecionados();
@@ -188,18 +186,18 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode,
-                int position, long id, boolean checked) {
+                                                  int position, long id, boolean checked) {
                 if (checked) {
                     selectionCounter++;
                     ((AdapterDelete) getListViewAviso().getAdapter()).selectedItem(position, position);
 
                 } else {
                     selectionCounter--;
-                    ((AdapterDelete)getListViewAviso().getAdapter()).removeSelection(position);
+                    ((AdapterDelete) getListViewAviso().getAdapter()).removeSelection(position);
                 }
-                if (selectionCounter > 1){
+                if (selectionCounter > 1) {
                     mode.setTitle(selectionCounter + " Selecionados");
-                }else{
+                } else {
                     mode.setTitle(selectionCounter + " Selecionado");
                 }
             }
@@ -239,7 +237,7 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
         @Override
         protected Integer doInBackground(Celula... celulas) {
             try {
-                if( getSPCelula() != null){
+                if (getSPCelula() != null) {
                     mListaAvisos = new AvisoDAO().retornaAvisos(celulas[0]);
                 }
             } catch (SQLException e) {
@@ -257,30 +255,30 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
 
         @Override
         protected void onPostExecute(Integer resultadoAviso) {
-        progressDialog.dismiss();
-        switch (resultadoAviso) {
-            case RETORNO_SUCESSO:
-                if (mListaAvisos.size() > 0) {
-                    getImageViewListaVazia().setVisibility(View.GONE);
-                    getListViewAviso().setVisibility(View.VISIBLE);
-                } else {
-                    getImageViewListaVazia().setVisibility(View.VISIBLE);
-                    getListViewAviso().setVisibility(View.GONE);
-                }
-                getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), mListaAvisos));
-                break;
-            case FALHA_SQLEXCEPTION:
-                Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível carregar os avisos. Verifique sua conexão e tente novamente.",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                            }
-                        });
-                break;
+            progressDialog.dismiss();
+            switch (resultadoAviso) {
+                case RETORNO_SUCESSO:
+                    if (mListaAvisos.size() > 0) {
+                        getImageViewListaVazia().setVisibility(View.GONE);
+                        getListViewAviso().setVisibility(View.VISIBLE);
+                    } else {
+                        getImageViewListaVazia().setVisibility(View.VISIBLE);
+                        getListViewAviso().setVisibility(View.GONE);
+                    }
+                    getListViewAviso().setAdapter(new AdapterDelete<Aviso>(getApplicationContext(), mListaAvisos));
+                    break;
+                case FALHA_SQLEXCEPTION:
+                    Utils.mostraMensagemDialog(AvisoActivity.this, "Não foi possível carregar os avisos. Verifique sua conexão e tente novamente.",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
+                    break;
+            }
+            super.onPostExecute(resultadoAviso);
         }
-        super.onPostExecute(resultadoAviso);
-    }
     }
 
     //responsavel pela remocao dos avisos selecionados do banco e atualizacao da tela
@@ -329,7 +327,7 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
             switch (resultadoInsercao) {
                 case DELETE_SUCESSO:
                     Utils.showMessageToast(AvisoActivity.this, "Aviso removido com sucesso!");
-                    ((AdapterDelete)getListViewAviso().getAdapter()).removeItem();
+                    ((AdapterDelete) getListViewAviso().getAdapter()).removeItem();
                     tarefa.run();
                     break;
                 case DELETE_FALHA_SQLEXCEPTION:
@@ -345,11 +343,10 @@ public class AvisoActivity extends AppCompatActivity implements AdapterView.OnIt
         Aviso avisoSelecionado = (Aviso) adapterView.getItemAtPosition(pos);
         switch (adapterView.getId()) {
             case R.id.avisoslist:
-                Utils.showMsgAlertOK(AvisoActivity.this,avisoSelecionado.getTitulo(), avisoSelecionado.getConteudo(),TipoMsg.INFO);
+                Utils.showMsgAlertOK(AvisoActivity.this, avisoSelecionado.getTitulo(), avisoSelecionado.getConteudo(), TipoMsg.INFO);
                 break;
         }
     }
-
 
 
 }

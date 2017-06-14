@@ -87,7 +87,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
     public boolean onCreateOptionsMenu(Menu menu) {
         int permissaoUsuario = 0;
         try {
-            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,7 +113,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
 
     private void insereListeners() {
         int permissaoUsuario = 0;
-        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
 
         getListViewProgramacao().setOnItemClickListener(this);
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {

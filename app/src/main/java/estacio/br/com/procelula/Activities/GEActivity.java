@@ -89,7 +89,7 @@ public class GEActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         int permissaoUsuario = 0;
         try {
-            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class GEActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int permissaoUsuario = 0;
-        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
             switch (item.getItemId()) {
                 case R.id.action_adicionar:
@@ -127,7 +127,7 @@ public class GEActivity extends AppCompatActivity {
 
     private void insereListeners() {
         int permissaoUsuario = 0;
-        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
             getListViewGE().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
             getListViewGE().setSelected(true);

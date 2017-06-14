@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import estacio.br.com.procelula.R;
+import estacio.br.com.procelula.Repository.DbHelper;
+import estacio.br.com.procelula.Utils.Utils;
 
 public class PrincipalActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,6 +57,9 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         txtGe.setOnClickListener(this);
         txtCelula.setOnClickListener(this);
         txtUsuario.setOnClickListener(this);
+
+        DbHelper db = new DbHelper(this);
+        Utils.showMessageToast(this, db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN"));
     }
 
     @Override

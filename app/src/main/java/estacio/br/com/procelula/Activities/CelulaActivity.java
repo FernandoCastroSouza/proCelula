@@ -61,7 +61,7 @@ public class CelulaActivity extends AppCompatActivity implements View.OnClickLis
         // Inflate the menu; this adds items to the action bar if it is present.
         int permissaoUsuario = 0;
         try {
-            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
+//            permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
         } catch (Exception e) {
             e.printStackTrace();
         }

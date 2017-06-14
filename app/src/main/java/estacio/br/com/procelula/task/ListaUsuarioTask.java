@@ -1,6 +1,7 @@
 package estacio.br.com.procelula.task;
 
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -16,9 +17,27 @@ import estacio.br.com.procelula.ws.WebService;
 
 public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
     private final LoginActivity activity;
+    private ProgressDialog alert;
 
     public ListaUsuarioTask(LoginActivity activity) {
         this.activity = activity;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        DbHelper dao = new DbHelper(activity);
+        if (dao.contagem("SELECT COUNT(*) FROM TB_USUARIOS") <= 0) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    alert = new ProgressDialog(activity);
+                    alert.setCancelable(false);
+                    alert.setTitle("Aguarde um momento");
+                    alert.setMessage("Estamos sincronizando suas informações");
+                    alert.show();
+                }
+            });
+        }
     }
 
     @Override
@@ -36,6 +55,7 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
                 dao.close();
             } else {
                 System.out.println("O objeto acabou ficando vazio!");
+                return false;
             }
             return true;
         } catch (Exception e) {
@@ -46,8 +66,18 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean statusOK) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    alert.dismiss();
+                } catch (NullPointerException e) {
+                    System.out.println("Alert esta nulo");
+                }
+            }
+        });
         if (!statusOK) {
-            Toast.makeText(activity, "Houve um erro ao obter a lista de clientes", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Houve um erro de conexão", Toast.LENGTH_LONG).show();
         }
     }
 }

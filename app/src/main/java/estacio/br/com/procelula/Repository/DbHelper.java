@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -81,7 +83,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE TB_LOGIN (" +
                 "ID INTEGER PRIMARY KEY, " +
                 "LOGIN VARCHAR(100), " +
-                "SENHA VARCHAR(255)");
+                "SENHA VARCHAR(255)," +
+                "USUARIOS_CELULA_ID INTEGER)");
     }
 
     @Override
@@ -331,6 +334,22 @@ public class DbHelper extends SQLiteOpenHelper {
             } else {
                 db.insert("TB_USUARIOS", null, content);
             }
+        }
+    }
+
+    public void atualizarLogin(int id, String login, String senha, int idCelula) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues content = new ContentValues();
+
+        content.put("ID", id);
+        content.put("LOGIN", login);
+        content.put("SENHA", senha);
+        content.put("USUARIOS_CELULA_ID", idCelula);
+
+        if (contagem("SELECT COUNT(*) FROM TB_LOGIN") > 0) {
+            db.update("TB_LOGIN", content, "ID = " + id, null);
+        } else {
+            db.insert("TB_LOGIN", null, content);
         }
     }
 }

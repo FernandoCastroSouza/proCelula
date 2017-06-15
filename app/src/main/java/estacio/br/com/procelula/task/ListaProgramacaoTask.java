@@ -1,6 +1,7 @@
 package estacio.br.com.procelula.task;
 
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -16,16 +17,36 @@ import estacio.br.com.procelula.ws.WebService;
 
 public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
     private final LoginActivity activity;
+    private ProgressDialog alert;
+    private int celulaId;
 
-    public ListaProgramacaoTask(LoginActivity activity) {
+    public ListaProgramacaoTask(LoginActivity activity, int celulaId) {
         this.activity = activity;
+        this.celulaId = celulaId;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        DbHelper dao = new DbHelper(activity);
+        if (dao.contagem("SELECT COUNT(*) FROM TB_AVISOS") <= 0) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    alert = new ProgressDialog(activity);
+                    alert.setCancelable(false);
+                    alert.setTitle("Aguarde um momento");
+                    alert.setMessage("Estamos sincronizando suas informações");
+                    alert.show();
+                }
+            });
+        }
     }
 
     @Override
     protected Boolean doInBackground(String... params) {
         try {
             WebService request = new WebService();
-            String jsonResult = request.listAll("programacoes");
+            String jsonResult = request.listByCelula("programacoes", celulaId);
             JSONArray jsonArray = new JSONArray(jsonResult);
             List<Programacao> programacoes = new ProgramacaoConverter().fromJson(jsonArray);
             if (programacoes != null && !programacoes.isEmpty()) {

@@ -58,8 +58,6 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
         txtCelula.setOnClickListener(this);
         txtUsuario.setOnClickListener(this);
 
-        DbHelper db = new DbHelper(this);
-        Utils.showMessageToast(this, db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN"));
     }
 
     @Override
@@ -81,8 +79,14 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             Intent intent = new Intent(PrincipalActivity.this, CelulaActivity.class);
             startActivity(intent);
         } else if (v == btnUsuario || v == txtUsuario) {
-            Intent intent = new Intent(PrincipalActivity.this, UsuarioActivity.class);
+            Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
+            DbHelper db = new DbHelper(this);
+            db.alterar("DELETE FROM TB_LOGIN;");
+            db.close();
             startActivity(intent);
+            finish();
         }
+
+
     }
 }

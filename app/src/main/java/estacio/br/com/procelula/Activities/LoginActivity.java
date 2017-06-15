@@ -30,15 +30,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final DbHelper db = new DbHelper(this);
-        /*System.out.println("SELECT SENHA FROM TB_USUARIO WHERE LOGIN = '" + db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN") + "'");
-        if (db.contagem("SELECT COUNT(*) TB_LOGIN") > 0) {
-            if (db.consulta("SELECT SENHA FROM TB_USUARIO WHERE LOGIN = '" + db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN") + "'", "SENHA")
-                    .equals(db.consulta("SELECT SENHA FROM TB_LOGIN;", "SENHA"))) {
-                Utils.showMessageToast(this, "Logou automatico");
-            } else {
-                Utils.showMessageToast(this, "Deu ruim");
+        try {
+            if (db.contagem("SELECT COUNT(*) TB_LOGIN") > 0) {
+                if (db.consulta("SELECT SENHA FROM TB_USUARIOS WHERE LOGIN = '" + db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN") + "'", "SENHA")
+                        .equals(db.consulta("SELECT SENHA FROM TB_LOGIN;", "SENHA"))) {
+                    Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
+                    startActivity(intent);
+                    System.gc();
+                    finish();
+                } else {
+                    Utils.showMessageToast(this, "Deu ruim");
+                }
             }
-        }*/
+        } catch (CursorIndexOutOfBoundsException e) {
+            System.out.println("Nenhum usuario logado!");
+        }
 
         edtLogin = (EditText) findViewById(R.id.edittext_login);
         edtSenha = (EditText) findViewById(R.id.edittext_senha);
@@ -53,9 +59,11 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         if (db.consulta("SELECT SENHA FROM TB_USUARIOS WHERE LOGIN = '" + edtLogin.getText().toString().trim() + "'", "SENHA").equals(edtSenha.getText().toString().trim())) {
                             Intent intent = new Intent(LoginActivity.this, PrincipalActivity.class);
-                            startActivity(intent);
                             Usuario usuario = db.listaUsuario("SELECT * FROM TB_USUARIOS WHERE LOGIN = '" + edtLogin.getText().toString().trim() + "'").get(0);
                             db.atualizarLogin(usuario.getId(), usuario.getLogin(), usuario.getSenha(), usuario.getUsuarios_celula_id());
+                            db.close();
+                            startActivity(intent);
+                            finish();
                         } else {
                             if (!edtSenha.getText().toString().trim().isEmpty()) {
                                 edtSenha.setError("Senha incorreta");

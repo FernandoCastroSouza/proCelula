@@ -46,13 +46,15 @@ public class AvisoActivity extends AppCompatActivity {
 
         final int celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
 
-        List<Aviso> avisosLst = db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
+        System.out.println(db.contagem("SELECT COUNT(*) FROM TB_AVISOS"));
+
+        /*List<Aviso> avisosLst = db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
 
         ArrayAdapter<Aviso> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, avisosLst);
 
        lstAvisos.setAdapter(adapter);
-
+*/
         System.out.println("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
         System.out.println(db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid));
 

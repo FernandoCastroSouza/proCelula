@@ -27,15 +27,15 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF EXISTS  TB_AVISOS (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS TB_AVISOS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "AVISOS_CELULA_ID INTEGER," +
                 "TITULO TEXT(255) ," +
                 "CONTEUDO TEXT , " +
-                "CREATED DATETIME DEFAULT CURRENT_TIMESTAMP," +
-                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP)");
+                "CREATED DATETIME ," +
+                "MODIFIED DATETIME)");
 
-        db.execSQL("CREATE TABLE IF EXISTS  TB_CELULAS (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS  TB_CELULAS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "ID_USUARIO INTEGER," +
                 "NOME TEXT(255) ," +
@@ -47,13 +47,13 @@ public class DbHelper extends SQLiteOpenHelper {
                 "PERIODO TEXT(50) ," +
                 "VERSICULO TEXT )");
 
-        db.execSQL("CREATE TABLE IF EXISTS  TB_GES (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS  TB_GES (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "GES_CELULA_ID INTEGER," +
                 "NOME TEXT(255) ," +
                 "DIAS INT(3) )");
 
-        db.execSQL("CREATE TABLE IF EXISTS  TB_PROGRAMACOES (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS  TB_PROGRAMACOES (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "PROGRAMACOES_CELULA_ID INTEGER," +
                 "NOME TEXT(50) ," +
@@ -63,7 +63,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "TELEFONE TEXT(20) ," +
                 "VALOR TEXT(20) )");
 
-        db.execSQL("CREATE TABLE IF EXISTS  TB_USUARIOS (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS  TB_USUARIOS (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "USUARIOS_CELULA_ID INTEGER," +
                 "NOME TEXT(255) ," +
@@ -74,10 +74,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 "NASCIMENTO DATE ," +
                 "PERFIL INTEGER(1) ," +
                 "TOKEN TEXT(255) ," +
-                "CREATED DATETIME DEFAULT CURRENT_TIMESTAMP," +
-                "MODIFIED DATETIME DEFAULT CURRENT_TIMESTAMP)");
+                "CREATED DATETIME," +
+                "MODIFIED DATETIME)");
 
-        db.execSQL("CREATE TABLE IF EXISTS TB_LOGIN (" +
+        db.execSQL("CREATE TABLE IF NOT EXISTS TB_LOGIN (" +
                 "ID INTEGER PRIMARY KEY, " +
                 "LOGIN VARCHAR(100), " +
                 "SENHA VARCHAR(255)," +
@@ -256,6 +256,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
 
+        content.put("ID", aviso.getId());
         content.put("AVISOS_CELULA_ID", aviso.getAvisos_celula_id());
         content.put("TITULO", aviso.getTitulo());
         content.put("CONTEUDO", aviso.getConteudo());

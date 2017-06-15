@@ -51,7 +51,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "GES_CELULA_ID INTEGER," +
                 "NOME TEXT(255) ," +
-                "DIAS INT(3) )");
+                "DIAS INT(3), " +
+                "DATA VARCHAR(10))");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS  TB_PROGRAMACOES (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -181,6 +182,7 @@ public class DbHelper extends SQLiteOpenHelper {
             grupoEvangelistico.setId(cursor.getInt(cursor.getColumnIndex("ID")));
             grupoEvangelistico.setGes_celula_id(cursor.getInt(cursor.getColumnIndex("GES_CELULA_ID")));
             grupoEvangelistico.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
+            grupoEvangelistico.setData((cursor.getString(cursor.getColumnIndex("DATA"))));
 //            grupoEvangelistico.setDias(cursor.getInt(cursor.getColumnIndex("DIAS")));
 
             lista.add(grupoEvangelistico);
@@ -281,11 +283,14 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("JEJUM", celula.getDia());
         content.put("PERIODO", celula.getPeriodo());
         content.put("VERSICULO", celula.getVersiculo());
-
-        if (contagem("SELECT COUNT(*) FROM TB_CELULAS") > 0) {
-            db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
-        } else {
+        if (celula.getId() < 0) {
             db.insert("TB_CELULAS", null, content);
+        } else {
+            if (contagem("SELECT COUNT(*) FROM TB_CELULAS WHERE ID = " + String.valueOf(celula.getId())) > 0) {
+                db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
+            } else {
+                db.insert("TB_CELULAS", null, content);
+            }
         }
     }
 
@@ -296,10 +301,19 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("ID", grupoEvangelistico.getId());
         content.put("GES_CELULA_ID", grupoEvangelistico.getGes_celula_id());
         content.put("NOME", grupoEvangelistico.getNome());
+        content.put("DATA", grupoEvangelistico.getData());
 //        content.put("DIAS", grupoEvangelistico.getDias());
-        db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);
-    }
 
+        if (grupoEvangelistico.getId() < 0) {
+            db.insert("TB_GES", null, content);
+        } else {
+            if (contagem("SELECT COUNT(*) FROM TB_GES WHERE ID = " + String.valueOf(grupoEvangelistico.getId())) > 0) {
+                db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);
+            } else {
+                db.insert("TB_GES", null, content);
+            }
+        }
+    }
 
 
     public void atualizarProgramacao(Programacao programacao) {

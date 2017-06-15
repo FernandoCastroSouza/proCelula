@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_ge"
+        style="@style/Avisos"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:title="Grupo Evangelístico"
         android:background="@color/gePrimaryDark"
-        style="@style/Avisos"
-        />
+        app:title="Grupo Evangelístico" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,31 +30,31 @@
             <ImageView
                 android:id="@+id/imageview_lista_vazia"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ge_erro"/>
+                android:src="@drawable/ge_erro"
+                android:visibility="gone" />
+
             <ListView
+                android:id="@+id/listview_ge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
                 android:divider="#979797"
-                android:dividerHeight="2dp"
-                android:id="@+id/listview_ge" />
+                android:dividerHeight="2dp" />
 
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add_ge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/add"
-                app:elevation="10dp"
-                android:clickable="true"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                android:src="@drawable/add"
                 app:backgroundTint="@color/principalPrimary"
-                />
+                app:elevation="10dp" />
         </RelativeLayout>
 
     </LinearLayout>

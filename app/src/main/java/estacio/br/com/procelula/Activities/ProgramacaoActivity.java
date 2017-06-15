@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.List;
 
-import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Programacao;
 import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.R;
@@ -32,6 +32,7 @@ public class ProgramacaoActivity extends AppCompatActivity {
     public static final int REQUEST_SALVAR = 1;
     public static final String PROGRAMACAO_SELECIONADA = "programacao_selecionada";
     private ListView listview_programacoes;
+    private ImageView imageview_lista_vazia;
     private Toolbar mToolbar;
     private int celulaid = 0;
     final DbHelper db = new DbHelper(this);
@@ -161,6 +162,8 @@ public class ProgramacaoActivity extends AppCompatActivity {
             });
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela avisos vazia!");
+            imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
+            imageview_lista_vazia.setVisibility(View.VISIBLE);
         }
         a = new Thread(new Runnable() {
             @Override

@@ -28,7 +28,7 @@ public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
     @Override
     protected void onPreExecute() {
         DbHelper dao = new DbHelper(activity);
-        if (dao.contagem("SELECT COUNT(*) FROM TB_AVISOS") <= 0) {
+        if (dao.contagem("SELECT COUNT(*) FROM TB_PROGRAMACOES") <= 0) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

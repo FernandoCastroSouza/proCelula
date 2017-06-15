@@ -1,20 +1,17 @@
 package estacio.br.com.procelula.Activities;
 
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import estacio.br.com.procelula.Dados.Celula;
-import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.R;
-import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.Repository.DbHelper;
 
 
 public class CelulaActivity extends AppCompatActivity{
@@ -31,6 +28,9 @@ public class CelulaActivity extends AppCompatActivity{
 
     private Celula celula;
     private Toolbar mToolbar;
+    private Thread a;
+    private int celulaid = 0;
+    final DbHelper db = new DbHelper(this);
 
 
     @Override
@@ -42,6 +42,15 @@ public class CelulaActivity extends AppCompatActivity{
         mToolbar.setTitle("Célula");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        nome  = (TextView) findViewById(R.id.nome);
+        lider = (TextView) findViewById(R.id.lider);
+        dia  = (TextView) findViewById(R.id.dia);
+        horario = (TextView) findViewById(R.id.horario);
+        local  = (TextView) findViewById(R.id.local);
+        semana = (TextView) findViewById(R.id.semana);
+//        periodo  = (TextView) findViewById(R.id.periodo);
+        versiculo = (TextView) findViewById(R.id.versiculo);
 
 
     }
@@ -60,53 +69,32 @@ public class CelulaActivity extends AppCompatActivity{
     }
 
 
-    private TextView getDia() {
-        if (dia == null) {
-            dia = (TextView) findViewById(R.id.dia);
-        }
-        return dia;
-    }
+    @Override
+    protected void onResume() {
 
-    private TextView getLider() {
-        if (lider == null) {
-            lider = (TextView) findViewById(R.id.lider);
-        }
-        return lider;
-    }
+        try {
+            celulaid = Integer.parseInt(db.consulta("SELECT FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
+            Celula celula = db.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + celulaid).get(0);
 
-    private TextView getNome() {
-        if (nome == null) {
-            nome = (TextView) findViewById(R.id.nome);
-        }
-        return nome;
-    }
+//            getNome().setText(celula.getNome());
+//            getLider().setText(celula.getLider());
+//            getDia().setText(celula.converteDiaCelula());
+//            getHorario().setText(celula.getHorario());
+//            getLocal().setText(celula.getLocal_celula());
+//            getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo()); //TODO relacionar numeros com dias da semana
+//            getVersiculo().setText("\"" + celula.getVersiculo() + "\"");
 
-    private TextView getHorario() {
-        if (horario == null) {
-            horario = (TextView) findViewById(R.id.horario);
+        } catch (CursorIndexOutOfBoundsException e) {
+            System.out.println("Tabela avisos vazia!");
         }
-        return horario;
-    }
-
-    private TextView getLocal() {
-        if (local == null) {
-            local = (TextView) findViewById(R.id.local);
-        }
-        return local;
-    }
-
-    private TextView getSemana() {
-        if (semana == null) {
-            semana = (TextView) findViewById(R.id.semana);
-        }
-        return semana;
-    }
-
-    private TextView getVersiculo() {
-        if (versiculo == null) {
-            versiculo = (TextView) findViewById(R.id.versiculo);
-        }
-        return versiculo;
+        a = new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                new ListaAvisoTask(CelulaActivity.this, celulaid).execute();
+            }
+        });
+        a.start();
+        super.onResume();
     }
 
 }

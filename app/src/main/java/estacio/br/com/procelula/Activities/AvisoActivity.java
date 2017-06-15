@@ -58,13 +58,7 @@ public class AvisoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        a = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new ListaAvisoTask(AvisoActivity.this, celulaid).execute();
-            }
-        });
-        a.start();
+
         try {
             celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
             List<Aviso> avisosLst = db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
@@ -86,6 +80,13 @@ public class AvisoActivity extends AppCompatActivity {
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela avisos vazia!");
         }
+        a = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new ListaAvisoTask(AvisoActivity.this, celulaid).execute();
+            }
+        });
+        a.start();
         super.onResume();
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import estacio.br.com.procelula.ws.WebService;
 
 public class Aviso implements Serializable {
+
     private int id;
     private int avisos_celula_id;
     private String titulo;

@@ -1,12 +1,6 @@
 package estacio.br.com.procelula.Dados;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Usuario {
@@ -136,28 +130,8 @@ public class Usuario {
         return getNome() +  " " + getSobrenome() + " - Dia " + getNascimento();
     }
 
-    public List<Usuario> setFields(JSONArray jsonArray) {
-        List<Usuario> usuarios = new ArrayList<>();
-        for(int i=0; i<jsonArray.length(); i++) {
-            try {
-                Usuario usuario = new Usuario();
-                JSONObject object = (JSONObject) jsonArray.get(i);
-                usuario.setId(object.getInt("id"));
-                usuario.setUsuarios_celula_id(object.getInt("usuarios_celula_id"));
-                usuario.setNome(object.getString("nome"));
-                usuario.setSobrenome(object.getString("sobrenome"));
-                usuario.setLogin(object.getString("login"));
-                usuario.setSenha(object.getString("senha"));
-                usuario.setEmail(object.getString("email"));
-                usuario.setNascimento(object.getString("nascimento"));
-                usuario.setPerfil(object.getInt("perfil"));
-                usuarios.add(usuario);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return usuarios;
-    }
+
+
 
     public String getToken() {
         return token;
@@ -191,10 +165,5 @@ public class Usuario {
         this.modified = modified;
     }
 
-    //    public Collection<Usuario> retornaUsuarios(){
-//        List<Usuario> usuarios = null;
-//        Type listType = new TypeToken<List<Usuario>>(){}.getType();
-//        usuarios = new Gson().fromJson(setFields(WebService.listarUsuarios()), listType);
-//        return usuarios;
-//    }
+
 }

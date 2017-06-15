@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/avisoslist"
+                android:id="@+id/lstAvisos"
                 android:cacheColorHint="#000000"
                 android:divider="#979797"
                 android:dividerHeight="1dp"

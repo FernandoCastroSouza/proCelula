@@ -71,6 +71,16 @@ public class WebService {
         }
     }
 
+    public String listByCelula(String endPoint, int celulaId) {
+        try {
+            URL url = new URL(BASE_URL + endPoint + "?celula=" + celulaId);
+            return sendRequest(url, "GET", null);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
     public String delete(int id, String endPoint) {
         try {
             URL url = new URL(BASE_URL + endPoint + "/" + id);

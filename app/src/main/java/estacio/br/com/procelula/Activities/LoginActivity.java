@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         /*System.out.println("SELECT SENHA FROM TB_USUARIO WHERE LOGIN = '" + db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN") + "'");
         if (db.contagem("SELECT COUNT(*) TB_LOGIN") > 0) {
             if (db.consulta("SELECT SENHA FROM TB_USUARIO WHERE LOGIN = '" + db.consulta("SELECT LOGIN FROM TB_LOGIN;", "LOGIN") + "'", "SENHA")
-                    .equals(db.consulta("SELECT SENHA TB_LOGIN;", "SENHA"))) {
+                    .equals(db.consulta("SELECT SENHA FROM TB_LOGIN;", "SENHA"))) {
                 Utils.showMessageToast(this, "Logou automatico");
             } else {
                 Utils.showMessageToast(this, "Deu ruim");

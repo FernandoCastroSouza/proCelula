@@ -1,13 +1,9 @@
 package estacio.br.com.procelula.converter;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import estacio.br.com.procelula.Dados.Aviso;
 
 public class AvisoConverter {
@@ -15,14 +11,14 @@ public class AvisoConverter {
     private ObjectMapper mapper = new ObjectMapper();
 
     public Aviso fromJson(JSONObject jsonObject) {
-        Aviso obj;
+        Aviso aviso;
         try {
-            obj = mapper.readValue(jsonObject.toString(), Aviso.class);
+            aviso = mapper.readValue(jsonObject.toString(), Aviso.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
-        return obj;
+        return aviso;
     }
 
     public List<Aviso> fromJson(JSONArray jsonArray) {
@@ -35,9 +31,9 @@ public class AvisoConverter {
                 e.printStackTrace();
                 continue;
             }
-            Aviso obj = fromJson(objectJson);
-            if (obj != null) {
-                list.add(obj);
+            Aviso aviso = fromJson(objectJson);
+            if (aviso != null) {
+                list.add(aviso);
             }
         }
         return list;

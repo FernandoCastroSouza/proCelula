@@ -18,9 +18,6 @@ import estacio.br.com.procelula.Dados.GrupoEvangelistico;
 import estacio.br.com.procelula.Dados.Programacao;
 import estacio.br.com.procelula.Dados.Usuario;
 
-/**
- * Created by Fernando on 15/05/2017.
- */
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -125,9 +122,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         do {
             Aviso aviso = new Aviso();
-
-            aviso.setId(cursor.getInt(cursor.getColumnIndex("ID_AVISO")));
-            aviso.setAvisos_celula_id(cursor.getInt(cursor.getColumnIndex("ID_CELULA")));
+            aviso.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            aviso.setAvisos_celula_id(cursor.getInt(cursor.getColumnIndex("AVISOS_CELULA_ID")));
             aviso.setTitulo(cursor.getString(cursor.getColumnIndex("TITULO")));
             aviso.setConteudo(cursor.getString(cursor.getColumnIndex("CONTEUDO")));
 
@@ -138,17 +134,6 @@ public class DbHelper extends SQLiteOpenHelper {
         System.gc();
 
         return lista;
-    }
-
-    public void atualizarAviso(Aviso aviso) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues content = new ContentValues();
-
-        content.put("AVISOS_CELULA_ID", aviso.getAvisos_celula_id());
-        content.put("TITULO", aviso.getTitulo());
-        content.put("CONTEUDO", aviso.getConteudo());
-
-        db.update("TB_AVISOS", content, "ID = " + aviso.getId(), null);
     }
 
     public List<Celula> listaCelula(String SQL) {
@@ -182,23 +167,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return lista;
     }
 
-    public void atualizarCelula(Celula celula) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues content = new ContentValues();
-
-        content.put("ID", celula.getId());
-        content.put("NOME", celula.getNome());
-        content.put("LIDER", celula.getLider());
-        content.put("DIA", celula.getDia());
-        content.put("HORARIO", celula.getHorario());
-        content.put("LOCAL", celula.getLocal());
-        content.put("JEJUM", celula.getDia());
-        content.put("PERIODO", celula.getPeriodo());
-        content.put("VERSICULO", celula.getVersiculo());
-
-        db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
-    }
-
     public List<GrupoEvangelistico> listaGrupoEvangelistico(String SQL) {
         List<GrupoEvangelistico> lista = new ArrayList<>();
         SQLiteDatabase banco = this.getReadableDatabase();
@@ -222,19 +190,6 @@ public class DbHelper extends SQLiteOpenHelper {
         System.gc();
 
         return lista;
-    }
-
-    public void atualizarGrupoEvangelistico(GrupoEvangelistico grupoEvangelistico) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues content = new ContentValues();
-
-        content.put("ID", grupoEvangelistico.getId());
-        content.put("GES_CELULA_ID", grupoEvangelistico.getGes_celula_id());
-        content.put("NOME", grupoEvangelistico.getNome());
-//        content.put("DIAS", grupoEvangelistico.getDias());
-
-
-        db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);
     }
 
     public List<Programacao> listaProgramacao(String SQL) {
@@ -266,22 +221,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return lista;
     }
 
-    public void atualizarProgramacao(Programacao programacao) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues content = new ContentValues();
-
-        content.put("ID", programacao.getId());
-        content.put("PROGRAMACOES_CELULA_ID", programacao.getProgramacoes_celula_id());
-        content.put("NOME", programacao.getNome());
-        content.put("DATA", programacao.getData());
-        content.put("HORARIO", programacao.getHorario());
-        content.put("LOCAL", programacao.getLocal());
-        content.put("TELEFONE", programacao.getTelefone());
-        content.put("VALOR", programacao.getValor());
-
-        db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);
-    }
-
     public List<Usuario> listaUsuario(String SQL) {
         List<Usuario> lista = new ArrayList<>();
         SQLiteDatabase banco = this.getReadableDatabase();
@@ -311,6 +250,63 @@ public class DbHelper extends SQLiteOpenHelper {
         System.gc();
 
         return lista;
+    }
+
+    public void atualizarAviso(Aviso aviso) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+
+        content.put("AVISOS_CELULA_ID", aviso.getAvisos_celula_id());
+        content.put("TITULO", aviso.getTitulo());
+        content.put("CONTEUDO", aviso.getConteudo());
+
+        db.update("TB_AVISOS", content, "ID = " + aviso.getId(), null);
+    }
+
+    public void atualizarCelula(Celula celula) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+
+        content.put("ID", celula.getId());
+        content.put("NOME", celula.getNome());
+        content.put("LIDER", celula.getLider());
+        content.put("DIA", celula.getDia());
+        content.put("HORARIO", celula.getHorario());
+        content.put("LOCAL", celula.getLocal());
+        content.put("JEJUM", celula.getDia());
+        content.put("PERIODO", celula.getPeriodo());
+        content.put("VERSICULO", celula.getVersiculo());
+
+        db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
+    }
+
+    public void atualizarGrupoEvangelistico(GrupoEvangelistico grupoEvangelistico) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+
+        content.put("ID", grupoEvangelistico.getId());
+        content.put("GES_CELULA_ID", grupoEvangelistico.getGes_celula_id());
+        content.put("NOME", grupoEvangelistico.getNome());
+//        content.put("DIAS", grupoEvangelistico.getDias());
+        db.update("TB_GES", content, "ID = " + grupoEvangelistico.getId(), null);
+    }
+
+
+
+    public void atualizarProgramacao(Programacao programacao) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+
+        content.put("ID", programacao.getId());
+        content.put("PROGRAMACOES_CELULA_ID", programacao.getProgramacoes_celula_id());
+        content.put("NOME", programacao.getNome());
+        content.put("DATA", programacao.getData());
+        content.put("HORARIO", programacao.getHorario());
+        content.put("LOCAL", programacao.getLocal());
+        content.put("TELEFONE", programacao.getTelefone());
+        content.put("VALOR", programacao.getValor());
+
+        db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);
     }
 
     public void atualizarUsuario(Usuario usuario) {
@@ -352,4 +348,5 @@ public class DbHelper extends SQLiteOpenHelper {
             db.insert("TB_LOGIN", null, content);
         }
     }
+
 }

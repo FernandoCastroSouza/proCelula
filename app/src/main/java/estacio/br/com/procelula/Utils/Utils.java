@@ -137,7 +137,6 @@ public class Utils {
         toast.show();
     }
 
-
     // caso nao seja necessaria uma acao de click para o botao passar acao = null
     public static void mostraMensagemDialog(Context contexto, String mensagem, DialogInterface.OnClickListener acao) {
         AlertDialog.Builder builder = new AlertDialog.Builder(contexto)

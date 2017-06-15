@@ -46,14 +46,8 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programacao);
 
-        if (savedInstanceState == null) {
-            new PopulaProgramacoesTask().execute(getSPCelula());
-        } else {
-            if (savedInstanceState.get(STATE_LISTA_PROGRAMACOES) != null) {
-                mListaProgramacoes = (ArrayList<Programacao>) savedInstanceState.get(STATE_LISTA_PROGRAMACOES);
-                getListViewProgramacao().setAdapter(new AdapterDelete<Programacao>(this, mListaProgramacoes));
-            }
-        }
+
+
 
         insereListeners();
 
@@ -100,7 +94,7 @@ public class ProgramacaoActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_adicionar:
                 Intent intent = new Intent(this, FormProgramacaoActivity.class);
                 startActivityForResult(intent, REQUEST_SALVAR);

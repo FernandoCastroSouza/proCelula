@@ -282,7 +282,11 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("PERIODO", celula.getPeriodo());
         content.put("VERSICULO", celula.getVersiculo());
 
-        db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
+        if (contagem("SELECT COUNT(*) FROM TB_CELULAS") > 0) {
+            db.update("TB_CELULAS", content, "ID = " + celula.getId(), null);
+        } else {
+            db.insert("TB_CELULAS", null, content);
+        }
     }
 
     public void atualizarGrupoEvangelistico(GrupoEvangelistico grupoEvangelistico) {

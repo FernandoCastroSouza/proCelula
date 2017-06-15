@@ -114,7 +114,6 @@
                         android:text="dia"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-
                     <TextView
                         android:id="@+id/lblHorario"
                         android:layout_width="wrap_content"

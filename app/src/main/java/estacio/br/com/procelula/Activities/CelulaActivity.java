@@ -12,9 +12,10 @@ import android.widget.TextView;
 import estacio.br.com.procelula.Dados.Celula;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
+import estacio.br.com.procelula.task.ListaCelulaTask;
 
 
-public class CelulaActivity extends AppCompatActivity{
+public class CelulaActivity extends AppCompatActivity {
 
     private TextView nome;
     private TextView lider;
@@ -43,15 +44,13 @@ public class CelulaActivity extends AppCompatActivity{
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        nome  = (TextView) findViewById(R.id.nome);
+        nome = (TextView) findViewById(R.id.nome);
         lider = (TextView) findViewById(R.id.lider);
-        dia  = (TextView) findViewById(R.id.dia);
+        dia = (TextView) findViewById(R.id.dia);
         horario = (TextView) findViewById(R.id.horario);
-        local  = (TextView) findViewById(R.id.local);
+        local = (TextView) findViewById(R.id.local);
         semana = (TextView) findViewById(R.id.semana);
-//        periodo  = (TextView) findViewById(R.id.periodo);
         versiculo = (TextView) findViewById(R.id.versiculo);
-
 
     }
 
@@ -73,24 +72,26 @@ public class CelulaActivity extends AppCompatActivity{
     protected void onResume() {
 
         try {
-            celulaid = Integer.parseInt(db.consulta("SELECT FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
-            Celula celula = db.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + celulaid).get(0);
+            celulaid = Integer.parseInt(db.consulta("SELECT * FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
+            Celula celula = db.listaCelula("SELECT * FROM TB_CELULAS WHERE ID =" + celulaid).get(0);
 
-//            getNome().setText(celula.getNome());
-//            getLider().setText(celula.getLider());
-//            getDia().setText(celula.converteDiaCelula());
-//            getHorario().setText(celula.getHorario());
-//            getLocal().setText(celula.getLocal_celula());
-//            getSemana().setText(celula.converteDiaJejum() + " - " + celula.getPeriodo()); //TODO relacionar numeros com dias da semana
-//            getVersiculo().setText("\"" + celula.getVersiculo() + "\"");
+            nome.setText(celula.getNome());
+            lider.setText(celula.getLider());
+            dia.setText(celula.converteDiaCelula());
+            horario.setText(celula.getHorario());
+            local.setText(celula.getLocal());
+            semana.setText(celula.converteDiaJejum() + " - " + celula.getPeriodo());
+            versiculo.setText("\"" + celula.getVersiculo() + "\"");
 
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela avisos vazia!");
+
+
         }
         a = new Thread(new Runnable() {
             @Override
             public void run() {
-//                new ListaAvisoTask(CelulaActivity.this, celulaid).execute();
+                new ListaCelulaTask(CelulaActivity.this, celulaid).execute();
             }
         });
         a.start();

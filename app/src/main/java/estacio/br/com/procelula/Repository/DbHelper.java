@@ -311,7 +311,15 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("TELEFONE", programacao.getTelefone());
         content.put("VALOR", programacao.getValor());
 
-        db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);
+        if (programacao.getId() < 0) {
+            db.insert("TB_USUARIOS", null, content);
+        } else {
+            if (contagem("SELECT COUNT(*) FROM TB_PROGRAMACOES WHERE ID = " + String.valueOf(programacao.getId())) > 0) {
+                db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);
+            } else {
+                db.insert("TB_PROGRAMACOES", null, content);
+            }
+        }
     }
 
     public void atualizarUsuario(Usuario usuario) {

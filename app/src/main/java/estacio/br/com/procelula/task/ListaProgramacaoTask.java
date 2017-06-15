@@ -9,20 +9,20 @@ import org.json.JSONArray;
 
 import java.util.List;
 
-import estacio.br.com.procelula.Activities.LoginActivity;
+import estacio.br.com.procelula.Activities.ProgramacaoActivity;
 import estacio.br.com.procelula.Dados.Programacao;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.converter.ProgramacaoConverter;
 import estacio.br.com.procelula.ws.WebService;
 
 public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
-    private final LoginActivity activity;
+    private final ProgramacaoActivity activity;
     private ProgressDialog alert;
     private int celulaId;
 
-    public ListaProgramacaoTask(LoginActivity activity, int celulaId) {
-        this.activity = activity;
+    public ListaProgramacaoTask(ProgramacaoActivity activity, int celulaId) {
         this.celulaId = celulaId;
+        this.activity = activity;
     }
 
     @Override
@@ -67,6 +67,16 @@ public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean statusOK) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    alert.dismiss();
+                } catch (NullPointerException e) {
+                    System.out.println("Alert esta nulo");
+                }
+            }
+        });
         if (!statusOK) {
             Toast.makeText(activity, "Houve um erro ao obter a lista de clientes", Toast.LENGTH_LONG).show();
         }

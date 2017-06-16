@@ -1,16 +1,6 @@
 package estacio.br.com.procelula.Dados;
 
-import android.widget.ListView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.Serializable;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-
-import estacio.br.com.procelula.ws.WebService;
 
 public class Aviso implements Serializable {
 
@@ -21,7 +11,6 @@ public class Aviso implements Serializable {
     private Boolean ativo;
     private String created;
     private String modified;
-    private ListView avisoslist;
 
     public Boolean getAtivo() {
         return ativo;
@@ -79,16 +68,8 @@ public class Aviso implements Serializable {
         this.conteudo = conteudo;
     }
 
-    public ListView getAvisoslist() {
-        return avisoslist;
-    }
-
     @Override
     public String toString() {
         return getTitulo();
-    }
-
-    public void setAvisoslist(ListView avisoslist) {
-        this.avisoslist = avisoslist;
     }
 }

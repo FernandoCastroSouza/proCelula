@@ -263,10 +263,14 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("TITULO", aviso.getTitulo());
         content.put("CONTEUDO", aviso.getConteudo());
 
-        if (contagem("SELECT COUNT(*) FROM TB_AVISOS") > 0) {
-            db.update("TB_AVISOS", content, "ID = " + aviso.getId(), null);
-        } else {
+        if (aviso.getId() < 0) {
             db.insert("TB_AVISOS", null, content);
+        } else {
+            if (contagem("SELECT COUNT(*) FROM TB_AVISOS WHERE ID = " + String.valueOf(aviso.getId())) > 0) {
+                db.update("TB_AVISOS", content, "ID = " + aviso.getId(), null);
+            } else {
+                db.insert("TB_AVISOS", null, content);
+            }
         }
     }
 

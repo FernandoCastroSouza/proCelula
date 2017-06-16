@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class AvisoActivity extends AppCompatActivity {
     final DbHelper db = new DbHelper(this);
     private Thread a;
     private int celulaid = 0;
+    private ImageView imageview_lista_vazia;
 
 
     @Override
@@ -43,7 +45,7 @@ public class AvisoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lstAvisos = (ListView) findViewById(R.id.lstAvisos);
-
+        imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
     }
 
     @Override
@@ -79,6 +81,7 @@ public class AvisoActivity extends AppCompatActivity {
             });
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela avisos vazia!");
+            imageview_lista_vazia.setVisibility(View.VISIBLE);
         }
         a = new Thread(new Runnable() {
             @Override

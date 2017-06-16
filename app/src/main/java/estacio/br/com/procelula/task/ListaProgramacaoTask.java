@@ -2,7 +2,12 @@ package estacio.br.com.procelula.task;
 
 
 import android.app.ProgressDialog;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -11,6 +16,7 @@ import java.util.List;
 
 import estacio.br.com.procelula.Activities.ProgramacaoActivity;
 import estacio.br.com.procelula.Dados.Programacao;
+import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.converter.ProgramacaoConverter;
 import estacio.br.com.procelula.ws.WebService;
@@ -19,10 +25,16 @@ public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
     private final ProgramacaoActivity activity;
     private ProgressDialog alert;
     private int celulaId;
+    private DbHelper db;
+    private ListView listview_programacoes;
+    private ImageView imageview_lista_vazia;
 
     public ListaProgramacaoTask(ProgramacaoActivity activity, int celulaId) {
         this.celulaId = celulaId;
         this.activity = activity;
+        db = new DbHelper(activity);
+        listview_programacoes = (ListView) activity.findViewById(R.id.listview_programacoes);
+        imageview_lista_vazia = (ImageView) activity.findViewById(R.id.imageview_lista_vazia);
     }
 
     @Override
@@ -77,6 +89,17 @@ public class ListaProgramacaoTask extends AsyncTask<String, Object, Boolean> {
                 }
             }
         });
+        try {
+            int celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
+            List<Programacao> listaProgramacao = db.listaProgramacao("SELECT * FROM TB_PROGRAMACOES WHERE PROGRAMACOES_CELULA_ID = " + celulaid);
+            ArrayAdapter<Programacao> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, listaProgramacao);
+            listview_programacoes.setAdapter(adapter);
+            if (listaProgramacao.size() > 0) {
+                imageview_lista_vazia.setVisibility(View.GONE);
+            }
+        } catch (CursorIndexOutOfBoundsException e) {
+            imageview_lista_vazia.setVisibility(View.VISIBLE);
+        }
         if (!statusOK) {
             Toast.makeText(activity, "Houve um erro ao obter a lista de clientes", Toast.LENGTH_LONG).show();
         }

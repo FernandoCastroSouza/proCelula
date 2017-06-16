@@ -28,7 +28,6 @@ public class AvisoActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private FloatingActionButton addAviso;
     final DbHelper db = new DbHelper(this);
-    private Thread a;
     private int celulaid = 0;
     private ImageView imageview_lista_vazia;
 
@@ -83,13 +82,7 @@ public class AvisoActivity extends AppCompatActivity {
             System.out.println("Tabela avisos vazia!");
             imageview_lista_vazia.setVisibility(View.VISIBLE);
         }
-        a = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new ListaAvisoTask(AvisoActivity.this, celulaid).execute();
-            }
-        });
-        a.start();
+        new ListaAvisoTask(AvisoActivity.this, celulaid).execute();
         super.onResume();
     }
 }

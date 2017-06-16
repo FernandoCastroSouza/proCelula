@@ -24,6 +24,7 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.task.ListaUsuarioTask;
 
 
 public class AniversariantesActivity extends AppCompatActivity {
@@ -99,6 +100,7 @@ public class AniversariantesActivity extends AppCompatActivity {
             System.out.println("Tabela aniversariantes vazia!");
             imageViewListaVazia.setVisibility(View.VISIBLE);
         }
+        new ListaUsuarioTask(AniversariantesActivity.this).execute();
         super.onResume();
     }
 }

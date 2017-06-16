@@ -45,8 +45,6 @@ public class ProgramacaoActivity extends AppCompatActivity {
 
         listview_programacoes = (ListView) findViewById(R.id.listview_programacoes);
 
-        insereListeners();
-
         mToolbar = (Toolbar) findViewById(R.id.th_programacao);
         mToolbar.setTitle("Programações");
         setSupportActionBar(mToolbar);
@@ -70,74 +68,6 @@ public class ProgramacaoActivity extends AppCompatActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void insereListeners() {
-        int permissaoUsuario = 0;
-//        permissaoUsuario = Integer.parseInt(Utils.retornaSharedPreference(this, LoginActivity.PERMISSAO_SP, "0"));
-
-        if (permissaoUsuario == Usuario.PERMISSAO_LIDER || permissaoUsuario == Usuario.PERMISSAO_PASTOR) {
-            listview_programacoes.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-            listview_programacoes.setSelected(true);
-        }
-
-        listview_programacoes.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-            int selectionCounter;
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                ((AdapterDelete) listview_programacoes.getAdapter()).limpaItensSelecionados();
-                selectionCounter = 0;
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
-                MenuInflater inflater = getMenuInflater();
-                inflater.inflate(R.menu.menu_delete, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
-                // TODO Auto-generated method stub
-                switch (item.getItemId()) {
-                    case R.id.action_deletar:
-
-                        return true;
-                    default:
-                        return false;
-                }
-
-            }
-
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode,
-                                                  int position, long id, boolean checked) {
-                if (checked) {
-                    selectionCounter++;
-                    ((AdapterDelete) listview_programacoes.getAdapter()).selectedItem(position, position);
-
-                } else {
-                    selectionCounter--;
-                    ((AdapterDelete) listview_programacoes.getAdapter()).removeSelection(position);
-                }
-                if (selectionCounter > 1) {
-                    mode.setTitle(selectionCounter + " Selecionados");
-                } else {
-                    mode.setTitle(selectionCounter + " Selecionado");
-                }
-
-            }
-        });
     }
 
     @Override

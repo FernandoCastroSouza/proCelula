@@ -1,7 +1,13 @@
 package estacio.br.com.procelula.task;
 
 
+import android.database.CursorIndexOutOfBoundsException;
+import android.media.Image;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -11,15 +17,22 @@ import java.util.List;
 import estacio.br.com.procelula.Activities.GEActivity;
 import estacio.br.com.procelula.Activities.LoginActivity;
 import estacio.br.com.procelula.Dados.GrupoEvangelistico;
+import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.converter.GrupoEvangelisticoConverter;
 import estacio.br.com.procelula.ws.WebService;
 
 public class ListaGrupoEvangelisticoTask extends AsyncTask<String, Object, Boolean> {
     private final GEActivity activity;
+    private DbHelper db;
+    private ListView listview_ge;
+    private ImageView imageview_lista_vazia;
 
     public ListaGrupoEvangelisticoTask(GEActivity activity) {
         this.activity = activity;
+        db = new DbHelper(activity);
+        listview_ge = (ListView) activity.findViewById(R.id.listview_ge);
+        imageview_lista_vazia = (ImageView) activity.findViewById(R.id.imageview_lista_vazia);
     }
 
     @Override
@@ -47,8 +60,19 @@ public class ListaGrupoEvangelisticoTask extends AsyncTask<String, Object, Boole
 
     @Override
     protected void onPostExecute(Boolean statusOK) {
+        try {
+            int celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
+            List<GrupoEvangelistico> listaGrupoEvangelistico = db.listaGrupoEvangelistico("SELECT * FROM TB_GES WHERE GES_CELULA_ID = " + celulaid + ";");
+            ArrayAdapter<GrupoEvangelistico> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, listaGrupoEvangelistico);
+            listview_ge.setAdapter(adapter);
+            if (listaGrupoEvangelistico.size() > 0) {
+                imageview_lista_vazia.setVisibility(View.GONE);
+            }
+        } catch (CursorIndexOutOfBoundsException e) {
+            imageview_lista_vazia.setVisibility(View.VISIBLE);
+        }
         if (!statusOK) {
-            Toast.makeText(activity, "Houve um erro ao obter a lista de clientes", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Você não esta conectado a internet", Toast.LENGTH_LONG).show();
         }
     }
 }

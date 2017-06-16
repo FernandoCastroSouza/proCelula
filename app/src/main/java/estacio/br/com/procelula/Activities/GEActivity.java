@@ -1,11 +1,9 @@
 package estacio.br.com.procelula.Activities;
 
-import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +25,6 @@ public class GEActivity extends AppCompatActivity {
     private ListView listview_ge;
     private ImageView imageview_lista_vazia;
     private Toolbar mToolbar;
-    private Thread a;
     private int celulaid;
     final DbHelper db = new DbHelper(this);
 
@@ -81,13 +78,7 @@ public class GEActivity extends AppCompatActivity {
             imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
             imageview_lista_vazia.setVisibility(View.VISIBLE);
         }
-        a = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new ListaGrupoEvangelisticoTask(GEActivity.this).execute();
-            }
-        });
-        a.start();
+        new ListaGrupoEvangelisticoTask(GEActivity.this).execute();
         super.onResume();
     }
 }

@@ -72,6 +72,12 @@ public class GrupoEvangelistico implements Serializable {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
-        return getNome() + " (" + days +" dias)";
+        String retorno;
+        if (days <= 1) {
+            retorno = getNome() + " (" + days + " dia)";
+        } else {
+            retorno = getNome() + " (" + days + " dias)";
+        }
+        return retorno;
     }
 }

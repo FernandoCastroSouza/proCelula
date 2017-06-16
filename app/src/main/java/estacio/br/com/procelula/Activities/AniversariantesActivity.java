@@ -76,21 +76,25 @@ public class AniversariantesActivity extends AppCompatActivity {
                     listaUsuario.remove(i);
                 }
             }
-            ArrayAdapter<Usuario> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, listaUsuario);
+            if (listaUsuario.size() > 0) {
+                ArrayAdapter<Usuario> adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1, listaUsuario);
 
-            listview_aniversariantes.setAdapter(adapter);
-            listview_aniversariantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Usuario usuario = (Usuario) adapterView.getItemAtPosition(position);
-                    switch (adapterView.getId()) {
-                        case R.id.lstAvisos:
-                            Utils.showMsgAlertOK(AniversariantesActivity.this, usuario.getNome(), usuario.getNascimento(), TipoMsg.INFO);
-                            break;
+                listview_aniversariantes.setAdapter(adapter);
+                listview_aniversariantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        Usuario usuario = (Usuario) adapterView.getItemAtPosition(position);
+                        switch (adapterView.getId()) {
+                            case R.id.lstAvisos:
+                                Utils.showMsgAlertOK(AniversariantesActivity.this, usuario.getNome(), usuario.getNascimento(), TipoMsg.INFO);
+                                break;
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                imageViewListaVazia.setVisibility(View.VISIBLE);
+            }
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela aniversariantes vazia!");
             imageViewListaVazia.setVisibility(View.VISIBLE);

@@ -330,7 +330,7 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("VALOR", programacao.getValor());
 
         if (programacao.getId() < 0) {
-            db.insert("TB_USUARIOS", null, content);
+            db.insert("TB_PROGRAMACOES", null, content);
         } else {
             if (contagem("SELECT COUNT(*) FROM TB_PROGRAMACOES WHERE ID = " + String.valueOf(programacao.getId())) > 0) {
                 db.update("TB_PROGRAMACOES", content, "ID = " + programacao.getId(), null);

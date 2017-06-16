@@ -1,6 +1,9 @@
 package estacio.br.com.procelula.Dados;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class GrupoEvangelistico implements Serializable {
@@ -53,6 +56,22 @@ public class GrupoEvangelistico implements Serializable {
 
     @Override
     public String toString() {
-        return getNome() + " (" + getData() + " dias)" ;
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        Date dataDias = null;
+        long days = 0;
+        try {
+            dataDias = formatoEntrada.parse(getData());
+            Date dataAtual = new Date();
+            long diff = dataAtual.getTime() - dataDias.getTime();
+            long seconds = diff / 1000;
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
+            days = hours / 24;
+
+
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+        return getNome() + " (" + days +" dias)";
     }
 }

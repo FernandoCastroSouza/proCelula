@@ -13,6 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import estacio.br.com.procelula.Dados.Usuario;
@@ -44,20 +48,6 @@ public class AniversariantesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private ListView getListViewAniversariantes() {
-        if (listview_aniversariantes == null) {
-            listview_aniversariantes = (ListView) findViewById(R.id.listview_aniversariantes);
-        }
-        return listview_aniversariantes;
-    }
-
-    private ImageView getImageViewListaVazia() {
-        if (imageViewListaVazia == null) {
-            imageViewListaVazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
-        }
-        return imageViewListaVazia;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -72,7 +62,20 @@ public class AniversariantesActivity extends AppCompatActivity {
     protected void onResume() {
         try {
             celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
-            List<Usuario> listaUsuario = db.listaUsuario("SELECT * FROM TB_USUARIOS");
+            List<Usuario> listaUsuario = db.listaUsuario("SELECT * FROM TB_USUARIOS WHERE USUARIOS_CELULA_ID = " + celulaid + ";");
+            for (int i = 0; i < listaUsuario.size(); i++) {
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date data = formatoEntrada.parse(listaUsuario.get(i).getNascimento());
+                    Date dataMes = new Date();
+                    if (data.getMonth() != dataMes.getMonth()) {
+                        listaUsuario.remove(i);
+                    }
+                } catch (ParseException | NullPointerException e) {
+                    System.out.println(e.getMessage());
+                    listaUsuario.remove(i);
+                }
+            }
             ArrayAdapter<Usuario> adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, listaUsuario);
 

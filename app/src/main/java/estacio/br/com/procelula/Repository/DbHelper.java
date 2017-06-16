@@ -151,7 +151,6 @@ public class DbHelper extends SQLiteOpenHelper {
             celula.setId(cursor.getInt(cursor.getColumnIndex("ID")));
             celula.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             celula.setLider(cursor.getString(cursor.getColumnIndex("LIDER")));
-            celula.setUsuario(this.listaUsuario("SELECT * FROM TB_USUARIOS WHERE ID = " + cursor.getString(cursor.getColumnIndex("ID_USUARIO"))).get(0));
             celula.setDia(cursor.getString(cursor.getColumnIndex("DIA")));
             celula.setHorario(cursor.getString(cursor.getColumnIndex("HORARIO")));
             celula.setLocal(cursor.getString(cursor.getColumnIndex("LOCAL")));

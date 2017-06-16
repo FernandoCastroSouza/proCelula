@@ -1,5 +1,6 @@
 package estacio.br.com.procelula.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
+import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
 
 public class PrincipalActivity extends AppCompatActivity implements View.OnClickListener {
@@ -79,14 +81,18 @@ public class PrincipalActivity extends AppCompatActivity implements View.OnClick
             Intent intent = new Intent(PrincipalActivity.this, CelulaActivity.class);
             startActivity(intent);
         } else if (v == btnUsuario || v == txtUsuario) {
-            Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
-            DbHelper db = new DbHelper(this);
-            db.alterar("DELETE FROM TB_LOGIN;");
-            db.close();
-            startActivity(intent);
-            finish();
+            Utils.showMessageConfirm(PrincipalActivity.this, "ATENÇÃO", "Deseja realmente sair?", TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(PrincipalActivity.this, LoginActivity.class);
+                    DbHelper db = new DbHelper(PrincipalActivity.this);
+                    db.alterar("DELETE FROM TB_LOGIN;");
+                    db.close();
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
         }
-
-
     }
 }

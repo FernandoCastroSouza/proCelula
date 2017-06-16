@@ -84,8 +84,7 @@ public class CelulaActivity extends AppCompatActivity {
             versiculo.setText("\"" + celula.getVersiculo() + "\"");
 
         } catch (CursorIndexOutOfBoundsException e) {
-            System.out.println("Tabela avisos vazia!");
-
+            System.out.println(e.getMessage());
 
         }
         a = new Thread(new Runnable() {

@@ -17,6 +17,7 @@ public class SaveAvisoTask extends AsyncTask<String, Object, Long> {
 
     private static final String ID = "id";
 
+
     public SaveAvisoTask(AvisoActivity activity, Aviso aviso) {
         this.activity = activity;
         this.aviso = aviso;

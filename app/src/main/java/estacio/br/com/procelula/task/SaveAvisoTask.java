@@ -6,19 +6,18 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import estacio.br.com.procelula.Activities.AvisoActivity;
+import estacio.br.com.procelula.Activities.FormAvisoActivity;
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.ws.WebService;
 
 public class SaveAvisoTask extends AsyncTask<String, Object, Long> {
-    private final AvisoActivity activity;
+    private static final String ID = "id";
+    private final FormAvisoActivity activity;
     private final Aviso aviso;
 
-    private static final String ID = "id";
 
-
-    public SaveAvisoTask(AvisoActivity activity, Aviso aviso) {
+    public SaveAvisoTask(FormAvisoActivity activity, Aviso aviso) {
         this.activity = activity;
         this.aviso = aviso;
     }
@@ -31,6 +30,7 @@ public class SaveAvisoTask extends AsyncTask<String, Object, Long> {
             JSONObject jsonObject = new JSONObject(jsonResult);
             return jsonObject.getLong(ID);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return 0L;
         }
     }

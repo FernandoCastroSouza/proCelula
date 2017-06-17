@@ -90,6 +90,33 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
+    public String pegaDataAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT date('now');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
+    }
+
+    public String pegaHoraAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT time('localtime');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
+    }
+
+    public String pegaDataHoraAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT datetime('now', 'localtime');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
+    }
+
     public String consulta(String SQL, String campo) throws android.database.CursorIndexOutOfBoundsException {
         String resultado = "";
         SQLiteDatabase banco = this.getReadableDatabase();

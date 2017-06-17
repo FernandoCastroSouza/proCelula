@@ -2,15 +2,15 @@ package estacio.br.com.procelula.Dados;
 
 
 public class Celula {
-    public static final String ID_CELULA_SP             = "ID_CELULA_SP";
-    public static final String NOME_CELULA_SP           = "NOME_CELULA_SP";
-    public static final String LIDER_CELULA_SP          = "LIDER_CELULA_SP";
-    public static final String DIA_CELULA_SP            = "DIA_CELULA_SP";
-    public static final String HORARIO_CELULA_SP        = "HORARIO_CELULA_SP";
-    public static final String LOCAL_CELULA_SP          = "LOCAL_CELULA_SP";
-    public static final String DIA_JEJUM_CELULA_SP      = "DIA_JEJUM_CELULA_SP";
-    public static final String PERIODO_CELULA_SP        = "PERIODO_CELULA_SP";
-    public static final String VERSICULO_CELULA_SP      = "VERSICULO_CELULA_SP";
+    public static final String ID_CELULA_SP = "ID_CELULA_SP";
+    public static final String NOME_CELULA_SP = "NOME_CELULA_SP";
+    public static final String LIDER_CELULA_SP = "LIDER_CELULA_SP";
+    public static final String DIA_CELULA_SP = "DIA_CELULA_SP";
+    public static final String HORARIO_CELULA_SP = "HORARIO_CELULA_SP";
+    public static final String LOCAL_CELULA_SP = "LOCAL_CELULA_SP";
+    public static final String DIA_JEJUM_CELULA_SP = "DIA_JEJUM_CELULA_SP";
+    public static final String PERIODO_CELULA_SP = "PERIODO_CELULA_SP";
+    public static final String VERSICULO_CELULA_SP = "VERSICULO_CELULA_SP";
 //    public static final String CAMINHO_IMAGEM_CELULA_SP = "CAMINHO_IMAGEM_CELULA_SP";
 
     public static final int DIA_SEMANA_NENHUM = 0;
@@ -146,7 +146,7 @@ public class Celula {
             try {
                 return converteDiaSemana(Integer.parseInt(getJejum()));
             } catch (Exception e) {
-                e.printStackTrace();
+                return getJejum();
             }
         }
         return null;

@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import java.util.List;
 
 import estacio.br.com.procelula.Activities.AvisoActivity;
-import estacio.br.com.procelula.Activities.LoginActivity;
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
@@ -64,6 +63,7 @@ public class ListaAvisoTask extends AsyncTask<String, Object, Boolean> {
             List<Aviso> avisos = new AvisoConverter().fromJson(jsonArray);
             if (avisos != null && !avisos.isEmpty()) {
                 DbHelper db = new DbHelper(activity);
+                db.alterar("DELETE FROM TB_AVISOS;");
                 for (int i = 0; i < avisos.size(); i++) {
                     db.atualizarAviso(avisos.get(i));
                 }

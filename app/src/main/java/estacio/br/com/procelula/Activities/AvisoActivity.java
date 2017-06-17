@@ -1,5 +1,6 @@
 package estacio.br.com.procelula.Activities;
 
+import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import estacio.br.com.procelula.Dados.Aviso;
@@ -24,10 +24,10 @@ import estacio.br.com.procelula.task.ListaAvisoTask;
 
 public class AvisoActivity extends AppCompatActivity {
 
+    final DbHelper db = new DbHelper(this);
     private ListView lstAvisos;
     private Toolbar mToolbar;
     private FloatingActionButton addAviso;
-    final DbHelper db = new DbHelper(this);
     private int celulaid = 0;
     private ImageView imageview_lista_vazia;
 
@@ -42,6 +42,14 @@ public class AvisoActivity extends AppCompatActivity {
         mToolbar.setTitle("Avisos");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        addAviso = (FloatingActionButton) findViewById(R.id.add_aviso);
+        addAviso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AvisoActivity.this, FormAvisoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         lstAvisos = (ListView) findViewById(R.id.lstAvisos);
         imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);

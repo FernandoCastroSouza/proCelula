@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,26 +9,25 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/th_programacao"
+        style="@style/Avisos"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:title="Programação"
         android:background="@color/programacoesPrimaryDark"
-        style="@style/Avisos"
-        />
+        app:title="Programação" />
 
     <TextView
         android:id="@+id/nao_tem"
-        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Não existe programações cadastradas"
-        android:textColor="#000000"
         android:gravity="center"
+        android:padding="15dp"
+        android:text="Não existe programações cadastradas"
         android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000"
         android:textStyle="bold"
-        android:visibility="gone"
-         />
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,33 +39,34 @@
         <ImageView
             android:id="@+id/imageview_lista_vazia"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="wrap_content"
-            android:src="@drawable/programacao_erro"/>
-    <ListView
-        android:layout_marginTop="10dp"
-        android:id="@+id/listview_programacoes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000"
-        android:divider="#979797"
-        android:dividerHeight="2dp"
-        android:textFilterEnabled="false"
-        android:layout_weight="1" />
+            android:src="@drawable/programacao_erro"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/listview_programacoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:cacheColorHint="#00000000"
+            android:divider="#979797"
+            android:dividerHeight="2dp"
+            android:textFilterEnabled="false" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_programacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/add"
-            app:elevation="10dp"
-            android:clickable="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:clickable="true"
+            android:src="@drawable/add"
+            android:visibility="gone"
             app:backgroundTint="@color/principalPrimary"
-            />
-        </RelativeLayout>
+            app:elevation="10dp" />
+    </RelativeLayout>
 
 </LinearLayout>

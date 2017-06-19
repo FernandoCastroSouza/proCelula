@@ -12,7 +12,6 @@ import org.json.JSONArray;
 import java.util.List;
 
 import estacio.br.com.procelula.Activities.CelulaActivity;
-import estacio.br.com.procelula.Activities.LoginActivity;
 import estacio.br.com.procelula.Dados.Celula;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
@@ -70,11 +69,12 @@ public class ListaCelulaTask extends AsyncTask<String, Object, Boolean> {
             JSONArray jsonArray = new JSONArray(jsonResult);
             List<Celula> celulas = new CelulaConverter().fromJson(jsonArray);
             if (celulas != null && !celulas.isEmpty()) {
-                DbHelper dao = new DbHelper(activity);
+                DbHelper db = new DbHelper(activity);
+                db.alterar("DELETE FROM TB_CELULAS");
                 for (int i = 0; i < celulas.size(); i++) {
-                    dao.atualizarCelula(celulas.get(i));
+                    db.atualizarCelula(celulas.get(i));
                 }
-                dao.close();
+                db.close();
             } else {
                 System.out.println("O objeto acabou ficando vazio!");
             }

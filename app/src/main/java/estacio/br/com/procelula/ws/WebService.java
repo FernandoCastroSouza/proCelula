@@ -16,9 +16,8 @@ import okhttp3.Response;
 
 public class WebService {
 
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
     public static final String BASE_URL = "http://www.vidasnoaltar.com/outros/sistema-celulas/api/";
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final int TIMEOUT = 5000;
 
 
@@ -33,11 +32,10 @@ public class WebService {
         builder.addHeader("Accept", "application/json");
         if (method.equalsIgnoreCase("GET")) {
             builder.get();
-        }
-        else if(method.equalsIgnoreCase("POST")){
+        } else if (method.equalsIgnoreCase("POST")) {
             builder.post(RequestBody.create(JSON, jsonString));
-        }else{
-            builder.delete(RequestBody.create(JSON, jsonString));
+        } else {
+            builder.delete();
         }
         Request request = builder.build();
 
@@ -55,8 +53,8 @@ public class WebService {
         try {
             URL url = new URL(BASE_URL + endPoint);
             return sendRequest(url, "POST", new ObjectMapper().writeValueAsString(objeto));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -65,8 +63,7 @@ public class WebService {
         try {
             URL url = new URL(BASE_URL + endPoint);
             return sendRequest(url, "GET", null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -75,8 +72,7 @@ public class WebService {
         try {
             URL url = new URL(BASE_URL + endPoint + "?celula=" + celulaId);
             return sendRequest(url, "GET", null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -85,8 +81,7 @@ public class WebService {
         try {
             URL url = new URL(BASE_URL + endPoint + "/" + celulaId);
             return sendRequest(url, "GET", null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -95,8 +90,7 @@ public class WebService {
         try {
             URL url = new URL(BASE_URL + endPoint + "/" + id);
             return sendRequest(url, "DELETE", null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }

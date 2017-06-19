@@ -6,11 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Celula;
@@ -88,6 +85,33 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public String pegaDataAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT date('now');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
+    }
+
+    public String pegaHoraAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT time('localtime');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
+    }
+
+    public String pegaDataHoraAtual() {
+        String resultado = "";
+        SQLiteDatabase banco = this.getReadableDatabase();
+        Cursor cursor = banco.rawQuery("SELECT datetime('now', 'localtime');", null);
+        cursor.moveToFirst();
+        resultado += cursor.getString(0);
+        return resultado;
     }
 
     public String consulta(String SQL, String campo) throws android.database.CursorIndexOutOfBoundsException {
@@ -242,7 +266,7 @@ public class DbHelper extends SQLiteOpenHelper {
             usuario.setSenha(cursor.getString(cursor.getColumnIndex("SENHA")));
             usuario.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
             usuario.setNascimento(cursor.getString(cursor.getColumnIndex("NASCIMENTO")));
-            usuario.setPermissao(cursor.getInt(cursor.getColumnIndex("PERFIL")));
+            usuario.setPerfil(cursor.getInt(cursor.getColumnIndex("PERFIL")));
 
             lista.add(usuario);
             System.gc();
@@ -355,7 +379,7 @@ public class DbHelper extends SQLiteOpenHelper {
         content.put("SENHA", usuario.getSenha());
         content.put("EMAIL", usuario.getEmail());
         content.put("NASCIMENTO", usuario.getNascimento());
-        content.put("PERFIL", usuario.getPermissao());
+        content.put("PERFIL", usuario.getPerfil());
         if (usuario.getId() < 0) {
             db.insert("TB_USUARIOS", null, content);
         } else {

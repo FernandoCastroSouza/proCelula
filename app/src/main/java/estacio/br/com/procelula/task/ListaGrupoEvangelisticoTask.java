@@ -2,7 +2,6 @@ package estacio.br.com.procelula.task;
 
 
 import android.database.CursorIndexOutOfBoundsException;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,7 +14,6 @@ import org.json.JSONArray;
 import java.util.List;
 
 import estacio.br.com.procelula.Activities.GEActivity;
-import estacio.br.com.procelula.Activities.LoginActivity;
 import estacio.br.com.procelula.Dados.GrupoEvangelistico;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
@@ -43,11 +41,12 @@ public class ListaGrupoEvangelisticoTask extends AsyncTask<String, Object, Boole
             JSONArray jsonArray = new JSONArray(jsonResult);
             List<GrupoEvangelistico> gruposevangelisticos = new GrupoEvangelisticoConverter().fromJson(jsonArray);
             if (gruposevangelisticos != null && !gruposevangelisticos.isEmpty()) {
-                DbHelper dao = new DbHelper(activity);
+                DbHelper db = new DbHelper(activity);
+                db.alterar("DELETE FROM TB_GES;");
                 for (int i = 0; i < gruposevangelisticos.size(); i++) {
-                    dao.atualizarGrupoEvangelistico(gruposevangelisticos.get(i));
+                    db.atualizarGrupoEvangelistico(gruposevangelisticos.get(i));
                 }
-                dao.close();
+                db.close();
             } else {
                 System.out.println("O objeto acabou ficando vazio!");
             }

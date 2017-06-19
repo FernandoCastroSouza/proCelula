@@ -26,11 +26,6 @@ public class WebService {
                 .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
-        try {
-            jsonString.replaceAll("\"{2}", "");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         Request.Builder builder = new Request.Builder().url(url);
         builder.addHeader("Content-Type", "application/json");
@@ -40,7 +35,7 @@ public class WebService {
         } else if (method.equalsIgnoreCase("POST")) {
             builder.post(RequestBody.create(JSON, jsonString));
         } else {
-            builder.delete(RequestBody.create(JSON, jsonString));
+            builder.delete();
         }
         Request request = builder.build();
 

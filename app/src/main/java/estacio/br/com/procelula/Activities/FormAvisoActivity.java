@@ -1,5 +1,6 @@
 package estacio.br.com.procelula.Activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
+import estacio.br.com.procelula.Utils.TipoMsg;
+import estacio.br.com.procelula.Utils.Utils;
 import estacio.br.com.procelula.task.SaveAvisoTask;
 
 public class FormAvisoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -97,9 +100,25 @@ public class FormAvisoActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                System.gc();
-                finish();
+                Utils.showMessageConfirm(FormAvisoActivity.this, "ATENÇÃO", "Tem certeza que deseja sair? As alterações não salvas serão perdidas", TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.gc();
+                        finish();
+                    }
+                });
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Utils.showMessageConfirm(FormAvisoActivity.this, "ATENÇÃO", "Tem certeza que deseja sair? As alterações não salvas serão perdidas", TipoMsg.ALERTA, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.gc();
+                finish();
+            }
+        });
     }
 }

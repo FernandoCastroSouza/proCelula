@@ -17,22 +17,17 @@ import estacio.br.com.procelula.task.ListaCelulaTask;
 
 public class CelulaActivity extends AppCompatActivity {
 
+    final DbHelper db = new DbHelper(this);
     private TextView nome;
     private TextView lider;
-    private ImageView foto;
     private TextView dia;
     private TextView horario;
     private TextView local;
     private TextView semana;
     private TextView periodo;
     private TextView versiculo;
-
-    private Celula celula;
     private Toolbar mToolbar;
-    private Thread a;
     private int celulaid = 0;
-    final DbHelper db = new DbHelper(this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +82,7 @@ public class CelulaActivity extends AppCompatActivity {
             System.out.println(e.getMessage());
 
         }
-        a = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new ListaCelulaTask(CelulaActivity.this, celulaid).execute();
-            }
-        });
-        a.start();
+        new ListaCelulaTask(CelulaActivity.this, celulaid).execute();
         super.onResume();
     }
 

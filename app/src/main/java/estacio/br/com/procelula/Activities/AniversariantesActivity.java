@@ -29,6 +29,7 @@ import estacio.br.com.procelula.task.ListaUsuarioTask;
 
 public class AniversariantesActivity extends AppCompatActivity {
 
+
     private ListView listview_aniversariantes;
     private Toolbar mToolbar;
     private ImageView imageViewListaVazia;

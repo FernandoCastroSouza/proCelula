@@ -1,9 +1,12 @@
 package estacio.br.com.procelula.Activities;
 
+import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,29 +19,52 @@ import java.util.List;
 import estacio.br.com.procelula.Dados.GrupoEvangelistico;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
-import estacio.br.com.procelula.Utils.TipoMsg;
-import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.task.DeleteGrupoEvangelisticoTask;
 import estacio.br.com.procelula.task.ListaGrupoEvangelisticoTask;
 
 public class GEActivity extends AppCompatActivity {
-    public static final int REQUEST_SALVAR = 1;
+    final DbHelper db = new DbHelper(this);
     private ListView listview_ge;
     private ImageView imageview_lista_vazia;
     private Toolbar mToolbar;
     private int celulaid;
-    final DbHelper db = new DbHelper(this);
-
+    private FloatingActionButton add_ge;
+    private List<GrupoEvangelistico> listaGrupoEvangelistico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ge);
 
-        listview_ge = (ListView) findViewById(R.id.listview_ge);
         mToolbar = (Toolbar) findViewById(R.id.th_ge);
         mToolbar.setTitle("Grupo Evangelístico");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        listview_ge = (ListView) findViewById(R.id.listview_ge);
+        add_ge = (FloatingActionButton) findViewById(R.id.add_ge);
+        add_ge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GEActivity.this, FormGEActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        MenuItem deletar = menu.add("Excluir");
+        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                new DeleteGrupoEvangelisticoTask(listaGrupoEvangelistico.get(info.position), GEActivity.this).execute();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -48,7 +74,6 @@ public class GEActivity extends AppCompatActivity {
                 System.gc();
                 finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -56,23 +81,18 @@ public class GEActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         try {
+            if (Integer.parseInt(db.consulta("SELECT PERFIL FROM TB_USUARIOS WHERE ID = " + db.consulta("SELECT ID FROM TB_LOGIN", "ID"), "PERFIL")) == 1) {
+                registerForContextMenu(listview_ge);
+                add_ge.setVisibility(View.VISIBLE);
+            }
+
             celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
-            List<GrupoEvangelistico> listaGrupoEvangelistico = db.listaGrupoEvangelistico("SELECT * FROM TB_GES WHERE GES_CELULA_ID = " + celulaid + ";");
+            listaGrupoEvangelistico = db.listaGrupoEvangelistico("SELECT * FROM TB_GES WHERE GES_CELULA_ID = " + celulaid + ";");
             ArrayAdapter<GrupoEvangelistico> adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, listaGrupoEvangelistico);
 
             listview_ge.setAdapter(adapter);
-            listview_ge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    GrupoEvangelistico grupoEvangelistico = (GrupoEvangelistico) adapterView.getItemAtPosition(position);
-                    switch (adapterView.getId()) {
-                        case R.id.lstAvisos:
-                            Utils.showMsgAlertOK(GEActivity.this, grupoEvangelistico.getNome(), "PROGRAMAÇÃO", TipoMsg.INFO);
-                            break;
-                    }
-                }
-            });
+
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("Tabela avisos vazia!");
             imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);

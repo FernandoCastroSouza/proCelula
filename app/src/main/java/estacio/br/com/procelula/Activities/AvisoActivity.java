@@ -1,10 +1,12 @@
 package estacio.br.com.procelula.Activities;
 
+import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import estacio.br.com.procelula.Dados.Aviso;
@@ -20,16 +21,18 @@ import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
+import estacio.br.com.procelula.task.DeleteAvisoTask;
 import estacio.br.com.procelula.task.ListaAvisoTask;
 
 public class AvisoActivity extends AppCompatActivity {
 
+    final DbHelper db = new DbHelper(this);
     private ListView lstAvisos;
     private Toolbar mToolbar;
     private FloatingActionButton addAviso;
-    final DbHelper db = new DbHelper(this);
     private int celulaid = 0;
     private ImageView imageview_lista_vazia;
+    private List<Aviso> avisosLst;
 
 
     @Override
@@ -42,6 +45,14 @@ public class AvisoActivity extends AppCompatActivity {
         mToolbar.setTitle("Avisos");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        addAviso = (FloatingActionButton) findViewById(R.id.add_aviso);
+        addAviso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AvisoActivity.this, FormAvisoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         lstAvisos = (ListView) findViewById(R.id.lstAvisos);
         imageview_lista_vazia = (ImageView) findViewById(R.id.imageview_lista_vazia);
@@ -61,8 +72,13 @@ public class AvisoActivity extends AppCompatActivity {
     protected void onResume() {
 
         try {
+            if (Integer.parseInt(db.consulta("SELECT PERFIL FROM TB_USUARIOS WHERE ID = " + db.consulta("SELECT ID FROM TB_LOGIN", "ID"), "PERFIL")) == 1) {
+                registerForContextMenu(lstAvisos);
+                addAviso.setVisibility(View.VISIBLE);
+            }
+
             celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
-            List<Aviso> avisosLst = db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
+            avisosLst = db.listaAviso("SELECT * FROM TB_AVISOS WHERE AVISOS_CELULA_ID = " + celulaid);
             ArrayAdapter<Aviso> adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, avisosLst);
 
@@ -84,6 +100,21 @@ public class AvisoActivity extends AppCompatActivity {
         }
         new ListaAvisoTask(AvisoActivity.this, celulaid).execute();
         super.onResume();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        MenuItem deletar = menu.add("Excluir");
+        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                new DeleteAvisoTask(avisosLst.get(info.position), AvisoActivity.this).execute();
+                return false;
+            }
+        });
     }
 }
 

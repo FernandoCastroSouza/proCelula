@@ -258,7 +258,6 @@ public class DbHelper extends SQLiteOpenHelper {
             Usuario usuario = new Usuario();
 
             usuario.setId(cursor.getInt(cursor.getColumnIndex("ID")));
-//            usuario.setCelula(this.listaCelula("SELECT * FROM TB_CELULAS WHERE ID = " + cursor.getString(cursor.getColumnIndex("USUARIOS_CELULA_ID"))).get(0));
             usuario.setUsuarios_celula_id(cursor.getInt(cursor.getColumnIndex("USUARIOS_CELULA_ID")));
             usuario.setNome(cursor.getString(cursor.getColumnIndex("NOME")));
             usuario.setSobrenome(cursor.getString(cursor.getColumnIndex("SOBRENOME")));

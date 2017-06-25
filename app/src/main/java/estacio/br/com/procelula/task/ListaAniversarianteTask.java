@@ -1,7 +1,6 @@
 package estacio.br.com.procelula.task;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
@@ -13,23 +12,18 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-import estacio.br.com.procelula.Activities.AvisoActivity;
+import estacio.br.com.procelula.Activities.AniversariantesActivity;
 import estacio.br.com.procelula.Activities.UsuarioActivity;
-import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
-import estacio.br.com.procelula.converter.AvisoConverter;
 import estacio.br.com.procelula.converter.UsuarioConverter;
 import estacio.br.com.procelula.ws.WebService;
 
-public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
-    private final UsuarioActivity activity;
+public class ListaAniversarianteTask extends AsyncTask<String, Object, Boolean> {
+    private final AniversariantesActivity activity;
     private int celulaId;
     private ProgressDialog alert;
     private DbHelper db;
@@ -37,7 +31,7 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
     private ImageView imageview_lista_vazia;
 
 
-    public ListaUsuarioTask(UsuarioActivity activity, int celulaId) {
+    public ListaAniversarianteTask(AniversariantesActivity activity, int celulaId) {
         this.activity = activity;
         this.celulaId = celulaId;
         db = new DbHelper(activity);

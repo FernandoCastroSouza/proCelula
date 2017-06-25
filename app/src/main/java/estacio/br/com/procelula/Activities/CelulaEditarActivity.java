@@ -2,6 +2,8 @@ package estacio.br.com.procelula.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import estacio.br.com.procelula.Dados.Celula;
@@ -12,6 +14,7 @@ import estacio.br.com.procelula.Utils.Utils;
 public class CelulaEditarActivity  extends AppCompatActivity {
 
     private Celula celula;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +30,21 @@ public class CelulaEditarActivity  extends AppCompatActivity {
         //((Spinner) findViewById(R.id.edittext_dia_jejum))
         //((Spinner) findViewById(R.id.edittext_dia_semana))
         ((EditText) findViewById(R.id.edittext_versiculo)).setText(celula.getVersiculo());
+
+        mToolbar = (Toolbar) findViewById(R.id.th_edit_celula);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                System.gc();
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

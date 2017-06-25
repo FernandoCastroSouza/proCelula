@@ -18,44 +18,43 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import estacio.br.com.procelula.Activities.AvisoActivity;
 import estacio.br.com.procelula.Activities.UsuarioActivity;
-import estacio.br.com.procelula.Dados.Aviso;
 import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
-import estacio.br.com.procelula.converter.AvisoConverter;
 import estacio.br.com.procelula.converter.UsuarioConverter;
 import estacio.br.com.procelula.ws.WebService;
 
-public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
-    private final UsuarioActivity activity;
-    private int celulaId;
+public class LoginTask extends AsyncTask<String, Object, Boolean> {
+    private final Activity activity;
     private ProgressDialog alert;
+    private ListView listview_aniversariantes;
+    private ImageView imageViewListaVazia;
     private DbHelper db;
-    private ListView lstUsuarios;
-    private ImageView imageview_lista_vazia;
 
-
-    public ListaUsuarioTask(UsuarioActivity activity, int celulaId) {
+    public LoginTask(Activity activity) {
         this.activity = activity;
-        this.celulaId = celulaId;
-        db = new DbHelper(activity);
-        lstUsuarios = (ListView) activity.findViewById(R.id.usuarioslist);
-        imageview_lista_vazia = (ImageView) activity.findViewById(R.id.imageview_lista_vazia);
+        try {
+            db = new DbHelper(activity);
+            listview_aniversariantes = (ListView) activity.findViewById(R.id.listview_aniversariantes);
+            imageViewListaVazia = (ImageView) activity.findViewById(R.id.imageview_lista_vazia);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
     @Override
     protected void onPreExecute() {
-        if (db.contagem("SELECT COUNT(*) FROM TB_USUARIOS") <= 0) {
+        DbHelper dao = new DbHelper(activity);
+        if (dao.contagem("SELECT COUNT(*) FROM TB_USUARIOS") <= 0) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     alert = new ProgressDialog(activity);
                     alert.setCancelable(false);
                     alert.setTitle("Aguarde um momento");
-                    alert.setMessage("Estamos sincronizando os membros da sua célula!");
+                    alert.setMessage("Estamos sincronizando suas informações");
                     alert.show();
                 }
             });
@@ -66,7 +65,7 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
     protected Boolean doInBackground(String... params) {
         try {
             WebService request = new WebService();
-            String jsonResult = request.listByCelula("usuarios", celulaId);
+            String jsonResult = request.listAll("usuarios");
             JSONArray jsonArray = new JSONArray(jsonResult);
             List<Usuario> usuarios = new UsuarioConverter().fromJson(jsonArray);
             if (usuarios != null && !usuarios.isEmpty()) {
@@ -78,6 +77,7 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
                 db.close();
             } else {
                 System.out.println("O objeto acabou ficando vazio!");
+                return false;
             }
             return true;
         } catch (Exception e) {
@@ -100,16 +100,33 @@ public class ListaUsuarioTask extends AsyncTask<String, Object, Boolean> {
         });
         try {
             int celulaid = Integer.parseInt(db.consulta("SELECT USUARIOS_CELULA_ID FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
-            List<Usuario> usuarioList = db.listaUsuario("SELECT * FROM TB_USUARIOS WHERE USUARIOS_CELULA_ID = " + celulaid);
-            ArrayAdapter<Usuario> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, usuarioList);
-            lstUsuarios.setAdapter(adapter);
-            if (usuarioList.size() > 0) {
-                imageview_lista_vazia.setVisibility(View.GONE);
+            List<Usuario> listaUsuario = db.listaUsuario("SELECT * FROM TB_USUARIOS WHERE USUARIOS_CELULA_ID = " + celulaid + ";");
+            for (int i = 0; i < listaUsuario.size(); i++) {
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date data = formatoEntrada.parse(listaUsuario.get(i).getNascimento());
+                    Date dataMes = new Date();
+                    if (data.getMonth() != dataMes.getMonth()) {
+                        listaUsuario.remove(i);
+                    }
+                } catch (ParseException | NullPointerException e) {
+                    System.out.println(e.getMessage());
+                    listaUsuario.remove(i);
+                }
             }
-        } catch (CursorIndexOutOfBoundsException e) {
-            imageview_lista_vazia.setVisibility(View.VISIBLE);
-        }
+            if (listaUsuario.size() > 0) {
+                ArrayAdapter<Usuario> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, listaUsuario);
+                listview_aniversariantes.setAdapter(adapter);
+                imageViewListaVazia.setVisibility(View.GONE);
+            }
 
+        } catch (Exception e) {
+            try {
+                imageViewListaVazia.setVisibility(View.VISIBLE);
+            } catch (Exception e1) {
+                System.out.println("imageViewListaVazia vazia");
+            }
+        }
         if (!statusOK) {
             Toast.makeText(activity, "Você não esta conectado a internet", Toast.LENGTH_LONG).show();
         }

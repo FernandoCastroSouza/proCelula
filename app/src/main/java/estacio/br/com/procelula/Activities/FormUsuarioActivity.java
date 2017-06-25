@@ -45,7 +45,7 @@ public class FormUsuarioActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_form_usuario);
         new PopulaCelulasTask().execute();
         insereListeners();
-        mToolbar = (Toolbar) findViewById(R.id.th_usuario);
+        mToolbar = (Toolbar) findViewById(R.id.th_add_registrar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/th_add_aviso"
+        android:id="@+id/th_edit_celula"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:title="Editar Célula"

@@ -9,8 +9,8 @@
         android:id="@+id/th_usuario"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:title="Usuários"
-        android:background="@color/avisosPrimary"
+        app:title="Membros da Célula"
+        android:background="@color/celulaPrimary"
         style="@style/Avisos"/>
 
         <RelativeLayout
@@ -39,16 +39,15 @@
                 android:id="@+id/add_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/add"
-                app:elevation="10dp"
-                android:clickable="true"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                android:src="@drawable/add"
+                android:visibility="gone"
                 app:backgroundTint="@color/principalPrimary"
-                />
+                app:elevation="10dp" />
 
         </RelativeLayout>
 

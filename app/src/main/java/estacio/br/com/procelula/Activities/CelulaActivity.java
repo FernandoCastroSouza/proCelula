@@ -5,7 +5,10 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,26 +49,10 @@ public class CelulaActivity extends AppCompatActivity {
         local = (TextView) findViewById(R.id.local);
         semana = (TextView) findViewById(R.id.semana);
         versiculo = (TextView) findViewById(R.id.versiculo);
-
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_editar:
-                Intent intent = new Intent(this, CelulaEditarActivity.class);
-                startActivity(intent);
-            case android.R.id.home:
-                System.gc();
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     protected void onResume() {
-
         try {
             celulaid = Integer.parseInt(db.consulta("SELECT * FROM TB_LOGIN", "USUARIOS_CELULA_ID"));
             Celula celula = db.listaCelula("SELECT * FROM TB_CELULAS WHERE ID =" + celulaid).get(0);
@@ -80,10 +67,50 @@ public class CelulaActivity extends AppCompatActivity {
 
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
-
         }
         new ListaCelulaTask(CelulaActivity.this, celulaid).execute();
         super.onResume();
+    }
+
+    private boolean temPermissao() {
+        if (Integer.parseInt(db.consulta("SELECT PERFIL FROM TB_USUARIOS WHERE ID = " + db.consulta("SELECT ID FROM TB_LOGIN", "ID"), "PERFIL")) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_celula, menu);
+
+        if (!temPermissao()){
+            MenuItem item = menu.findItem(R.id.action_editar);
+            item.setVisible(false);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (temPermissao()) {
+            if (item.getItemId() == R.id.action_editar) {
+                Intent intent = new Intent(this, CelulaEditarActivity.class);
+                startActivity(intent);
+            }
+        }
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                System.gc();
+                finish();
+                break;
+            case R.id.usuarios:
+                Intent usuarios = new Intent(this, UsuarioActivity.class);
+                startActivity(usuarios);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

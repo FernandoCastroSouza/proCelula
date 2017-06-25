@@ -1,7 +1,4 @@
 package estacio.br.com.procelula.Activities;
-
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
@@ -9,13 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import estacio.br.com.procelula.Dados.Usuario;
 import estacio.br.com.procelula.R;
 import estacio.br.com.procelula.Repository.DbHelper;
 import estacio.br.com.procelula.Utils.TipoMsg;
 import estacio.br.com.procelula.Utils.Utils;
-import estacio.br.com.procelula.task.ListaUsuarioTask;
+import estacio.br.com.procelula.task.LoginTask;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -87,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         a = new Thread(new Runnable() {
             @Override
             public void run() {
-                new ListaUsuarioTask(LoginActivity.this).execute();
+                new LoginTask(LoginActivity.this).execute();
             }
         });
         a.start();

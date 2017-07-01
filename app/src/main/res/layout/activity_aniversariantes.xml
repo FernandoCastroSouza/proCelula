@@ -13,7 +13,7 @@
         style="@style/Avisos"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/aniversariantesPrimaryDark"
+        android:background="@color/roteirosPrimary"
         app:title="Aniversariantes do mês" />
 
 

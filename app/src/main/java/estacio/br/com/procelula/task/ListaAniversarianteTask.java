@@ -35,7 +35,7 @@ public class ListaAniversarianteTask extends AsyncTask<String, Object, Boolean> 
         this.activity = activity;
         this.celulaId = celulaId;
         db = new DbHelper(activity);
-        lstUsuarios = (ListView) activity.findViewById(R.id.usuarioslist);
+        lstUsuarios = (ListView) activity.findViewById(R.id.listview_aniversariantes);
         imageview_lista_vazia = (ImageView) activity.findViewById(R.id.imageview_lista_vazia);
     }
 

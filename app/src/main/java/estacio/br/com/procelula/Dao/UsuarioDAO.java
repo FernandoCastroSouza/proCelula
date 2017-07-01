@@ -73,7 +73,7 @@ public class UsuarioDAO {
                 celula.setPeriodo(rs.getString(14));
                 celula.setVersiculo(rs.getString(15));
 //                celula.setImagem(rs.getBlob(17));
-                usuario.setCelula(celula);
+   //             usuario.setCelula(celula);
             }
         } catch (Exception e) {
             //TODO LOG ERRO
@@ -211,7 +211,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt(1));
-                usuario.setCelula(celula);
+       //         usuario.setCelula(celula);
                 usuario.setNome(rs.getString(3));
                 usuario.setSobrenome(rs.getString(4));
 //                usuario.setDataNascimento(rs.getString(5));

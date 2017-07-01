@@ -10,7 +10,7 @@
         style="@style/Avisos"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/gePrimaryDark"
+        android:background="@color/programacoesPrimary"
         app:title="Grupo Evangelístico" />
 
     <LinearLayout

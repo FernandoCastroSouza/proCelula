@@ -84,22 +84,22 @@ public class CelulaActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_celula, menu);
 
-        if (!temPermissao()){
-            MenuItem item = menu.findItem(R.id.action_editar);
-            item.setVisible(false);
-        }
+//        if (!temPermissao()){
+//            MenuItem item = menu.findItem(R.id.action_editar);
+//            item.setVisible(false);
+//        }
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (temPermissao()) {
-            if (item.getItemId() == R.id.action_editar) {
-                Intent intent = new Intent(this, CelulaEditarActivity.class);
-                startActivity(intent);
-            }
-        }
+//        if (temPermissao()) {
+//            if (item.getItemId() == R.id.action_editar) {
+//                Intent intent = new Intent(this, CelulaEditarActivity.class);
+//                startActivity(intent);
+//            }
+//        }
         switch (item.getItemId()) {
             case android.R.id.home:
                 System.gc();

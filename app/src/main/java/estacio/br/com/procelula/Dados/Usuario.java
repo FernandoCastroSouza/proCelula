@@ -31,8 +31,6 @@ public class Usuario {
     private String created;
     private String modified;
 
-    private Celula celula;
-
     private int permissao;
 
     public Usuario() {
@@ -77,14 +75,6 @@ public class Usuario {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
-    }
-
-    public Celula getCelula() {
-        return celula;
-    }
-
-    public void setCelula(Celula celula) {
-        this.celula = celula;
     }
 
     public String getLogin() {
